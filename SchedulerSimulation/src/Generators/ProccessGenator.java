@@ -22,7 +22,10 @@ public class ProccessGenator {
      */
     public static int MAXINT = 25000;
 
-    //Purpose: To populate the variables based on what process it is.
+    /**
+     *
+     * @param type
+     */
     public ProccessGenator(int type) {
         if (type == 1) {
             process1();
