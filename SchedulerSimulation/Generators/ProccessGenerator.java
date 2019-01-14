@@ -1,13 +1,23 @@
 public class processGenerator {
-    // this will be what the runtime for the process is
+    /**
+     * this will be what the runtime for the process is
+     */
     private int processRunTime;
-    // this will be the runTime for the block
+    /**
+     * this will be the runTime for the block
+     */
     private int BlockRunTime;
-    // this is what type of Resource the block is
+    /**
+     * this is what type of Resource the block is
+     */
     private String BlockType;
-    // this is when the block will occur
+    /**
+     * this is when the block will occur
+     */
     private int BlockOccurs;
-    // this is the Max runtime of the system
+    /**
+     * this is the Max runtime of the system
+     */
     public static int MAXINT = 25000;
 
     //Purpose: To populate the variables based on what process it is.
