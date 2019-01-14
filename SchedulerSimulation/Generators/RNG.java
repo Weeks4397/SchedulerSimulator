@@ -12,7 +12,7 @@ public class RNG {
  * @param  max   the maximum random int
  * @return       a random int
  */
-public static int RNGMax (int max)  {
+public static int RNG(int max)  {
         int num = rand.nextInt(max);
         return num;
         }
@@ -24,7 +24,7 @@ public static int RNGMax (int max)  {
  * @param  max   the maximum random int
  * @return       a random int
  */
-public static int RNGMinMax (int min, int max) {
+public static int RNG (int min, int max) {
         int num = rand.nextInt((max+1) - min)+min;
         return num;
         }
