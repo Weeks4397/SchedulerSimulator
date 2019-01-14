@@ -1,4 +1,6 @@
-public class processGenerator {
+package Generators;
+
+public class ProccessGenator {
     /**
      * this will be what the runtime for the process is
      */
@@ -21,7 +23,7 @@ public class processGenerator {
     public static int MAXINT = 25000;
 
     //Purpose: To populate the variables based on what process it is.
-    public processGenerator(int type) {
+    public ProccessGenator(int type) {
         if (type == 1) {
             process1();
         } else if (type == 2) {

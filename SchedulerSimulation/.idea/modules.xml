@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Generators/Generators.iml" filepath="$PROJECT_DIR$/Generators/Generators.iml" />
       <module fileurl="file://$PROJECT_DIR$/Processes/Processes.iml" filepath="$PROJECT_DIR$/Processes/Processes.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ReadyQueue/ReadyQueue.iml" filepath="$PROJECT_DIR$/ReadyQueue/ReadyQueue.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Resouses/Resouses.iml" filepath="$PROJECT_DIR$/Resouses/Resouses.iml" />
       <module fileurl="file://$PROJECT_DIR$/SchedulerSimulation.iml" filepath="$PROJECT_DIR$/SchedulerSimulation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Schedulers/Schedulers.iml" filepath="$PROJECT_DIR$/Schedulers/Schedulers.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Testing/Testing.iml" filepath="$PROJECT_DIR$/Testing/Testing.iml" />
     </modules>
   </component>
 </project>
