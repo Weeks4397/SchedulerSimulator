@@ -1,5 +1,7 @@
 package Generators;
 
+import Processes.Block;
+
 public class ProccessGenator {
     /**
      * this will be what the runtime for the process is
@@ -23,8 +25,10 @@ public class ProccessGenator {
     public static int MAXINT = 25000;
 
     /**
+     * constructs a ProccessGenator to be used in Process to populate all random variables in class
      *
-     * @param type
+     * @param  type   the type of process that needs to be generator
+     *
      */
     public ProccessGenator(int type) {
         if (type == 1) {
@@ -38,7 +42,10 @@ public class ProccessGenator {
         }
     }
 
-    //Purpose: To create the runtime for Process1.
+    /**
+     * To create the runtime block for Process1.
+     *
+     */
     public void process1() {
         processRunTime = RNG.RNG(25, 75);
 
@@ -147,17 +154,7 @@ public class ProccessGenator {
     }
 
     //Purpose: to get the block.
-    public int getBlock() {
-        return BlockRunTime;
-    }
-
-    //Purpose: To get the block type.
-    public String getBlockType() {
-        return BlockType;
-    }
-
-    //Purpose: To get the occurring block type.
-    public int getBlockOccurs() {
-        return BlockOccurs;
+    public Block getBlock(){
+        return new Block(BlockOccurs,BlockType,BlockRunTime);
     }
 }
