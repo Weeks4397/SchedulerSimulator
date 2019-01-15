@@ -65,20 +65,10 @@ public abstract class Process {
     private int ServiceStartTime;
 
     //Constructor for a process
-    public Process(String stringID, int type, int runTime, int nextBlockInstant, String nextBlockResource,
-                   int nextBlockTime, List<Block> blockRecord, int currentListIndex, int maxListIndex,
-                   int arrivalTime, int CPUTime, int nextReadyTime, int lastEventTime, int finishTime,
+    public Process(String stringID, int arrivalTime, int CPUTime, int nextReadyTime, int lastEventTime, int finishTime,
                    int blockServiceTime, int serviceStartTime) {
 
         this.StringID = stringID;
-        this.Type = type;
-        this.RunTime = runTime;
-        this.NextBlockInstant = nextBlockInstant;
-        this.NextBlockResource = nextBlockResource;
-        this.NextBlockTime = nextBlockTime;
-        this.BlockRecord = blockRecord;
-        this.CurrentListIndex = currentListIndex;
-        this.MaxListIndex = maxListIndex;
         this.ArrivalTime = arrivalTime;
         this.CPUTime = CPUTime;
         this.NextReadyTime = nextReadyTime;
