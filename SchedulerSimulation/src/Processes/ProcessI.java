@@ -1,8 +1,11 @@
 package Processes;
 
+import Generators.ProccessGenator;
+
 public class ProcessI extends Process {
 
 //Constructor for a type 1 process
+    public ProccessGenator PG = new ProccessGenator(1);
 
     public ProcessI(String stringID, int type, int runTime, int nextBlockInstant, String nextBlockResource,
                     int nextBlockTime, List<Block> blockRecord, int currentListIndex, int maxListIndex,
