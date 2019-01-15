@@ -1,6 +1,7 @@
 package Processes;
+import Generators.ProccessGenator;
 
-public class ProcessII extends Process{
+public class ProcessII extends process{
 
     // processGenerator object for type 2 processes
     public ProccessGenator PG2 = new ProccessGenator(2);
@@ -10,7 +11,7 @@ public class ProcessII extends Process{
         super();
         this.Type = 2;
         this.RunTime = PG2.getprocessRunTime();
-        this.NextBlockInstant = ProcessGenerator.MAXINT;
+        this.NextBlockInstant = ProccessGenator.MAXINT;
         this.NextBlockResource = null;
         this.NextBlockTime = 0;
         this.genBlockRecord();
@@ -20,7 +21,7 @@ public class ProcessII extends Process{
     //generate the block record, processes of type 2 never block
     public void genBlockRecord(){
             this.BlockRecord = null;
-            this.CurrentListIndex = null;
-            this.MaxListIndex = null;
+            this.CurrentListIndex = 0;
+            this.MaxListIndex = 0;
     }
 }

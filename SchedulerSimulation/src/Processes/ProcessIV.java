@@ -1,7 +1,7 @@
 package Processes;
 import java.util.*;
-
-public class ProcessIV extends Process{
+import Generators.ProccessGenator;
+public class ProcessIV extends process{
 
     // processGenerator object for type 4 processes
     public ProccessGenator PG4 = new ProccessGenator(4);
@@ -12,9 +12,9 @@ public class ProcessIV extends Process{
         this.Type = 4;
         this.RunTime = PG4.getprocessRunTime();
         this.genBlockRecord();
-        this.NextBlockInstant = this.getBlockRecord.get(this.getCurrentListIndex().getBI);
-        this.NextBlockResource = this.getBlockRecord.get(this.getCurrentListIndex().getR);
-        this.NextBlockTime = this.getBlockRecord.get(this.getCurrentListIndex().getBT);
+        this.NextBlockInstant = this.getBlockRecord().get(this.getCurrentListIndex()).getBI();
+        this.NextBlockResource = this.getBlockRecord().get(this.getCurrentListIndex()).getR();
+        this.NextBlockTime = this.getBlockRecord().get(this.getCurrentListIndex()).getBT();
 
     }
 
@@ -32,7 +32,7 @@ public class ProcessIV extends Process{
         while (newBI < RT) {
             PG4.BlockGen4();
             newBlock = PG4.getBlock();
-            newBI += newBlock.getBI;
+            newBI += newBlock.getBI();
             if (newBI < RT) {
                 this.BlockRecord.add(newBlock);
             }
