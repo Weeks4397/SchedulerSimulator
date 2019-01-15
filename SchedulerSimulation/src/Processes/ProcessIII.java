@@ -1,5 +1,6 @@
 package Processes;
 import java.util.*;
+import Generators.ProccessGenator;
 
 public class ProcessIII extends Process{
 
@@ -12,9 +13,9 @@ public class ProcessIII extends Process{
         this.Type = 3;
         this.RunTime = PG3.getprocessRunTime();
         this.genBlockRecord();
-        this.NextBlockInstant = this.getBlockRecord.get(this.getCurrentListIndex().getBI);
-        this.NextBlockResource = this.getBlockRecord.get(this.getCurrentListIndex().getR);
-        this.NextBlockTime = this.getBlockRecord.get(this.getCurrentListIndex().getBT);
+        this.NextBlockInstant = this.getBlockRecord.get(this.getCurrentListIndex()).getBI;
+        this.NextBlockResource = this.getBlockRecord.get(this.getCurrentListIndex()).getR;
+        this.NextBlockTime = this.getBlockRecord.get(this.getCurrentListIndex()).getBT;
 
     }
 
@@ -26,13 +27,12 @@ public class ProcessIII extends Process{
         Block newBlock = PG3.getBlock();
         int newBI = newBlock.getBI();
 
-        this.BlockRecord = new ArrayList<Block>();
         this.BlockRecord.add(newBlock);
 
         while (newBI < RT) {
             PG3.BlockGen3();
             newBlock = PG3.getBlock();
-            newBI += newBlock.getBI;
+            newBI += newBlock.getBI();
             if (newBI < RT) {
                 this.BlockRecord.add(newBlock);
             }

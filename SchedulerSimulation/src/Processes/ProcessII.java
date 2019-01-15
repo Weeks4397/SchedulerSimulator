@@ -1,4 +1,5 @@
 package Processes;
+import Generators.ProccessGenator;
 
 public class ProcessII extends Process{
 
@@ -10,7 +11,7 @@ public class ProcessII extends Process{
         super();
         this.Type = 2;
         this.RunTime = PG2.getprocessRunTime();
-        this.NextBlockInstant = ProcessGenerator.MAXINT;
+        this.NextBlockInstant = ProccessGenator.MAXINT;
         this.NextBlockResource = null;
         this.NextBlockTime = 0;
         this.genBlockRecord();

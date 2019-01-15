@@ -1,4 +1,5 @@
 package Processes;
+import java.util.*;
 
 /**
  * A Process contains a set of numbers, a list of blocks, and a string for the next resource.
@@ -67,12 +68,23 @@ public abstract class Process {
     //Constructor for a process
     public Process() {
 
-        this.setStringID;
+        this.StringID = "P-1";
         this.CPUTime = 0;
         this.LastEventTime = 0;
         this.FinishTime = Generators.MAXINT;
         this.BlockServiceTime = 0;
         this.ServiceStartTime = Generators.MAXINT;
+        this.Type = -1;
+        this.RunTime = -1;
+        this.NextBlockInstant = -1;
+        this.NextBlockResource = null;
+        this.NextBlockTime = -1;
+        this.BlockRecord = new ArrayList<Block>();
+        this.CurrentListIndex = -1;
+        this.MaxListIndex = -1;
+        this.ArrivalTime = -1;
+        this.NextReadyTime = -1;
+
     }
 
     //setters for processes

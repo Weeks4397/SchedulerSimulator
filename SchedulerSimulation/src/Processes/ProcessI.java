@@ -9,7 +9,7 @@ public class ProcessI extends Process {
     public ProccessGenator PG1 = new ProccessGenator(1);
 
     //the block information for this processI object
-    public block newBlock = PG1.getBlock;
+    public Block newBlock = PG1.getBlock();
 
     //Constructor for a type 1 process
     public ProcessI() {
@@ -25,8 +25,7 @@ public class ProcessI extends Process {
 
     //generate the block record, processes of type 1 have either 1 or no blocks
     public void genBlockRecord(){
-        if (newBlock.getBT != 0){
-            this.BlockRecord = new ArrayList<Block>();
+        if (newBlock.getBT() != 0){
             this.BlockRecord.add(newBlock);
             this.CurrentListIndex = 0;
             this.MaxListIndex = 1;
