@@ -1,5 +1,6 @@
 package Processes;
-import java.util.*;
+import Generators.ProccessGenator;
+import java.util.ArrayList;
 
 /**
  * A Process contains a set of numbers, a list of blocks, and a string for the next resource.
@@ -7,73 +8,73 @@ import java.util.*;
  *
  */
 
-public abstract class Process {
+public abstract class process {
 
     //data members of process
 
     //StringID is the id for the process "P%d%d%d"
-    private String StringID;
+    public String StringID;
 
     //Type is the type of process either 1, 2, 3 or 4
-    private int Type;
+    public int Type;
 
     //RunTime is the is the amount of time a process needs with cpu before completion
-    private int RunTime;
+    public int RunTime;
 
     //NextBlock Instant is the time at which the next block will occur
     //If there is no next block, set to MAXINT
-    private int NextBlockInstant;
+    public int NextBlockInstant;
 
     //NextBlockResource is the the type of resource that is needed for the next block
     //If there is no next block, set to null
-    private String NextBlockResource;
+    public String NextBlockResource;
 
     //NextBlockTime is the length of the next block
     //if there is no next block, set to 0
-    private int NextBlockTime;
+    public int NextBlockTime;
 
     //BlockRecords is a list of all of the blocks for a process or can be null
     //A block consists of a block instant, a type of resoruce, and a block length
-    private List<Block> BlockRecord;
+    public ArrayList<Block> BlockRecord;
 
     //CurrentListIndex is the index of the next block in the BlockRecord or null
-    private int CurrentListIndex;
+    public int CurrentListIndex;
 
     //MaxListIndex is the index of the last block in the BlockRecord or null
-    private int MaxListIndex;
+    public int MaxListIndex;
 
     //ArricalTime is the time at which a process initally arrives to the ready queue from the master list of processes
-    private int ArrivalTime;
+    public int ArrivalTime;
 
     //CPUTime is the total time the process has had with the cpu since the last event
     //CPUTime is initially 0
-    private int CPUTime;
+    public int CPUTime;
 
     //NextReadyTime is initially equal to ArrivalTime
     //NextReadyTime is adjusted when a process arrives back into the ready queue after a block, time-slice, or preemption
-    private int NextReadyTime;
+    public int NextReadyTime;
 
     //LastEventTime is the global time at which the last event occured effecting this process
-    private int LastEventTime;
+    public int LastEventTime;
 
     //FinishTime is the global time at which this processes CPUTime becomes equal to the RunTime
-    private int FinishTime;
+    public int FinishTime;
 
     //BlockServiceTime is the amount of time a process spent in the blocked state
-    private int BlockServiceTime;
+    public int BlockServiceTime;
 
     //ServiceStartTime is the time at which a process begins to use the resource
-    private int ServiceStartTime;
+    public int ServiceStartTime;
 
     //Constructor for a process
-    public Process() {
+    public process() {
 
         this.StringID = "P-1";
         this.CPUTime = 0;
         this.LastEventTime = 0;
-        this.FinishTime = Generators.MAXINT;
+        this.FinishTime = ProccessGenator.MAXINT;
         this.BlockServiceTime = 0;
-        this.ServiceStartTime = Generators.MAXINT;
+        this.ServiceStartTime = ProccessGenator.MAXINT;
         this.Type = -1;
         this.RunTime = -1;
         this.NextBlockInstant = -1;
@@ -84,7 +85,7 @@ public abstract class Process {
         this.MaxListIndex = -1;
         this.ArrivalTime = -1;
         this.NextReadyTime = -1;
-
+        this.ServiceStartTime = ProccessGenator.MAXINT;
     }
 
     //setters for processes
@@ -113,7 +114,7 @@ public abstract class Process {
     /**Generate the BlockRecord
      * sets the block record, the current list index to 0, and the max index
      * to the length of the block record - 1;
-     * if there are no blocks the block record, current index, and max index are set to null
+     * if there are no blocks, the block record, current index, and max index are set to null
      */
     public abstract void genBlockRecord();
 
@@ -121,7 +122,7 @@ public abstract class Process {
     /**sets init arrival time and nextReady time
      * @param t  time at which process scheduled to arrive into ready queue from master list
      */
-    Public void setArrivalandReadyTime(int t){
+    public void setArrivalandReadyTime(int t){
         this.ArrivalTime = t;
         this.NextReadyTime = t;
     }
@@ -152,7 +153,7 @@ public abstract class Process {
         return this.NextBlockTime;
     }
 
-    public List<Block> getBlockRecord() {
+    public ArrayList<Block> getBlockRecord() {
         return this.BlockRecord;
     }
 
@@ -200,14 +201,14 @@ public abstract class Process {
     public void updateCPU (int time) {
         this.CPUTime += time; }
 
-
+/*
     //Comparator interface for process objects
     public static final Comparator<Process> By_SJF = new BySJF();
     public static final Comparator<Process> By_SRT = new BySRT();
     public static final Comparator<Process> By_LWC = new ByLWC();
 
     //compare based on shortest job
-    private static class BySJF implements Comparator<Process> {
+    public static class BySJF implements Comparator<Process> {
         public int compare(Process P1, Process P2) {
             int P1jobTime = P1.totalRunTime;
             int P2jobTime = P2.totalRunTime;
@@ -218,7 +219,7 @@ public abstract class Process {
     }
 
     //compare based on shortest remaining run time
-    private static class BySRT implements Comparator<Process> {
+    public static class BySRT implements Comparator<Process> {
         public int compare(Process P1, Process P2) {
             int P1remainingTime = P1.totalRunTime - P1.CPUTime;
             int P2remainingTime = P2.totalRunTime - P2.CPUTime;
@@ -229,7 +230,7 @@ public abstract class Process {
     }
 
     //compare based on least work completed
-    private static class ByLWC implements Comparator<Process> {
+    public static class ByLWC implements Comparator<Process> {
         public int compare(Process P1, Process P2) {
             int P1remainingTime = P1.totalRunTime - P1.CPUTime;
             int P2remainingTime = P2.totalRunTime - P2.CPUTime;
@@ -239,5 +240,5 @@ public abstract class Process {
         }
     }
 
-
+*/
 }

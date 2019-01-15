@@ -1,11 +1,11 @@
 package Processes;
-import java.util.*;
 import Generators.ProccessGenator;
 
-public class ProcessIV extends Process{
+
+public class ProcessIV extends process{
 
     // processGenerator object for type 4 processes
-    public ProccessGenator PG4 = new ProccessGenator(4);
+    private ProccessGenator PG4 = new ProccessGenator(4);
 
     //Constructor for a type 4 process
     public ProcessIV() {
@@ -13,10 +13,9 @@ public class ProcessIV extends Process{
         this.Type = 4;
         this.RunTime = PG4.getprocessRunTime();
         this.genBlockRecord();
-        this.NextBlockInstant = this.getBlockRecord.get(this.getCurrentListIndex()).getBI;
-        this.NextBlockResource = this.getBlockRecord.get(this.getCurrentListIndex()).getR;
-        this.NextBlockTime = this.getBlockRecord.get(this.getCurrentListIndex()).getBT;
-
+        this.NextBlockInstant = this.getBlockRecord().get(this.getCurrentListIndex()).getBI();
+        this.NextBlockResource = this.getBlockRecord().get(this.getCurrentListIndex()).getR();
+        this.NextBlockTime = this.getBlockRecord().get(this.getCurrentListIndex()).getBT();
     }
 
     //generate the block record, processes of type 4 have multiple blocks
