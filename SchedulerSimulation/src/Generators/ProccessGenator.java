@@ -43,7 +43,7 @@ public class ProccessGenator {
     }
 
     /**
-     * To create the runtime block for Process1.
+     * To create the process runtime, block type, Block runtime, and block occurrence for Process1.
      *
      */
     public void process1() {
@@ -69,7 +69,10 @@ public class ProccessGenator {
         }
     }
 
-    //Purpose: To create the runtime for Process2.
+    /**
+     * To create the process runtime, block type, Block runtime, and block occurrence for Process2.
+     *
+     */
     public void process2() {
         double num = RNG.fRNG();
         processRunTime = (int) Math.ceil(200 + 400 * Math.pow(num, (5 / 3)));
@@ -79,7 +82,10 @@ public class ProccessGenator {
         BlockOccurs = 0;
     }
 
-    //Purpose: To create the runtime for Process3.
+    /**
+     * To create the process runtime, block type, Block runtime, and block occurrence for Process3.
+     *
+     */
     public void process3() {
         // creates runtime for process
         double num = RNG.fRNG();
@@ -91,7 +97,10 @@ public class ProccessGenator {
 
     }
 
-    //Purpose: To create the runtime for the Block generator 3.
+    /**
+     * To create the block type, Block runtime, and block occurrence for Process3.
+     *
+     */
     public void BlockGen3() {
         int Type = RNG.RNG(100);
         if (Type <= 34) {
@@ -108,7 +117,10 @@ public class ProccessGenator {
         BlockOccurs = getNextBlockInstence3();
     }
 
-    //Purpose: To create the run time for Process4.
+    /**
+     * To create the process runtime, block type, Block runtime, and block occurrence for Process3.
+     *
+     */
     public void process4() {
         // creates runtime for process
         processRunTime = RNG.RNG(400, 1000);
@@ -117,7 +129,10 @@ public class ProccessGenator {
 
     }
 
-    //Purpose: To create the run time for the Block Generator 4.
+    /**
+     * To create the block type, Block runtime, and block occurrence for Process4.
+     *
+     */
     public void BlockGen4() {
         // the Block has 50% chance of Type B and TypeC
         int Type = RNG.RNG(2);
@@ -132,28 +147,44 @@ public class ProccessGenator {
         BlockOccurs = getNextBlockInstence4();
     }
 
-    //Purpose: To get the next Block Instance.
+    /**
+     * To get the next Block Instance for process 3.
+     *@return   a int that represents the next block occurrence
+     */
     public int getNextBlockInstence3() {
         double num = RNG.fRNG();
         return (int) Math.ceil(25 + 50 * Math.pow(num, (7/3)));
     }
 
-    //Purpose: To get the next Block Instance.
+    /**
+     * To get the next Block Instance for process 4.
+     *@return   a int that represents the next block occurrence
+     */
     public int getNextBlockInstence4() {
         return RNG.RNG(60, 100);
     }
 
-    //Purpose: To create the process arrival time.
+    /**
+     *  To create the process arrival time.
+     *@return   a int that represents the next arrive time for a process
+     */
     public static int ProcessArrival() {
         return RNG.RNG(10, 810);
     }
 
-    //Purpose: To get the process run time.
+    /**
+     *  To get the process runtime.
+     *@return   a int that represents the processes runtime
+     */
     public int getprocessRunTime() {
         return processRunTime;
     }
 
     //Purpose: to get the block.
+    /**
+     *  To get the block.
+     *@return   a block to be used in a process
+     */
     public Block getBlock(){
         return new Block(BlockOccurs,BlockType,BlockRunTime);
     }
