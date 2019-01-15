@@ -4,34 +4,89 @@ import Processes.*;
 
 public class WorksetGenerator {
 
-    //Purpose: To create a new list of processes.
+    /**
+     * this the list of processes that will be used in the scheduler
+     */
     public ArrayList<process> Workset = new ArrayList<process>();
+    /**
+     * is the total runtime for all the processes in the WorkSet
+     */
     public int totalRunTime;
+    /**
+     * is the number of type 1 process in the initial set of processes
+     */
     public int Initial1 = 0;
+    /**
+     * is the number of type 2 process in the initial set of processes
+     */
     public int Initial2 = 0;
+    /**
+     * is the number of type 3 process in the initial set of processes
+     */
     public int Initial3 = 0;
+    /**
+     * is the number of type 4 process in the initial set of processes
+     */
     public int Initial4 = 0;
+    /**
+     * is the number of type 1 process in the final set of processes
+     */
     public int Type1Count = 0;
+    /**
+     * is the number of type 2 process in the final set of processes
+     */
     public int Type2Count = 0;
+    /**
+     * is the number of type 3 process in the final set of processes
+     */
     public int Type3Count = 0;
+    /**
+     * is the number of type 4 process in the final set of processes
+     */
     public int Type4Count = 0;
+    /**
+     * is the number of type A Resources in the final set of processes
+     */
     public int RACount = 0;
+    /**
+     * is the number of type B Resources in the final set of processes
+     */
     public int RBCount = 0;
+    /**
+     * is the number of type C Resources in the final set of processes
+     */
     public int RCCount = 0;
+    /**
+     * is the total runtime for all type A Resources
+     */
     public int BATime = 0;
+    /**
+     * is the total runtime for all type B Resources
+     */
     public int BBTime = 0;
+    /**
+     * is the total runtime for all type C Resources
+     */
     public int BCTime = 0;
+    /**
+     * is the total count of the amount of processes so for in WorkSet
+     */
+    //TODO change name of i
     public int i = 0;
 
+    /**
+     * is the constructor for WorksetGenerator and loads the workSet for use
+     */
     public WorksetGenerator(){
         setWorkSet();
         UpdateWorkSet();
-
     }
 
 
-
-    //Purpose: To create a new Process.
+    /**
+     * creates a process to be put in the WorkSet based on a random number
+     * @return process based on type of process
+     */
     public process makeProcess() {
         int Rnum = RNG.RNG(100);
         process P = null;
@@ -47,7 +102,9 @@ public class WorksetGenerator {
         return P;
     }
 
-    //Purpose: To create the initial work set.
+    /**
+     * create the initial work set. all Process with arrival time of 0
+     */
     public void setWorkSet() {
         int numOfStartSet = RNG.RNG(3, 8);
         process P = null;
@@ -113,7 +170,9 @@ public class WorksetGenerator {
         }
     }
 
-    //Purpose: To update the work set.
+    /**
+     * loads the rest of the process ending when Runtime is bigger the MAXINT
+     */
     public void UpdateWorkSet() {
         setWorkSet();
         process P = null;
