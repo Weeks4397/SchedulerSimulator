@@ -65,17 +65,53 @@ public abstract class Process {
     private int ServiceStartTime;
 
     //Constructor for a process
-    public Process(String stringID, int arrivalTime, int CPUTime, int nextReadyTime, int lastEventTime, int finishTime,
-                   int blockServiceTime, int serviceStartTime) {
+    public Process() {
 
-        this.StringID = stringID;
-        this.ArrivalTime = arrivalTime;
-        this.CPUTime = CPUTime;
-        this.NextReadyTime = nextReadyTime;
-        this.LastEventTime = lastEventTime;
-        this.FinishTime = finishTime;
-        this.BlockServiceTime = blockServiceTime;
-        this.ServiceStartTime = serviceStartTime;
+        this.setStringID;
+        this.CPUTime = 0;
+        this.LastEventTime = 0;
+        this.FinishTime = Generators.MAXINT;
+        this.BlockServiceTime = 0;
+        this.ServiceStartTime = Generators.MAXINT;
+    }
+
+    //setters for processes
+     /**Sets the StringID
+      * If string id is over max limit set to "-1"
+      * @param i  keeps track of current processID index
+      * @param iMax  the maximum amount of process IDs available
+      */
+    public void setStringID(int i, int iMax) {
+        String id;
+        if (i<10) {
+            id = String.format("P00%d", i);
+        }
+        else if (i < 100) {
+            id = String.format("P0%d", i);
+        }
+        else if (i <= iMax){
+            id = String.format("P%d", i);
+        }
+        else {
+            id = "-1";
+        }
+        this.StringID = id;
+    }
+
+    /**Generate the BlockRecord
+     * sets the block record, the current list index to 0, and the max index
+     * to the length of the block record - 1;
+     * if there are no blocks the block record, current index, and max index are set to null
+     */
+    public abstract void genBlockRecord();
+
+
+    /**sets init arrival time and nextReady time
+     * @param t  time at which process scheduled to arrive into ready queue from master list
+     */
+    Public void setArrivalandReadyTime(int t){
+        this.ArrivalTime = t;
+        this.NextReadyTime = t;
     }
 
     //Getters for Processes

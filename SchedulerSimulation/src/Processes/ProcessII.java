@@ -2,20 +2,25 @@ package Processes;
 
 public class ProcessII extends Process{
 
-    //Constructor for a type 2 process
+    // processGenerator object for type 2 processes
+    public ProccessGenator PG2 = new ProccessGenator(2);
 
-    public ProcessII(String stringID, int type, int runTime, int nextBlockInstant, String nextBlockResource,
-                    int nextBlockTime, List<Block> blockRecord, int currentListIndex, int maxListIndex,
-                    int arrivalTime, int CPUTime, int nextReadyTime, int lastEventTime, int finishTime,
-                    int blockServiceTime, int serviceStartTime) {
-        super(stringID, arrivalTime, CPUTime, nextReadyTime, lastEventTime, finishTime, blockServiceTime, serviceStartTime);
-        this.Type = type;
-        this.RunTime = runTime;
-        this.NextBlockInstant = nextBlockInstant;
-        this.NextBlockResource = nextBlockResource;
-        this.NextBlockTime = nextBlockTime;
-        this.BlockRecord = blockRecord;
-        this.CurrentListIndex = currentListIndex;
-        this.MaxListIndex = maxListIndex;
+    //Constructor for a type 2 process
+    public ProcessII() {
+        super();
+        this.Type = 2;
+        this.RunTime = PG2.getprocessRunTime();
+        this.NextBlockInstant = ProcessGenerator.MAXINT;
+        this.NextBlockResource = null;
+        this.NextBlockTime = 0;
+        this.genBlockRecord();
+
+    }
+
+    //generate the block record, processes of type 2 never block
+    public void genBlockRecord(){
+            this.BlockRecord = null;
+            this.CurrentListIndex = null;
+            this.MaxListIndex = null;
     }
 }

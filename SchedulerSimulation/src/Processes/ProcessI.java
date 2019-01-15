@@ -1,24 +1,40 @@
 package Processes;
 
+import java.util.*;
 import Generators.ProccessGenator;
 
 public class ProcessI extends Process {
 
-//Constructor for a type 1 process
-    public ProccessGenator PG = new ProccessGenator(1);
+    // processGenerator object for type 1 processes
+    public ProccessGenator PG1 = new ProccessGenator(1);
 
-    public ProcessI(String stringID, int type, int runTime, int nextBlockInstant, String nextBlockResource,
-                    int nextBlockTime, List<Block> blockRecord, int currentListIndex, int maxListIndex,
-                    int arrivalTime, int CPUTime, int nextReadyTime, int lastEventTime, int finishTime,
-                    int blockServiceTime, int serviceStartTime) {
-        super(stringID, arrivalTime, CPUTime, nextReadyTime, lastEventTime, finishTime, blockServiceTime, serviceStartTime);
-        this.Type = type;
-        this.RunTime = runTime;
-        this.NextBlockInstant = nextBlockInstant;
-        this.NextBlockResource = nextBlockResource;
-        this.NextBlockTime = nextBlockTime;
-        this.BlockRecord = blockRecord;
-        this.CurrentListIndex = currentListIndex;
-        this.MaxListIndex = maxListIndex;
+    //the block information for this processI object
+    public block newBlock = PG1.getBlock;
+
+    //Constructor for a type 1 process
+    public ProcessI() {
+        super();
+        this.Type = 1;
+        this.RunTime = PG1.getprocessRunTime();
+        this.NextBlockInstant = newBlock.getBI;
+        this.NextBlockResource = newBlock.getR;
+        this.NextBlockTime = newBlock.getBT;
+        this.genBlockRecord();
+
+    }
+
+    //generate the block record, processes of type 1 have either 1 or no blocks
+    public void genBlockRecord(){
+        if (newBlock.getBT != 0){
+            this.BlockRecord = new ArrayList<Block>();
+            this.BlockRecord.add(newBlock);
+            this.CurrentListIndex = 0;
+            this.MaxListIndex = 1;
+        }
+        else {
+            this.BlockRecord = null;
+            this.CurrentListIndex = null;
+            this.MaxListIndex = null;
+        }
     }
 }
