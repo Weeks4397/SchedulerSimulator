@@ -12,61 +12,94 @@ public abstract class process {
 
     //data members of process
 
-    //StringID is the id for the process "P%d%d%d"
+    /**
+     * StringID is the id for the process "P%d%d%d"
+     */
     public String StringID;
 
-    //Type is the type of process either 1, 2, 3 or 4
+    /** Type is the type of process either 1, 2, 3 or 4
+     *
+     */
     public int Type;
 
-    //RunTime is the is the amount of time a process needs with cpu before completion
+    /** RunTime is the is the amount of time a process needs with cpu before completion
+     *
+     */
     public int RunTime;
 
-    //NextBlock Instant is the time at which the next block will occur
-    //If there is no next block, set to MAXINT
+    /** NextBlock Instant is the time at which the next block will occur
+     * If there is no next block, set to MAXINT
+     */
     public int NextBlockInstant;
 
-    //NextBlockResource is the the type of resource that is needed for the next block
-    //If there is no next block, set to null
+    /**
+     *  NextBlockResource is the the type of resource that is needed for the next block
+     *  If there is no next block, set to null
+     */
     public String NextBlockResource;
 
-    //NextBlockTime is the length of the next block
-    //if there is no next block, set to 0
+    /**
+     * NextBlockTime is the length of the next block
+     *  if there is no next block, set to 0
+     */
     public int NextBlockTime;
 
-    //BlockRecords is a list of all of the blocks for a process or can be null
-    //A block consists of a block instant, a type of resoruce, and a block length
+    /**
+     *  BlockRecords is a list of all of the blocks for a process or can be null
+     *  A block consists of a block instant, a type of resoruce, and a block length
+     */
     public ArrayList<Block> BlockRecord;
 
-    //CurrentListIndex is the index of the next block in the BlockRecord or null
+    /**
+     * CurrentListIndex is the index of the next block in the BlockRecord or null
+     */
     public int CurrentListIndex;
 
-    //MaxListIndex is the index of the last block in the BlockRecord or null
+    /**
+     * MaxListIndex is the index of the last block in the BlockRecord or null
+     */
     public int MaxListIndex;
 
-    //ArricalTime is the time at which a process initally arrives to the ready queue from the master list of processes
+    /**
+     *  ArricalTime is the time at which a process initally arrives to the ready queue from the master list of processes
+     */
     public int ArrivalTime;
 
-    //CPUTime is the total time the process has had with the cpu since the last event
-    //CPUTime is initially 0
+    /**
+     * CPUTime is the total time the process has had with the cpu since the last event
+     * CPUTime is initially 0
+     */
     public int CPUTime;
 
-    //NextReadyTime is initially equal to ArrivalTime
-    //NextReadyTime is adjusted when a process arrives back into the ready queue after a block, time-slice, or preemption
+    /**
+     * NextReadyTime is initially equal to ArrivalTime
+     * NextReadyTime is adjusted when a process arrives back into the ready queue after a block, time-slice, or preemption
+     */
     public int NextReadyTime;
 
-    //LastEventTime is the global time at which the last event occured effecting this process
+    /**
+     * LastEventTime is the global time at which the last event occured effecting this process
+     */
     public int LastEventTime;
 
-    //FinishTime is the global time at which this processes CPUTime becomes equal to the RunTime
+    /**
+     * FinishTime is the global time at which this processes CPUTime becomes equal to the RunTime
+     */
     public int FinishTime;
 
-    //BlockServiceTime is the amount of time a process spent in the blocked state
+    /**
+     * BlockServiceTime is the amount of time a process spent in the blocked state
+     */
     public int BlockServiceTime;
 
-    //ServiceStartTime is the time at which a process begins to use the resource
+    /**
+     * ServiceStartTime is the time at which a process begins to use the resource
+     */
     public int ServiceStartTime;
 
-    //Constructor for a process
+    /**
+     * Constructor for a process
+     */
     public process() {
 
         this.StringID = "P-1";
@@ -128,7 +161,10 @@ public abstract class process {
     }
 
 
-    //Getters for Processes
+    /**
+     * Getters for Processes
+     */
+
 
     public String getStringID() {
         return this.StringID;
@@ -200,7 +236,19 @@ public abstract class process {
     //public void updateBlocked (int time) { blockedTime += time – lastEventTime; }
     //public void updateReady (int time) { … }
     public void updateCPU (int time) {
-        this.CPUTime += time; }
+        this.CPUTime += time;
+    }
+
+    //TODO FIX ALEC!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 /*
     //Comparator interface for process objects

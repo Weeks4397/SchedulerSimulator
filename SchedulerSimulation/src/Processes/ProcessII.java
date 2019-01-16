@@ -4,10 +4,14 @@ import Generators.WorksetGenerator;
 
 public class ProcessII extends process{
 
-    // processGenerator object for type 2 processes
+    /**
+     * processGenerator object for type 2 processes
+     */
     private ProccessGenator PG2 = new ProccessGenator(2);
 
-    //Constructor for a type 2 process
+    /**
+     * Constructor for a type 2 process
+     */
     public ProcessII() {
         super();
         this.Type = 2;
@@ -19,7 +23,9 @@ public class ProcessII extends process{
 
     }
 
-    //generate the block record, processes of type 2 never block
+    /**
+     * generate the block record, processes of type 2 never block
+     */
     public void genBlockRecord(){
             this.BlockRecord = null;
             this.CurrentListIndex = 0;

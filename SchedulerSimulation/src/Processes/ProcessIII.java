@@ -5,10 +5,12 @@ import Generators.WorksetGenerator;
 
 public class ProcessIII extends process{
 
-    // processGenerator object for type 3 processes
+    /** processGenerator object for type 3 processes
+     */
     private ProccessGenator PG3 = new ProccessGenator(3);
 
-    //Constructor for a type 3 process
+    /**Constructor for a type 3 process
+     */
     public ProcessIII() {
         super();
         this.Type = 3;
@@ -20,8 +22,11 @@ public class ProcessIII extends process{
 
     }
 
-    //generate the block record, processes of type 3 have multiple blocks
-    //While the next block instance is less than run time, add another block to the block record
+    /**
+     * generate the block record, processes of type 3 have multiple blocks
+     * While the next block instance is less than run time, add another block to the block record
+     */
+
     public void genBlockRecord(){
 
         int RT = PG3.getprocessRunTime();

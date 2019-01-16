@@ -4,13 +4,19 @@ import Generators.WorksetGenerator;
 
 public class ProcessI extends process {
 
-    // processGenerator object for type 1 processes
+    /**
+     * processGenerator object for type 1 processes
+     */
    private ProccessGenator PG1 = new ProccessGenator(1);
 
-    //the block information for this processI object
+    /**
+     * the block information for this processI object
+     */
     private Block newBlock = PG1.getBlock();
 
-    //Constructor for a type 1 process
+    /**
+     * Constructor for a type 1 process
+     */
     public ProcessI() {
         super();
         this.Type = 1;
@@ -22,7 +28,9 @@ public class ProcessI extends process {
 
     }
 
-    //generate the block record, processes of type 1 have either 1 or no blocks
+    /**
+     * generate the block record, processes of type 1 have either 1 or no blocks
+     */
     public void genBlockRecord(){
         if (newBlock.getBT() != 0){
             this.BlockRecord.add(newBlock);
