@@ -1,6 +1,7 @@
 package Processes;
 import Generators.ProccessGenator;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * A Process contains a set of numbers, a list of blocks, and a string for the next resource.
@@ -239,55 +240,5 @@ public abstract class process {
         this.CPUTime += time;
     }
 
-    //TODO FIX ALEC!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
-/*
-    //Comparator interface for process objects
-    public static final Comparator<Process> By_SJF = new BySJF();
-    public static final Comparator<Process> By_SRT = new BySRT();
-    public static final Comparator<Process> By_LWC = new ByLWC();
-
-    //compare based on shortest job
-    public static class BySJF implements Comparator<Process> {
-        public int compare(Process P1, Process P2) {
-            int P1jobTime = P1.totalRunTime;
-            int P2jobTime = P2.totalRunTime;
-            if (P1jobTime < P2jobTime) return 1;
-            if (P1jobTime > P2jobTime) return -1;
-            else return 0;
-        }
-    }
-
-    //compare based on shortest remaining run time
-    public static class BySRT implements Comparator<Process> {
-        public int compare(Process P1, Process P2) {
-            int P1remainingTime = P1.totalRunTime - P1.CPUTime;
-            int P2remainingTime = P2.totalRunTime - P2.CPUTime;
-            if (P1remainingTime < P2remainingTime) return 1;
-            if (P1remainingTime > P2remainingTime) return -1;
-            else return 0;
-        }
-    }
-
-    //compare based on least work completed
-    public static class ByLWC implements Comparator<Process> {
-        public int compare(Process P1, Process P2) {
-            int P1remainingTime = P1.totalRunTime - P1.CPUTime;
-            int P2remainingTime = P2.totalRunTime - P2.CPUTime;
-            if (P1remainingTime > P2remainingTime) return 1;
-            if (P1remainingTime < P2remainingTime) return -1;
-            else return 0;
-        }
-    }
-
-*/
 }

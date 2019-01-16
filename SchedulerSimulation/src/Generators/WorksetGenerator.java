@@ -76,7 +76,7 @@ public class WorksetGenerator {
      * is the total count of the amount of processes so far in WorkSet
      */
     //TODO change name of i
-    public int i = 0;
+    public int totalNumProcesses = 0;
 
     /**
      * is the constructor for WorksetGenerator and loads the workSet for use
@@ -112,12 +112,12 @@ public class WorksetGenerator {
     public void setWorkSet() {
         int numOfStartSet = RNG.RNG(3, 8);
         process P = null;
-        while(i <= numOfStartSet) {
+        while(totalNumProcesses <= numOfStartSet) {
             P = makeProcess();
             Workset.add(P);
             P.setArrivalandReadyTime(0);
-            i++;
-            P.setStringID( i , 1000);
+            totalNumProcesses++;
+            P.setStringID( totalNumProcesses , 1000);
 
             if(P.getType() == 1){
                 Type1Count++;
@@ -185,8 +185,8 @@ public class WorksetGenerator {
             Workset.add(P);
             currentTime += ProccessGenator.ProcessArrival();
             P.setArrivalandReadyTime(currentTime);
-            i++;
-            P.setStringID( i , 1000);
+            totalNumProcesses++;
+            P.setStringID( totalNumProcesses , 1000);
 
             if(P.getType() == 1){
                 Type1Count++;
