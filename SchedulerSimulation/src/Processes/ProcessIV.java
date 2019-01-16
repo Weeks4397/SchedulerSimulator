@@ -1,5 +1,6 @@
 package Processes;
 import Generators.ProccessGenator;
+import Generators.WorksetGenerator;
 
 
 public class ProcessIV extends process{
@@ -38,5 +39,22 @@ public class ProcessIV extends process{
         }
         this.CurrentListIndex = 0;
         this.MaxListIndex = this.getBlockRecord().size()-1;
+    }
+
+    //update report variables for type 4 processes
+    public void updateReportVariables(int T1C, int T2C, int T3C, int T4C, int RAC,
+                                      int RBC, int RCC, int BAT, int BBT, int BCT) {
+        T4C++;
+        for (int j = 0; j > this.getBlockRecord().size(); j++){
+            if (this.getBlockRecord().get(j).getR().equals("B")){
+                RBC++;
+                BBT += this.getBlockRecord().get(j).getBT();
+            }
+            else if (this.getBlockRecord().get(j).getR().equals("C")){
+                RCC++;
+                BCT += this.getBlockRecord().get(j).getBT();
+            }
+
+        }
     }
 }

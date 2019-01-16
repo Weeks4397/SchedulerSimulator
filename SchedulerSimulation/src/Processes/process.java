@@ -127,6 +127,7 @@ public abstract class process {
         this.NextReadyTime = t;
     }
 
+
     //Getters for Processes
 
     public String getStringID() {

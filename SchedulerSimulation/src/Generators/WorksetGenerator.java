@@ -4,6 +4,13 @@ import Processes.*;
 
 public class WorksetGenerator {
 
+    //P1, P2, P3, and P4 are the percentages that each process will be created
+    private int P1 = 50;
+    private int P2 = 30;
+    private int P3 = 17;
+    private int P4 = 3;
+
+
     /**
      * this the list of processes that will be used in the scheduler
      */
@@ -11,23 +18,11 @@ public class WorksetGenerator {
     /**
      * is the total runtime for all the processes in the WorkSet
      */
-    public int totalRunTime;
+    public int totalRunTime = 0;
     /**
-     * is the number of type 1 process in the initial set of processes
+     * is the number of initial processes generated with arrival time 0
      */
-    public int Initial1 = 0;
-    /**
-     * is the number of type 2 process in the initial set of processes
-     */
-    public int Initial2 = 0;
-    /**
-     * is the number of type 3 process in the initial set of processes
-     */
-    public int Initial3 = 0;
-    /**
-     * is the number of type 4 process in the initial set of processes
-     */
-    public int Initial4 = 0;
+    public int initCount = 0;
     /**
      * is the number of type 1 process in the final set of processes
      */
@@ -69,7 +64,11 @@ public class WorksetGenerator {
      */
     public int BCTime = 0;
     /**
-     * is the total count of the amount of processes so for in WorkSet
+     * is the arrival time for the last process
+     */
+    public int FinalAT = 0;
+    /**
+     * is the total count of the amount of processes so far in WorkSet
      */
     //TODO change name of i
     public int i = 0;
@@ -90,13 +89,13 @@ public class WorksetGenerator {
     public process makeProcess() {
         int Rnum = RNG.RNG(100);
         process P = null;
-        if (Rnum <= 49) {
+        if (Rnum < P1) {
             P = new ProcessI();
-        } else if (Rnum <= 79) {
+        } else if (Rnum < P1+P2) {
             P = new ProcessII();
-        } else if (Rnum <= 96) {
+        } else if (Rnum < P1+P2+P3) {
             P = new ProcessIII();
-        } else if (Rnum <= 99) {
+        } else if (Rnum < P1+P2+P3+P4) {
             P = new ProcessIV();
         }
         return P;
@@ -112,94 +111,19 @@ public class WorksetGenerator {
             P = makeProcess();
             Workset.add(P);
             P.setArrivalandReadyTime(0);
-            P.setStringID( i , 1000);
-
-            if(P.getType() == 1){
-                Initial1++;
-                if(makeProcess().getNextBlockResource() == null){
-
-                }
-                else if (P.getNextBlockResource().equals("A")){
-                    RACount++;
-                    BATime += P.getNextBlockTime();
-                }
-                else if (P.getNextBlockResource().equals("B")){
-                    RBCount++;
-                    BBTime += P.getNextBlockTime();
-                }
-
-            }
-            else if(P.getType() == 2){
-                Initial2++;
-            }
-            else if(P.getType() == 3){
-                Initial3++;
-                for (int j = 0; j > P.getBlockRecord().size(); j++){
-                   if (P.getBlockRecord().get(j).getR().equals("A")){
-                        RACount++;
-                        BATime += P.getBlockRecord().get(j).getBT();
-                   }
-                   else if (P.getBlockRecord().get(j).getR().equals("B")){
-                        RBCount++;
-                        BBTime += P.getBlockRecord().get(j).getBT();
-                   }
-                   else if (P.getBlockRecord().get(j).getR().equals("C")){
-                       RCCount++;
-                       BCTime += P.getBlockRecord().get(j).getBT();
-                   }
-
-                }
-            }
-            else if(P.getType() == 4){
-                Initial4++;
-                for (int j = 0; j > P.getBlockRecord().size(); j++){
-                   if (P.getBlockRecord().get(j).getR().equals("B")){
-                        RBCount++;
-                        BBTime += P.getBlockRecord().get(j).getBT();
-                    }
-                    else if (P.getBlockRecord().get(j).getR().equals("C")){
-                        RCCount++;
-                        BCTime += P.getBlockRecord().get(j).getBT();
-                    }
-
-                }
-            }
-
-            totalRunTime += P.getRunTime();
             i++;
-        }
-    }
-
-    /**
-     * loads the rest of the process ending when Runtime is bigger the MAXINT
-     */
-    public void UpdateWorkSet() {
-        setWorkSet();
-        process P = null;
-        int currentTime = 0;
-        Type1Count = Initial1;
-        Type2Count = Initial2;
-        Type3Count = Initial3;
-        Type4Count = Initial4;
-
-
-        while(totalRunTime <= ProccessGenator.MAXINT) {
-            P = makeProcess();
-            Workset.add(P);
-            currentTime += ProccessGenator.ProcessArrival();
-            P.setArrivalandReadyTime(currentTime);
             P.setStringID( i , 1000);
 
             if(P.getType() == 1){
                 Type1Count++;
-                if(makeProcess().getNextBlockResource() == null){
+                if(P.getNextBlockResource() == null){
 
                 }
-                else if (P.getNextBlockResource().equals("A")){
+                else if (P.getNextBlockResource() == "A"){
                     RACount++;
                     BATime += P.getNextBlockTime();
                 }
-                else if (P.getNextBlockResource().equals("B")){
+                else if (P.getNextBlockResource() == "B"){
                     RBCount++;
                     BBTime += P.getNextBlockTime();
                 }
@@ -209,40 +133,107 @@ public class WorksetGenerator {
             }
             else if(P.getType() == 3){
                 Type3Count++;
-                for (int j = 0; j > P.getBlockRecord().size(); j++){
-                    if (P.getBlockRecord().get(j).getR().equals("A")){
+                for (int j = 0; j < P.getBlockRecord().size(); j++){
+                    if (P.getBlockRecord().get(j).getR() == "A"){
                         RACount++;
                         BATime += P.getBlockRecord().get(j).getBT();
                     }
-                    else if (P.getBlockRecord().get(j).getR().equals("B")){
+                    else if (P.getBlockRecord().get(j).getR() == "B"){
                         RBCount++;
                         BBTime += P.getBlockRecord().get(j).getBT();
                     }
-                    else if (P.getBlockRecord().get(j).getR().equals("C")){
+                    else if (P.getBlockRecord().get(j).getR() == "C"){
                         RCCount++;
                         BCTime += P.getBlockRecord().get(j).getBT();
                     }
 
                 }
             }
-            else if(P.getType() == 4){
+            else if(P.getType() == 4) {
                 Type4Count++;
-                for (int j = 0; j > P.getBlockRecord().size(); j++){
-                    if (P.getBlockRecord().get(j).getR().equals("B")){
+                for (int j = 0; j < P.getBlockRecord().size(); j++) {
+                    if (P.getBlockRecord().get(j).getR() == "B") {
                         RBCount++;
                         BBTime += P.getBlockRecord().get(j).getBT();
-                    }
-                    else if (P.getBlockRecord().get(j).getR().equals("C")){
+                    } else if (P.getBlockRecord().get(j).getR() == "C") {
                         RCCount++;
                         BCTime += P.getBlockRecord().get(j).getBT();
                     }
-
                 }
             }
 
             totalRunTime += P.getRunTime();
-            i++;
+            initCount++;
         }
+    }
+
+    /**
+     * loads the rest of the process ending when Runtime is bigger the MAXINT
+     */
+    public void UpdateWorkSet() {
+        process P = null;
+        int currentTime = 0;
+
+
+        while(totalRunTime <= ProccessGenator.MAXINT) {
+            P = makeProcess();
+            Workset.add(P);
+            currentTime += ProccessGenator.ProcessArrival();
+            P.setArrivalandReadyTime(currentTime);
+            i++;
+            P.setStringID( i , 1000);
+
+            if(P.getType() == 1){
+                Type1Count++;
+                if(P.getNextBlockResource() == null){
+
+                }
+                else if (P.getNextBlockResource() == "A"){
+                    RACount++;
+                    BATime += P.getNextBlockTime();
+                }
+                else if (P.getNextBlockResource() == "B"){
+                    RBCount++;
+                    BBTime += P.getNextBlockTime();
+                }
+            }
+            else if(P.getType() == 2){
+                Type2Count++;
+            }
+            else if(P.getType() == 3){
+                Type3Count++;
+                for (int j = 0; j < P.getBlockRecord().size(); j++){
+                    if (P.getBlockRecord().get(j).getR() == "A"){
+                        RACount++;
+                        BATime += P.getBlockRecord().get(j).getBT();
+                    }
+                    else if (P.getBlockRecord().get(j).getR() == "B"){
+                        RBCount++;
+                        BBTime += P.getBlockRecord().get(j).getBT();
+                    }
+                    else if (P.getBlockRecord().get(j).getR() == "C"){
+                        RCCount++;
+                        BCTime += P.getBlockRecord().get(j).getBT();
+                    }
+
+                }
+            }
+            else if(P.getType() == 4) {
+                Type4Count++;
+                for (int j = 0; j < P.getBlockRecord().size(); j++) {
+                    if (P.getBlockRecord().get(j).getR() == "B") {
+                        RBCount++;
+                        BBTime += P.getBlockRecord().get(j).getBT();
+                    } else if (P.getBlockRecord().get(j).getR() == "C") {
+                        RCCount++;
+                        BCTime += P.getBlockRecord().get(j).getBT();
+                    }
+                }
+            }
+
+            totalRunTime += P.getRunTime();
+        }
+        FinalAT = currentTime;
     }
 
 }
