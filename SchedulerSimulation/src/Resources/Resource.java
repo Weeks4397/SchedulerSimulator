@@ -1,5 +1,6 @@
 package Resources;
 
+import java.util.LinkedList;
 import java.util.Queue;
 import Processes.process;
 
@@ -11,9 +12,9 @@ public abstract class  Resource {
     public int startIdleTime;
     public int activeTime;
     public int idleTime;
-    public Queue<Process> BlockedProcessQ;
+    public Queue<process> BlockedProcessQ;
    // public Minheap<Process> BlockedProcessHeap
-    public Process servingProcess;
+    public process servingProcess;
     public int count;
     public boolean exclusive;
     public int numOfBlocks;
@@ -46,10 +47,12 @@ public abstract class  Resource {
     }
 
     //Initializes the Queue for resource a and c
-    public abstract void setBlockedProcessQ();
+    public void setBlockedProcessQ(){
+        this.BlockedProcessQ = new LinkedList<process>();
+    };
 
     //Initializes the Minheap for resource b
-    //public abstract void setMinHeap...();
+    //public  void setMinHeap...(){};
 
     //sets the process being served to null
     public void setServingProcess() {
@@ -98,7 +101,7 @@ public abstract class  Resource {
         return this.idleTime;
     }
 
-    public Queue<Process> getBlockedProcessQ() {
+    public Queue<process> getBlockedProcessQ() {
         return this.BlockedProcessQ;
     }
 
@@ -106,7 +109,7 @@ public abstract class  Resource {
    //     return this.minHeap<Process>;
     //}
 
-    public Process getServingProcess() {
+    public process getServingProcess() {
         return this.servingProcess;
     }
 
@@ -132,7 +135,7 @@ public abstract class  Resource {
         this.nextUnblockTime = P.getNextBlockTime();
     }
 
-    public abstract void arrivingProcess(Process theProcess, int time);
+    public abstract void arrivingProcess(process theProcess, int time);
 
     public void updateIdleTime(int T) {
         this.idleTime += T;
@@ -143,6 +146,6 @@ public abstract class  Resource {
     }
 
 
-    public abstract Process finishService ();
+    public abstract process finishService ();
 
 }

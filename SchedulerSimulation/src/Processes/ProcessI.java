@@ -35,7 +35,7 @@ public class ProcessI extends process {
         if (newBlock.getBT() != 0){
             this.BlockRecord.add(newBlock);
             this.CurrentListIndex = 0;
-            this.MaxListIndex = 1;
+            this.MaxListIndex = 0;
         }
         else {
             this.BlockRecord = null;

@@ -1,4 +1,6 @@
 package Resources;
+import Processes.process;
+import Processes.Block;
 
 public class ResourceA extends Resource {
     //setters for ResourceA objects
@@ -6,10 +8,6 @@ public class ResourceA extends Resource {
         this.type = "A";
     }
 
-    public void setBlockedProcessesDS() {
-        this.blockedProcessesDS = new BlockedProcesses();
-        this.blockedProcessesDS.setBlockedProcessesExclusive();
-    }
 
     public void setExclusive() {
         this.exclusive = true;
@@ -17,52 +15,52 @@ public class ResourceA extends Resource {
 
     //additional methods
 
-    public Process finishService() {
+    public process finishService() {
         int oldTime = this.nextUnblockTime;		// current process finish time—for legibility
-        Process oldProcess = this.servingProcess;
+        process oldProcess = this.servingProcess;
 
-        this.updateActiveTime(oldProcess.totalBlockTimeForNextBlock);
+        this.updateActiveTime(oldProcess.getNextBlockTime());
 
-        if (!this.blockedProcessesDS.isEmptyExclusive()) {
+        if (!this.BlockedProcessQ.isEmpty()) {
 
-            Process theProcess = this.blockedProcessesDS.getNextProcessExclusive();
-            this.nextUnblockTime = oldTime + theProcess.totalBlockTimeForNextBlock;
+            process theProcess = this.BlockedProcessQ.remove();
+            this.nextUnblockTime = oldTime + theProcess.getNextBlockTime();
             this.servingProcess = theProcess;
-            theProcess.serviceStartTime = oldTime;
+            theProcess.ServiceStartTime = oldTime;
             this.numOfBlocks += 1;
-            this.totalBlockTime += theProcess.totalBlockTimeForNextBlock;
+            this.totalBlockTime += theProcess.getNextBlockTime();
         }
         else {
-            this.nextUnblockTime = RNG.MAXINT;
+            this.nextUnblockTime = Integer.MAX_VALUE;
             this.servingProcess = null;
             this.startIdleTime = oldTime;
         }
-        oldProcess.currentListIndex += 1;
-        if (oldProcess.currentListIndex <= oldProcess.maxListIndex) {
-            BlockList nextBlock = oldProcess.blockRecord.get(oldProcess.currentListIndex);
-            oldProcess.nextBlockInstant = nextBlock.getBI();
-            oldProcess.nextBlockResource = nextBlock.getR();
-            oldProcess.totalBlockTimeForNextBlock = nextBlock.getBT();
+        if (oldProcess.CurrentListIndex < oldProcess.MaxListIndex) {
+            Block nextBlock = oldProcess.getBlockRecord().get(oldProcess.getCurrentListIndex() + 1);
+            oldProcess.NextBlockInstant = nextBlock.getBI();
+            oldProcess.NextBlockResource = nextBlock.getR();
+            oldProcess.NextBlockTime = nextBlock.getBT();
+            oldProcess.CurrentListIndex += 1;
         }
         else {
-            oldProcess.nextBlockInstant = RNG.MAXINT;
-            oldProcess.nextBlockResource = null;
-            oldProcess.totalBlockTimeForNextBlock = 0;
+            oldProcess.NextBlockInstant = Integer.MAX_VALUE;
+            oldProcess.NextBlockResource = null;
+            oldProcess.NextBlockTime = 0;
         }
+        oldProcess.BlockServiceTime += oldTime - oldProcess.ServiceStartTime
         return oldProcess;
 
     }
 
-    public void arrivingProcess (Process theProcess, int time) {
-        //theProcess.blockedTime =
-        if (blockedProcessesDS.isEmptyExclusive()) {
+    public void arrivingProcess (process theProcess, int time) {
+        if (this.BlockedProcessQ.isEmpty()) {
             this.servingProcess = theProcess;
-            theProcess.serviceStartTime = time;
+            theProcess.ServiceStartTime = time;
             this.updateIdleTime (time - this.startIdleTime);
-            this.nextUnblockTime = (time + theProcess.totalBlockTimeForNextBlock);
+            this.nextUnblockTime = (time + theProcess.getNextBlockTime());
         }
         else {
-            blockedProcessesDS.addExclusive(theProcess);		// insert at end
+            this.BlockedProcessQ.add(theProcess);		// insert at end of queue
         }
     }
 }
