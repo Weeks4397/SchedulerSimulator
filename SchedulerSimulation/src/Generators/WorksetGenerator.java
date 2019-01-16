@@ -234,6 +234,7 @@ public class WorksetGenerator {
             totalRunTime += P.getRunTime();
         }
         FinalAT = currentTime;
+        ProccessGenator.MAXINT = currentTime;
     }
 
 }
