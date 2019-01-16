@@ -6,9 +6,9 @@ import java.util.Comparator;
 
 public class Comparators {
 
-    public static final Comparator<process> By_SJF = new process.BySJF();
-    public static final Comparator<process> By_SRT = new process.BySRT();
-    public static final Comparator<process> By_LWC = new process.ByLWC();
+    public static final Comparator<process> By_SJF = new Comparators.BySJF();
+    public static final Comparator<process> By_SRT = new Comparators.BySRT();
+    public static final Comparator<process> By_LWC = new Comparators.ByLWC();
 
     //compare based on shortest job
     public static class BySJF implements Comparator<process> {
