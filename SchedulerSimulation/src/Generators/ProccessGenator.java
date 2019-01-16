@@ -2,6 +2,9 @@ package Generators;
 
 import Processes.Block;
 
+/**
+ * Generates random numbers to be used in process
+ */
 public class ProccessGenator {
     /**
      * this will be what the runtime for the process is
@@ -180,7 +183,6 @@ public class ProccessGenator {
         return processRunTime;
     }
 
-    //Purpose: to get the block.
     /**
      *  To get the block.
      *@return   a block to be used in a process

@@ -2,9 +2,14 @@ package Generators;
 import java.util.ArrayList;
 import Processes.*;
 
+/**
+ * Generators a work set to be used in scheduler
+ */
 public class WorksetGenerator {
 
-    //P1, P2, P3, and P4 are the percentages that each process will be created
+    /**
+     *  P1, P2, P3, and P4 are the percentages that each process will be created
+     */
     private int P1 = 50;
     private int P2 = 30;
     private int P3 = 17;
