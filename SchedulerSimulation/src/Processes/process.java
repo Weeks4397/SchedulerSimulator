@@ -8,7 +8,6 @@ import java.util.Comparator;
  * A process can be of 4 different types, TypeI, TypeII, TypeIII, or Type IV.
  *
  */
-
 public abstract class process {
 
     //data members of process

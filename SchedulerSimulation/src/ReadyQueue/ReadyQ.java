@@ -3,12 +3,28 @@ package ReadyQueue;
 import java.util.*;
 import Processes.process;
 
+/**
+ * is the ReadyQ to be used in the scheduler
+ */
 public class ReadyQ {
 
+    /**
+     * priQ is used as the ReadyQ for some of the schedulers Algorithms
+     */
     public MinHeap<process> PriQ;
+    /**
+     * Q is used as the ReadyQ for some of the schedulers Algorithms
+     */
     public Queue<process> Q;
+    /**
+     * is the TYpe of Q that is being used
+     */
     public String QType;
 
+    /**
+     * Sets the Ready Q that will be used
+     * @param Type is the TYpe of Algorithm that the Q will be used for
+     */
     public ReadyQ(String Type){
         QType = Type;
         if(QType.equals("FIFO")){
@@ -28,6 +44,10 @@ public class ReadyQ {
         }
     }
 
+    /**
+     * looks at the first elem of the list based on what list is being used
+     * @return the first elem of the list
+     */
     public process Peek(){
         process peekVal = null;
         if(QType.equals("FIFO")){
@@ -47,6 +67,11 @@ public class ReadyQ {
         }
         return peekVal;
     }
+
+    /**
+     * removes the first elem of the Q
+     * @return the first elem of the Q
+     */
     public process Poll(){
         process pollVal = null;
         if(QType.equals("FIFO")){
@@ -67,6 +92,10 @@ public class ReadyQ {
         return pollVal;
     }
 
+    /**
+     * adds the elem to the back of the Q
+     * @param elem is a process that will be added to the Q
+     */
     public void add(process elem){
         if(QType.equals("FIFO")){
             Q.add(elem);

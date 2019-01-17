@@ -3,7 +3,7 @@ package ReadyQueue;
 import Processes.process;
 
 import java.util.Comparator;
-
+//TODO: recommit
 public class Comparators {
 
     public static final Comparator<process> By_SJF = new Comparators.BySJF();
