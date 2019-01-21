@@ -3,9 +3,11 @@ package Resources;
 import java.util.LinkedList;
 import java.util.Queue;
 import Processes.process;
-
+//TODO comment
 public abstract class  Resource {
-    //Data members for a resource
+    /**
+     *  Data members for a resource
+     */
 
     public String type;
     public int nextUnblockTime;
@@ -20,66 +22,91 @@ public abstract class  Resource {
     public int numOfBlocks;
     public int totalBlockTime;
 
+    /**
+     * Setters for resource object
+     */
 
-    //Setters for resource object
-
-    //sets type of resources
+    /**
+     * sets type of resources
+     */
     public abstract void setType();
 
-    //sets the next unblock time
+    /**
+     * sets the next unblock time
+     */
     public void setNextUnblockTime() {
         this.nextUnblockTime = Integer.MAX_VALUE;
     }
 
-    //sets the initial startIdleTime to MAXINT
+    /**
+     * sets the initial startIdleTime to MAXINT
+     */
     public void setStartIdleTime() {
         this.startIdleTime = Integer.MAX_VALUE;
     }
 
-    //Initializes the active time for the resource to 0
+    /**
+     * Initializes the active time for the resource to 0
+     */
     public void setActiveTime() {
         this.activeTime = 0;
     }
 
-    //Initializes the idle time for the resource to 0
+    /**
+     * Initializes the idle time for the resource to 0
+     */
     public void setIdleTime() {
         this.idleTime = 0;
     }
 
-    //Initializes the Queue for resource a and c
+    /**
+     * Initializes the Queue for resource a and c
+     */
     public void setBlockedProcessQ(){
         this.BlockedProcessQ = new LinkedList<process>();
-    };
+    }
 
     //Initializes the Minheap for resource b
     //public  void setMinHeap...(){};
 
-    //sets the process being served to null
+    /**
+     * sets the process being served to null
+     */
     public void setServingProcess() {
         this.servingProcess = null;
     }
 
-    //sets the count for the blocked processes list to 0
+    /**
+     * sets the count for the blocked processes list to 0
+     */
     public void setCount() {
         this.count = 0;
     }
 
-    //is this resource exclusive?
+    /**
+     * is this resource exclusive?
+     */
     public abstract void setExclusive();
 
-    //initializes number of blocks to 0
+    /**
+     * initializes number of blocks to 0
+     */
     public void setNumOfBlocks() {
         this.numOfBlocks = 0;
     }
 
-    //initializes total block time to 0
+    /**
+     * initializes total block time to 0
+     */
     public void setTotalBlockTime() {
         this.totalBlockTime = 0;
     }
 
 
-
-    //getters for resource object
+    /**
+     * getters for resource object
+     * @return
+     */
 
     public String getType() {
         return this.type;
@@ -129,7 +156,10 @@ public abstract class  Resource {
         return this.totalBlockTime;
     }
 
-//additional methods for updating resource object
+    /**
+     * additional methods for updating resource object
+     */
+
 
     public void updateNextUnblockTime(process P) {
         this.nextUnblockTime = P.getNextBlockTime();
