@@ -135,7 +135,7 @@ public class Report {
      *
      */
     public static void ReportWorkSet (WorksetGenerator WSG){
-       PrintNumProcesses(WSG.i, WSG.Type1Count, WSG.Type2Count, WSG.Type3Count, WSG.Type4Count);
+       PrintNumProcesses(WSG.totalNumProcesses, WSG.Type1Count, WSG.Type2Count, WSG.Type3Count, WSG.Type4Count);
         System.out.println();
         System.out.println(Labels1());
         Report.PrintProcessInfo(WSG.Workset);
@@ -149,7 +149,7 @@ public class Report {
                 WSG.BBTime, WSG.BCTime, totalResourceCount, totalBlockTime);
         System.out.println();
         System.out.println(Labels4());
-        PrintInterarrivalTime(WSG.i, WSG.initCount, WSG.FinalAT);
+        PrintInterarrivalTime(WSG.totalNumProcesses, WSG.initCount, WSG.FinalAT);
     }
 
 
