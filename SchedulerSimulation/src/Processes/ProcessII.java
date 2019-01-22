@@ -1,13 +1,12 @@
 package Processes;
-import Generators.ProccessGenator;
-import Generators.WorksetGenerator;
+import Generators.*;
 
 public class ProcessII extends process{
 
     /**
      * processGenerator object for type 2 processes
      */
-    private ProccessGenator PG2 = new ProccessGenator(2);
+    private ProccessIIGenator PG2 = new ProccessIIGenator();
 
     /**
      * Constructor for a type 2 process

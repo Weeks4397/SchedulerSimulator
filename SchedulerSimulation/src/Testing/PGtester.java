@@ -1,16 +1,16 @@
 package Testing;
 
-import Generators.ProccessGenator;
+import Generators.*;
 
 public class PGtester {
     public static void main(String arg[]){
 
         for (int i = 0;  i <= 1000; i++) {
 
-            ProccessGenator PG1 = new ProccessGenator(1);
-            ProccessGenator PG2 = new ProccessGenator(2);
-            ProccessGenator PG3 = new ProccessGenator(3);
-            ProccessGenator PG4 = new ProccessGenator(4);
+            ProccessIGenator PG1 = new ProccessIGenator();
+            ProccessIIGenator PG2 = new ProccessIIGenator();
+            ProccessIIIGenator PG3 = new ProccessIIIGenator();
+            ProccessIVGenator PG4 = new ProccessIVGenator();
 
             if (PG1.getprocessRunTime() > 75 || PG1.getprocessRunTime() <25){
                 System.out.println("should print out a number runtime for 25 to 75 not ");

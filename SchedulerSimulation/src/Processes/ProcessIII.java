@@ -1,13 +1,12 @@
 package Processes;
-import Generators.ProccessGenator;
-import Generators.WorksetGenerator;
+import Generators.*;
 
 
 public class ProcessIII extends process{
 
     /** processGenerator object for type 3 processes
      */
-    private ProccessGenator PG3 = new ProccessGenator(3);
+    private ProccessIIIGenator PG3 = new ProccessIIIGenator();
 
     /**Constructor for a type 3 process
      */

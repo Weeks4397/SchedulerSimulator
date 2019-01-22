@@ -1,6 +1,5 @@
 package Processes;
-import Generators.ProccessGenator;
-import Generators.WorksetGenerator;
+import Generators.*;
 
 
 public class ProcessIV extends process{
@@ -8,7 +7,7 @@ public class ProcessIV extends process{
     /**
      * processGenerator object for type 4 processes
      */
-    private ProccessGenator PG4 = new ProccessGenator(4);
+    private ProccessIVGenator PG4 = new ProccessIVGenator();
 
     /**
      * Constructor for a type 4 process
