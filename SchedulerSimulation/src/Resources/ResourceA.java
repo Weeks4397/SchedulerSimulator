@@ -47,7 +47,7 @@ public class ResourceA extends Resource {
             oldProcess.NextBlockResource = null;
             oldProcess.NextBlockTime = 0;
         }
-        oldProcess.BlockServiceTime += oldTime - oldProcess.ServiceStartTime
+        oldProcess.BlockServiceTime += oldTime - oldProcess.ServiceStartTime;
         return oldProcess;
 
     }
