@@ -99,25 +99,44 @@ public class Report {
         }
     }
 
-    //Labels2   Running Time	  Blocks and Blocked Time per Resource 			  Total Blocking
+    /**
+     * Labels2   Running Time	  Blocks and Blocked Time per Resource 			  Total Blocking
+     * @return
+     */
     public static String Labels2() {
         return String.format("%-20s %-65s %s", "Running Time", "Blocks and Blocked Time per Resource", "Total Blocking");
     }
 
-    //Labels3   Total	    	  A   time	       B   time	       C   time	       Total    time
+    /**
+     * Labels3   Total	    	  A   time	       B   time	       C   time	       Total    time
+     * @return
+     */
     public static String Labels3() {
         return String.format("%-20s %-20s %-20s %-23s %s", "   Total", "A        time", "B        time", "C        time", "Total       time");
     }
 
-    //Print information for labels 2 and 3
-    //takes in data members from workset generator object
+    /**
+     * Print information for labels 2 and 3
+     * takes in data members from workset generator object
+     * @param totalRun
+     * @param Acount
+     * @param Bcount
+     * @param Ccount
+     * @param Atime
+     * @param Btime
+     * @param Ctime
+     * @param totalResource
+     * @param totalTime
+     */
     public static void totalInfo(int totalRun, int Acount, int Bcount, int Ccount, int Atime,
                                    int Btime, int Ctime, int totalResource, int totalTime ) {
         System.out.println(String.format( "   %-17d %-8d %-11d %-8d %-11d %-8d %-15d %-10d %d",
                 totalRun, Acount, Atime, Bcount, Btime, Ccount, Ctime, totalResource, totalTime));
     }
 
-    //Label4   Average Interarrival Time (not counting initial process set at time 0)
+    /**
+     *  Label4   Average Interarrival Time (not counting initial process set at time 0)
+     */
     public static String Labels4() {
         return "Average Interarrival Time (not counting initial process set at time 0)";
     }
@@ -135,7 +154,7 @@ public class Report {
      *
      */
     public static void ReportWorkSet (WorksetGenerator WSG){
-       PrintNumProcesses(WSG.i, WSG.Type1Count, WSG.Type2Count, WSG.Type3Count, WSG.Type4Count);
+       PrintNumProcesses(WSG.totalNumProcesses, WSG.Type1Count, WSG.Type2Count, WSG.Type3Count, WSG.Type4Count);
         System.out.println();
         System.out.println(Labels1());
         Report.PrintProcessInfo(WSG.Workset);
@@ -149,7 +168,7 @@ public class Report {
                 WSG.BBTime, WSG.BCTime, totalResourceCount, totalBlockTime);
         System.out.println();
         System.out.println(Labels4());
-        PrintInterarrivalTime(WSG.i, WSG.initCount, WSG.FinalAT);
+        PrintInterarrivalTime(WSG.totalNumProcesses, WSG.initCount, WSG.FinalAT);
     }
 
 

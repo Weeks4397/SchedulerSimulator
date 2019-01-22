@@ -75,7 +75,6 @@ public class WorksetGenerator {
     /**
      * is the total count of the amount of processes so far in WorkSet
      */
-    //TODO change name of i
     public int totalNumProcesses = 0;
 
     /**
