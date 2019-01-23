@@ -88,9 +88,19 @@ public abstract class process {
     public int FinishTime;
 
     /**
-     * BlockServiceTime is the amount of time a process spent in the blocked state
+     * BlockServiceTime is the total amount of time a process spent in the blocked state
      */
     public int BlockServiceTime;
+
+    /**
+     * BlockWaitTime is the total amount of time a process waited for service
+     */
+    public int BlockWaitTime;
+
+    /**
+     * GlobalBlockInstant is the last global time at which the process has blocked
+     */
+    public int GlobalBlockInstant;
 
     /**
      * ServiceStartTime is the time at which a process begins to use the resource
@@ -230,14 +240,22 @@ public abstract class process {
         return this.ServiceStartTime;
     }
 
+    public int getGlobalBlockInstant() {return this.GlobalBlockInstant;}
+
     //Mutators for Processes
 
 
     //public void updateBlocked (int time) { blockedTime += time – lastEventTime; }
     //public void updateReady (int time) { … }
+
+    /**updates the global block instant to be current global time
+     * @param time  time is a non null int > 0
+     */
+    public void updateGlobalBlockInstant(int time){
+        this.GlobalBlockInstant = time;
+    }
     public void updateCPU (int time) {
         this.CPUTime += time;
     }
-
 
 }

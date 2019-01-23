@@ -35,6 +35,10 @@ public class ResourceA extends Resource {
             this.servingProcess = null;
             this.startIdleTime = oldTime;
         }
+
+        oldProcess.BlockServiceTime += oldTime - oldProcess.getServiceStartTime();
+        oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() + oldProcess.getNextBlockTime() - oldProcess.getGlobalBlockInstant();
+
         if (oldProcess.CurrentListIndex < oldProcess.MaxListIndex) {
             Block nextBlock = oldProcess.getBlockRecord().get(oldProcess.getCurrentListIndex() + 1);
             oldProcess.NextBlockInstant = nextBlock.getBI();
@@ -47,12 +51,12 @@ public class ResourceA extends Resource {
             oldProcess.NextBlockResource = null;
             oldProcess.NextBlockTime = 0;
         }
-        oldProcess.BlockServiceTime += oldTime - oldProcess.ServiceStartTime;
         return oldProcess;
 
     }
 
     public void arrivingProcess (process theProcess, int time) {
+        theProcess.updateGlobalBlockInstant(time);
         if (this.BlockedProcessQ.isEmpty()) {
             this.servingProcess = theProcess;
             theProcess.ServiceStartTime = time;
