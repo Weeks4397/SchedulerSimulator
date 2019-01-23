@@ -6,3 +6,6 @@ SchedulerSimulation/out/production/SchedulerSimulation/Processes/ProcessI.class
 SchedulerSimulation/out/production/SchedulerSimulation/ReadyQueue/ReadyQ.class
 SchedulerSimulation/out/production/SchedulerSimulation/Resources/ResourceA.class
 SchedulerSimulation/out/production/SchedulerSimulation/Schedulers/Report.class
+SchedulerSimulation/out/production/SchedulerSimulation/Processes/process.class
+SchedulerSimulation/out/production/SchedulerSimulation/Processes/process.class
+*.class
