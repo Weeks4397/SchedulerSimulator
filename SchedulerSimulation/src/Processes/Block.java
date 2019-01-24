@@ -2,6 +2,7 @@ package Processes;
 
 /** A block is two ints for block instance and block length
  * and a string for the type of resource needed
+ * Blocks are generated in the process class
  */
 
 public class Block {
@@ -40,8 +41,8 @@ public class Block {
     }
 
     /**
-     * gets the recourse type
-     * @return R is the recourse type
+     * gets the resource type
+     * @return R is the resource type
      */
     public String getR() {
         return this.R;

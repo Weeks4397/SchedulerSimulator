@@ -92,6 +92,7 @@ public abstract class process {
 
     /**
      * BlockWaitTime is the total amount of time a process waited for service
+     * This is the ServiceStartTime - GlobalBlockInstant
      */
     public int BlockWaitTime;
 
@@ -101,7 +102,7 @@ public abstract class process {
     public int GlobalBlockInstant;
 
     /**
-     * ServiceStartTime is the time at which a process begins to use the resource
+     * ServiceStartTime is the global time at which a process begins to use the resource
      */
     public int ServiceStartTime;
 
