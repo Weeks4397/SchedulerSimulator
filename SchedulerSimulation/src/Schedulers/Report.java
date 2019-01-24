@@ -12,15 +12,25 @@ import java.util.*;
  */
 public class Report {
 
-    //Print out how many processes created total and how many of each type were created
-    //takes in data members of work set generator object
+    /**Print out how many processes created total and how many of each type were created
+     * takes in data members of work set generator object
+     *
+     * @param total     total amount of processes generated
+     * @param T1C       total amount of type 1 processes generated
+     * @param T2C       total amount of type 2 processes generated
+     * @param T3C       total amount of type 3 processes generated
+     * @param T4C       total amount of type 4 processes generated
+     */
     public static void PrintNumProcesses(int total, int T1C, int T2C, int T3C, int T4C){
 
         System.out.println(String.format("%d processes generated, %d type1, %d type2, %d type3, and %d type4 ",
                 total, T1C, T2C, T3C, T4C));
     }
 
-    //labels1   ID, Type, Arrive, Running, Block List, Total Blocked
+    /**labels1   ID, Type, Arrive, Running, Block List, Total Blocked
+     *
+     * @return String   a formatted label
+     */
     public static String Labels1() {
         return String.format("%s %10s %10s %10s %15s %48s", "ID", "Type", "Arrive", "Running", "Block List", "Total Blocked");
     }
@@ -139,15 +149,15 @@ public class Report {
     /**
      * Print information for labels 2 and 3
      * takes in data members from workset generator object
-     * @param totalRun
-     * @param Acount
-     * @param Bcount
-     * @param Ccount
-     * @param Atime
-     * @param Btime
-     * @param Ctime
-     * @param totalResource
-     * @param totalTime
+     * @param totalRun  total run time of all processes summed
+     * @param Acount    total count of how many times resource A was used
+     * @param Bcount    total count of how many times resource B was used
+     * @param Ccount    total count of how many times resource C was used
+     * @param Atime     total time processes spent being served by A
+     * @param Btime     total time processes spent being served by B
+     * @param Ctime     total time processes spent being served by C
+     * @param totalResource  total count of how many times all resources used
+     * @param totalTime     total time processes spent being served by all resources
      */
     public static void totalInfo(int totalRun, int Acount, int Bcount, int Ccount, int Atime,
                                    int Btime, int Ctime, int totalResource, int totalTime ) {
@@ -157,6 +167,7 @@ public class Report {
 
     /**
      *  Label4   Average Interarrival Time (not counting initial process set at time 0)
+     * @return  String  a formatted label
      */
     public static String Labels4() {
         return "Average Interarrival Time (not counting initial process set at time 0)";
@@ -172,7 +183,11 @@ public class Report {
     }
 
     /**
+     *ReportWorkSet calls the other static methods in this class and serves
+     * as a final static method to report the initial workset which is generated in the
+     * worsetGenerator class
      *
+     * @param WSG   init workset
      */
     public static void ReportWorkSet (WorksetGenerator WSG){
        PrintNumProcesses(WSG.totalNumProcesses, WSG.Type1Count, WSG.Type2Count, WSG.Type3Count, WSG.Type4Count);
