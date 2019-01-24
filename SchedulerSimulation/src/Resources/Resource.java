@@ -3,23 +3,88 @@ package Resources;
 import java.util.LinkedList;
 import java.util.Queue;
 import Processes.process;
-//TODO comment
+
+/**
+ * A Resource is a string for type, a collection of numbers, and either a queue or MinHeap of processes
+ * depending on whether the resource is exclusive or not.
+ * A Resource can be in 1 of 2 states:
+ *  Idle state: The resource is not currently serving any processes.
+ *  Active state:  The resource is currently serving at least 1 process.
+ * A Resource can be of 3 different types: typeA, typeB, or typeC.
+ */
 public abstract class  Resource {
     /**
      *  Data members for a resource
      */
 
-    public String type;
-    public int nextUnblockTime;
-    public int startIdleTime;
-    public int activeTime;
-    public int idleTime;
+    /**
+     * Type is the type of resource which can be either a, b, or c
+     */
+    public String Type;
+
+    /**
+     * NextUnblockTime is the global time at which the process currently being served will unblock.
+     * When no processes are being served, the time is set to Integer.Max_Value.
+     * This value serves as an event in the scheduler for the a process unblocking.
+     */
+    public int NextUnblockTime;
+
+    /**
+     * StartIdleTime is the a marker for the global time at which the resource is no longer serving processes.
+     * This marker is used to update IdleTime.
+     */
+    public int StartIdleTime;
+
+    /**
+     *ActiveTime is the the total time a resource has spent in the Active state.
+     */
+    public int ActiveTime;
+
+    /**
+     * IdleTime is the total time a resource has spent in the Idle state.
+     */
+    public int IdleTime;
+
+    /**
+     * BlockedProcessQ can either be empty or a queue of processes.
+     * These processes are in the blocked state.
+     * BlockedProcessQ is used for exclusive resources that only serve one process at a time.
+     */
     public Queue<process> BlockedProcessQ;
+
+    /**
+     * BlockedProcessHeap can either be empty or a MinHeap of processes.
+     * These processes are in the blocked state.
+     * BlockedProcessHeap is used for inclusive resources that serve all blocked processes at once
+     */
    // public Minheap<Process> BlockedProcessHeap
-    public process servingProcess;
-    public int count;
-    public boolean exclusive;
+
+    /**
+     * ServingProcess is the process currently being served by the resource.
+     * For inclusive resources, ServingProcess is the process that is going to finish first.
+     */
+    public process ServingProcess;
+
+    /**
+     * Count is the amount of processes waiting to be served by a resource
+     */
+    public int Count;
+
+    /**
+     *  Exclusive is a boolean that is true if the resource is exclusive and false if not.
+     */
+    public boolean Exclusive;
+
+    /**
+     * numOFBlocks is the total number of processes the resource has served.
+     * This value will be used for troubleshooting the resource class.
+     */
     public int numOfBlocks;
+
+    /**
+     * totalBlockTime is the total amount of block time the resource has served.
+     * This value will be used for troubleshooting the resource class.
+     */
     public int totalBlockTime;
 
     /**
