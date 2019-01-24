@@ -1,19 +1,26 @@
 package Resources;
 import Processes.process;
 import Processes.Block;
-//TODO comment this whole class Alec!
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**ResourceA is a resource of type A.
+ * It is an exclusive resource
+ */
 public class ResourceA extends Resource {
-    //setters for ResourceA objects
-    public void setType() {
-        this.type = "A";
+
+    /**
+     * Constructor for resource of type A
+     */
+    public ResourceA(){
+        super();
+        this.Type = "A";
+        this.Exclusive = true;
+        this.BlockedProcessQ = new LinkedList<process>();
     }
 
 
-    public void setExclusive() {
-        this.exclusive = true;
-    }
-
-    //additional methods
 
     public process finishService() {
         int oldTime = this.nextUnblockTime;		// current process finish time—for legibility
@@ -65,5 +72,12 @@ public class ResourceA extends Resource {
         else {
             this.BlockedProcessQ.add(theProcess);		// insert at end of queue
         }
+    }
+
+    /**
+     * Getter for BlockedProcessQ
+     */
+    public Queue<process> getBlockedProcessQ() {
+        return this.BlockedProcessQ;
     }
 }

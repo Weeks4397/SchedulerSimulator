@@ -18,7 +18,7 @@ public abstract class ReadyQ {
     public Queue<process> Q;
 
     /**
-     * Constructor for ReadyQ
+     * super Constructor for ReadyQ
      */
     public ReadyQ(){
 

@@ -1,7 +1,9 @@
 package Processes;
 import Generators.*;
 
-
+/**
+ * Processes of type III
+ */
 public class ProcessIII extends process{
 
     /** processGenerator object for type 3 processes

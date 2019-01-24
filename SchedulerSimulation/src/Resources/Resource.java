@@ -5,11 +5,11 @@ import java.util.Queue;
 import Processes.process;
 
 /**
- * A Resource is a string for type, a collection of numbers, and either a queue or MinHeap of processes
+ * A Resource is a:  string for type, a collection of numbers, and either a queue or MinHeap of processes
  * depending on whether the resource is exclusive or not.
  * A Resource can be in 1 of 2 states:
- *  Idle state: The resource is not currently serving any processes.
- *  Active state:  The resource is currently serving at least 1 process.
+ *      Idle state: The resource is not currently serving any processes.
+ *      Active state:  The resource is currently serving at least 1 process.
  * A Resource can be of 3 different types: typeA, typeB, or typeC.
  */
 public abstract class  Resource {
@@ -25,12 +25,12 @@ public abstract class  Resource {
     /**
      * NextUnblockTime is the global time at which the process currently being served will unblock.
      * When no processes are being served, the time is set to Integer.Max_Value.
-     * This value serves as an event in the scheduler for the a process unblocking.
+     * This value serves as an event in the scheduler for a process unblocking.
      */
     public int NextUnblockTime;
 
     /**
-     * StartIdleTime is the a marker for the global time at which the resource is no longer serving processes.
+     * StartIdleTime is a marker for the global time at which the resource is no longer serving processes.
      * This marker is used to update IdleTime.
      */
     public int StartIdleTime;
@@ -46,14 +46,15 @@ public abstract class  Resource {
     public int IdleTime;
 
     /**
-     * BlockedProcessQ can either be empty or a queue of processes.
+     * BlockedProcessQ can either be an empty queue or a queue of processes.
      * These processes are in the blocked state.
      * BlockedProcessQ is used for exclusive resources that only serve one process at a time.
+     * Processes waiting to be served by the resource wait in the BlockedProcessQ
      */
     public Queue<process> BlockedProcessQ;
 
     /**
-     * BlockedProcessHeap can either be empty or a MinHeap of processes.
+     * BlockedProcessHeap can either be an empty MinHeap or a MinHeap of processes.
      * These processes are in the blocked state.
      * BlockedProcessHeap is used for inclusive resources that serve all blocked processes at once
      */
@@ -88,129 +89,54 @@ public abstract class  Resource {
     public int totalBlockTime;
 
     /**
-     * Setters for resource object
+     * super constructor for resource
      */
 
-    /**
-     * sets type of resources
-     */
-    public abstract void setType();
-
-    /**
-     * sets the next unblock time
-     */
-    public void setNextUnblockTime() {
-        this.nextUnblockTime = Integer.MAX_VALUE;
-    }
-
-    /**
-     * sets the initial startIdleTime to MAXINT
-     */
-    public void setStartIdleTime() {
-        this.startIdleTime = Integer.MAX_VALUE;
-    }
-
-    /**
-     * Initializes the active time for the resource to 0
-     */
-    public void setActiveTime() {
-        this.activeTime = 0;
-    }
-
-    /**
-     * Initializes the idle time for the resource to 0
-     */
-    public void setIdleTime() {
-        this.idleTime = 0;
-    }
-
-    /**
-     * Initializes the Queue for resource a and c
-     */
-    public void setBlockedProcessQ(){
-        this.BlockedProcessQ = new LinkedList<process>();
-    }
-
-    //Initializes the Minheap for resource b
-    //public  void setMinHeap...(){};
-
-    /**
-     * sets the process being served to null
-     */
-    public void setServingProcess() {
-        this.servingProcess = null;
-    }
-
-    /**
-     * sets the count for the blocked processes list to 0
-     */
-    public void setCount() {
-        this.count = 0;
-    }
-
-    /**
-     * is this resource exclusive?
-     */
-    public abstract void setExclusive();
-
-    /**
-     * initializes number of blocks to 0
-     */
-    public void setNumOfBlocks() {
+    public Resource(){
+        this.NextUnblockTime = Integer.MAX_VALUE;
+        this.StartIdleTime = Integer.MAX_VALUE;
+        this.ActiveTime = 0;
+        this.IdleTime = 0;
+        this.ServingProcess = null;
+        this.Count = 0;
         this.numOfBlocks = 0;
-    }
-
-    /**
-     * initializes total block time to 0
-     */
-    public void setTotalBlockTime() {
         this.totalBlockTime = 0;
     }
 
-
     /**
      * getters for resource object
-     * @return
      */
 
     public String getType() {
-        return this.type;
+        return this.Type;
     }
 
     public int getNextUnblockTime() {
-        return this.nextUnblockTime;
+        return this.NextUnblockTime;
     }
 
     public int getStartIdleTime() {
-        return this.startIdleTime;
+        return this.StartIdleTime;
     }
 
     public int getActiveTime() {
-        return this.activeTime;
+        return this.ActiveTime;
     }
 
     public int getIdleTime() {
-        return this.idleTime;
+        return this.IdleTime;
     }
-
-    public Queue<process> getBlockedProcessQ() {
-        return this.BlockedProcessQ;
-    }
-
-    //public minHeap<Process> getBlockedProcessminheap() {
-   //     return this.minHeap<Process>;
-    //}
 
     public process getServingProcess() {
-        return this.servingProcess;
+        return this.ServingProcess;
     }
 
     public int getCount() {
-        return this.count;
+        return this.Count;
     }
 
     public boolean getExclusive() {
-        return this.exclusive;
+        return this.Exclusive;
     }
 
     public int getNumOfBlocks() {
@@ -221,26 +147,48 @@ public abstract class  Resource {
         return this.totalBlockTime;
     }
 
+
     /**
      * additional methods for updating resource object
      */
 
-
-    public void updateNextUnblockTime(process P) {
-        this.nextUnblockTime = P.getNextBlockTime();
+    /**updateNextUnblockTime mutates NextUnblockTime to be equal to the given time
+     *
+     * @param t    int  the given time
+     */
+    public void updateNextUnblockTime(int t) {
+        this.NextUnblockTime = t;
     }
 
+    /**arrivingProcess handles the event of a process arriving to a resource for service
+     * This method is handled differently depending on whether the resource is exclusive or not
+     * @param theProcess    Process     the process that has arrived at the resource for service
+     * @param time     int  The global time at which the process has arrived to the resource
+     */
     public abstract void arrivingProcess(process theProcess, int time);
 
+    /**updateIdleTime increments the IdleTime by the given int
+     *
+     * @param T int the amount of time the resource was idle
+     */
     public void updateIdleTime(int T) {
-        this.idleTime += T;
+        this.IdleTime += T;
     }
 
-    public void updateActiveTime(int PST) {
-        this.activeTime += PST;
+    /**updateActiveTime increment the ActiveTime by the given time
+     *
+     * @param   T   The amount of time the resource was active
+     */
+    public void updateActiveTime(int T) {
+        this.ActiveTime += T;
     }
 
-
+    /**finishService handles the event of a process finishing using the resource.
+     * This method is called in the scheduler to insert the returned process back into the ready queue.
+     * This method is different for exclusive and inclusive resources.
+     *
+     * @return  Process     The process that has finishing using the resource
+     */
     public abstract process finishService ();
 
 }

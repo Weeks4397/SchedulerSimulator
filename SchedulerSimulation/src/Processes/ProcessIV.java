@@ -1,7 +1,9 @@
 package Processes;
 import Generators.*;
 
-
+/**
+ * Processes of type IV
+ */
 public class ProcessIV extends process{
 
     /**
