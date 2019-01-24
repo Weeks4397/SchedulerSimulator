@@ -140,6 +140,20 @@ public class WorksetGenerator {
             }
             else if(P.getType() == 3){
                 Type3Count++;
+                //get the information for the first block and record it
+                if (P.getNextBlockResource() == "A"){
+                    RACount++;
+                    BATime += P.getNextBlockTime();
+                }
+                else if (P.getNextBlockResource() == "B"){
+                    RBCount++;
+                    BBTime += P.getNextBlockTime();
+                }
+                else if (P.getNextBlockResource() == "C"){
+                    RCCount++;
+                    BCTime += P.getNextBlockTime();
+                }
+
                 //shallow copy of the block record for reporting
                 Queue<Block> P3BlockRecordCopy = P.getBlockRecord();
                 //New queue so original block record is kept in tact, blocks will be added to this queue
@@ -166,6 +180,17 @@ public class WorksetGenerator {
             }
             else if(P.getType() == 4) {
                 Type4Count++;
+
+                //get the information for the first block and record it
+                if (P.getNextBlockResource() == "B"){
+                    RBCount++;
+                    BBTime += P.getNextBlockTime();
+                }
+                else if (P.getNextBlockResource() == "C"){
+                    RCCount++;
+                    BCTime += P.getNextBlockTime();
+                }
+
                 //shallow copy of the block record for reporting
                 Queue<Block> P4BlockRecordCopy = P.getBlockRecord();
                 //New queue so original block record is kept in tact, blocks will be added to this queue
@@ -225,6 +250,20 @@ public class WorksetGenerator {
             }
             else if(P.getType() == 3){
                 Type3Count++;
+                //get the information for the first block and record it
+                if (P.getNextBlockResource() == "A"){
+                    RACount++;
+                    BATime += P.getNextBlockTime();
+                }
+                else if (P.getNextBlockResource() == "B"){
+                    RBCount++;
+                    BBTime += P.getNextBlockTime();
+                }
+                else if (P.getNextBlockResource() == "C"){
+                    RCCount++;
+                    BCTime += P.getNextBlockTime();
+                }
+
                 //shallow copy of the block record for reporting
                 Queue<Block> P3BlockRecordCopy = P.getBlockRecord();
                 //New queue so original block record is kept in tact, blocks will be added to this queue
@@ -251,6 +290,17 @@ public class WorksetGenerator {
             }
             else if(P.getType() == 4) {
                 Type4Count++;
+
+                //get the information for the first block and record it
+                if (P.getNextBlockResource() == "B"){
+                    RBCount++;
+                    BBTime += P.getNextBlockTime();
+                }
+                else if (P.getNextBlockResource() == "C"){
+                    RCCount++;
+                    BCTime += P.getNextBlockTime();
+                }
+
                 //shallow copy of the block record for reporting
                 Queue<Block> P4BlockRecordCopy = P.getBlockRecord();
                 //New queue so original block record is kept in tact, blocks will be added to this queue

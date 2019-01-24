@@ -11,7 +11,7 @@ import java.util.Queue;
  *          Ready:      The process is in the ready queue
  *          Running:    The proceses is recieving time with the CPU to complete its run time
  *          Blocked:    The process is either waiting for or being served by a resource
- *          Finished:   The process have finished its needed time with the cpu (RunTime - CPUTime == 0)
+ *          Finished:   The process has finished its needed time with the cpu (RunTime - CPUTime == 0)
  * A process can be of 4 different types, TypeI, TypeII, TypeIII, or Type IV.
  *
  */
