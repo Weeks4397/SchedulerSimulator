@@ -7,6 +7,8 @@ import Resources.ResourceA;
 import java.util.List;
 import java.util.Queue;
 
+//TODO: finish the super constructor for scheduler, update methods, and work on subclass FIFO
+
 /**
  * a Scheduler is a collection of numbers, a ReadyQ, a running process, a list of resources,
  * the next unblocking resource, and a master list of processes.
@@ -95,7 +97,7 @@ public abstract class Scheduler {
     /**
      * super constructor for scheduler
      */
-
+/**
     public Scheduler(){
         this.Time = 0;
         this.ActiveProcess = null;
@@ -106,7 +108,7 @@ public abstract class Scheduler {
 
     /**
      * setters for scheduler
-     */
+     *
 
 
     public void setTheResources(){
@@ -325,6 +327,6 @@ public abstract class Scheduler {
     }
 
     public abstract void populateReadyQueue();
-
+*/
 
 }

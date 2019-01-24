@@ -3,7 +3,9 @@ package Resources;
 import java.util.LinkedList;
 import java.util.Queue;
 import Processes.process;
-
+//TODO: implement abstract class for exclusive resources A and C
+//TODO: implement resource B
+//TODO: make a tester for these resources
 /**
  * A Resource is a:  string for type, a collection of numbers, and either a queue or MinHeap of processes
  * depending on whether the resource is exclusive or not.

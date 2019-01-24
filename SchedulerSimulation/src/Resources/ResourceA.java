@@ -5,7 +5,6 @@ import Processes.Block;
 import java.util.LinkedList;
 import java.util.Queue;
 
-//TODO implement abstract class for exclusive resources
 
 /**ResourceA is a resource of type A.
  * It is an exclusive resource
@@ -54,7 +53,7 @@ public class ResourceA extends Resource {
             this.StartIdleTime = oldTime;
         }
 
-        //increment finishing processes variables to keep track of performance
+        //increment finishing process's variables to keep track of performance
         oldProcess.BlockServiceTime += oldTime - oldProcess.getServiceStartTime();
         oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() - oldProcess.getGlobalBlockInstant();
 

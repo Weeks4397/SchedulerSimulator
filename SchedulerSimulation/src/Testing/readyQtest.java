@@ -20,7 +20,9 @@ public class readyQtest {
             RQ3.add(WG.Workset.get(i));
             RQ4.add(WG.Workset.get(i));
             RQ5.add(WG.Workset.get(i));
+
         }
+        //TODO make sure all of these ReadyQs are working correctly, not every ReadyQ sorts by run time
         for(int i = 0; i <= 5; i++){
             System.out.println(i + ":");
             System.out.println(RQ1.poll().getRunTime());
@@ -28,6 +30,7 @@ public class readyQtest {
             System.out.println(RQ3.poll().getRunTime());
             System.out.println(RQ4.poll().getRunTime());
             System.out.println(RQ5.poll().getRunTime());
+
         }
 
     }
