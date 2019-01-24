@@ -2,7 +2,7 @@ package Generators;
 
 public class ProccessIVGenator extends ProccessGenator {
     /**
-     * To create the process runtime, block type, Block runtime, and block occurrence for Process3.
+     * To create the process runtime, block type, Block runtime, and block occurrence for Process4.
      *
      */
     public ProccessIVGenator(){

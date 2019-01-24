@@ -147,6 +147,25 @@ public abstract class  Resource {
         return this.totalBlockTime;
     }
 
+    /**
+     * A process can arrive at a resource or finish using it.
+     * These are the two methods to handle these occurances.
+     */
+    /**arrivingProcess handles the event of a process arriving to a resource for service
+     * This method is handled differently depending on whether the resource is exclusive or not
+     * @param theProcess    Process     the process that has arrived at the resource for service
+     * @param time     int  The global time at which the process has arrived to the resource
+     */
+    public abstract void arrivingProcess(process theProcess, int time);
+
+    /**finishService handles the event of a process finishing using the resource.
+     * This method is called in the scheduler to insert the returned process back into the ready queue.
+     * This method is different for exclusive and inclusive resources.
+     *
+     * @return  Process     The process that has finishing using the resource
+     */
+    public abstract process finishService ();
+
 
     /**
      * additional methods for updating resource object
@@ -159,13 +178,6 @@ public abstract class  Resource {
     public void updateNextUnblockTime(int t) {
         this.NextUnblockTime = t;
     }
-
-    /**arrivingProcess handles the event of a process arriving to a resource for service
-     * This method is handled differently depending on whether the resource is exclusive or not
-     * @param theProcess    Process     the process that has arrived at the resource for service
-     * @param time     int  The global time at which the process has arrived to the resource
-     */
-    public abstract void arrivingProcess(process theProcess, int time);
 
     /**updateIdleTime increments the IdleTime by the given int
      *
@@ -183,12 +195,6 @@ public abstract class  Resource {
         this.ActiveTime += T;
     }
 
-    /**finishService handles the event of a process finishing using the resource.
-     * This method is called in the scheduler to insert the returned process back into the ready queue.
-     * This method is different for exclusive and inclusive resources.
-     *
-     * @return  Process     The process that has finishing using the resource
-     */
-    public abstract process finishService ();
+
 
 }

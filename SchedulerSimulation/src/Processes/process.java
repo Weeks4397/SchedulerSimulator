@@ -35,7 +35,7 @@ public abstract class process {
     public int RunTime;
 
     /** NextBlock Instant is the time at which the next block will occur
-     * If there is no next block, set to MAXINT
+     * If there is no next block, set to MAX_val
      */
     public int NextBlockInstant;
 
@@ -46,7 +46,8 @@ public abstract class process {
     public String NextBlockResource;
 
     /**
-     * NextBlockTime is the length of the next block
+     * NextBlockTime is the length of the next block which is the amount of time the process needs
+     * the resource for.
      *  if there is no next block, set to 0
      */
     public int NextBlockTime;
@@ -58,7 +59,7 @@ public abstract class process {
     public Queue<Block> BlockRecord;
 
     /**
-     *  ArricalTime is the time at which a process initally arrives to the ready queue from the master list of processes
+     *  ArrivalTime is the time at which a process initially arrives to the ready queue from the master list of processes
      */
     public int ArrivalTime;
 
@@ -75,7 +76,7 @@ public abstract class process {
     public int NextReadyTime;
 
     /**
-     * LastEventTime is the global time at which the last event occured effecting this process
+     * LastEventTime is the global time at which the last event occurred effecting this process
      */
     public int LastEventTime;
 
