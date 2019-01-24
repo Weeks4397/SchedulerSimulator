@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * A Process contains a set of numbers, a list of blocks, and a string for the next resource.
+ * A Process contains a set of numbers, a queue of blocks, and a string for the next resource.
  * A process can be of 4 different types, TypeI, TypeII, TypeIII, or Type IV.
  *
  */

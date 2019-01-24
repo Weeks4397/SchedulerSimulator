@@ -3,7 +3,8 @@ package Generators;
 import Processes.Block;
 
 /**
- * Generates random numbers to be used in process
+ * ProcessGenerator is used to generate random numbers that will be used to help construct processes
+ * A ProcessGenerator can be of 4 different types, TypeI, TypeII, TypeIII, or Type IV for each type of process
  */
 public abstract class ProccessGenator {
     /**

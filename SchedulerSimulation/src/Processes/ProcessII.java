@@ -23,7 +23,8 @@ public class ProcessII extends process{
     }
 
     /**
-     * generate the block record, processes of type 2 never block
+     * generate the block record
+     * processes of type 2 never block
      */
     public void genBlockRecord(){
             this.BlockRecord = null;

@@ -24,7 +24,8 @@ public class ProcessIV extends process{
     }
 
     /**
-     *  generate the block record, processes of type 4 have multiple blocks
+     *  generate the block record
+     *  processes of type 4 have multiple blocks
      *  While the next block instance is less than run time, add another block to the block record
      */
     public void genBlockRecord(){

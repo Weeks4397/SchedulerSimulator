@@ -9,13 +9,17 @@ import Processes.process;
 public abstract class ReadyQ {
 
     /**
-     * priQ is used as the ReadyQ for some of the schedulers Algorithms
+     * priQ is used as the ReadyQ for some of the schedulers Algorithms(sjf, srt, lwc)
      */
     public MinHeap<process> PriQ;
     /**
-     * Q is used as the ReadyQ for some of the schedulers Algorithms
+     * Q is used as the ReadyQ for some of the schedulers Algorithms(Fifo, RR)
      */
     public Queue<process> Q;
+
+    /**
+     * Constructor for ReadyQ
+     */
     public ReadyQ(){
 
     }

@@ -1,37 +1,63 @@
 package ReadyQueue;
 import java.util.*;
-//TODO: recommit
+
+/**
+ * The MinHeap class offers minheap functionality to serve as a priority queue for processes
+ * MinHeap invariant: In the BST, each Parent node must be less than its children nodes.
+ *                    The BST must remain a complete tree.
+ * @param <T>   T   Process
+ */
 public class MinHeap<T> {
 
-        // The number of processes currently inside the heap
-        private int heapSize = 0;
+    /**
+     * The number of processes currently inside the heap
+     */
+    private int heapSize = 0;
 
-        // The capacity of the heap
-        private int heapCapacity = 0;
+    /** The capacity of the heap
+     *
+     */
+    private int heapCapacity = 0;
 
-        // A list to track the processes inside the heap
-        private List<T> heap = null;
+    /** A list to track the processes inside the heap
+     *
+     */
+    private List<T> heap = null;
 
+    /**
+     * Initialize a comparator object to be set in the constructor for the minheap.
+     */
         public Comparator<T> algObj;
 
-        // Construct a priority queue with an initial capacity and a comparator object to enable comparison of processes
-        public MinHeap(int size, Comparator<T>alg) {
+    /** Constructor for MinHeap
+     *
+     * @param size  init capacity
+     * @param alg   comparator object to enable comparason of processes in heap
+     */
+    public MinHeap(int size, Comparator<T>alg) {
             heap = new ArrayList<T>(size);
             algObj = alg;
         }
 
-        //check to see if the priority queue is empty
-        public boolean isEmpty() {
+    /**check to see if the priority queue is empty
+     *
+     * @return  boolean true if empty, false if not
+     */
+    public boolean isEmpty() {
             return heapSize == 0;
         }
 
-        // Return the size of the heap
-        public int size() {
+    /** Return the size of the heap
+     *
+     * @return  int   amount of processes currently in heap
+     */
+    public int size() {
             return heapSize;
         }
 
-        //check the next in priority process in the heap
-        //if there heap is empty, return null
+        /** check the next in priority process in the heap
+         * if the heap is empty, return null
+         */
         public T peek() {
             if (isEmpty()) {
                 return null;
@@ -39,14 +65,20 @@ public class MinHeap<T> {
             else return heap.get(0);
         }
 
-        // Removes the root of the heap
-        public T poll() {
+    /** Removes the root of the heap
+     *
+     * @return  Process     the next in priority process
+     */
+    public T poll() {
             return removeAt(0);
         }
 
 
-        // Adds a process to the priority queue
-        public void add(T elem) {
+    /** Adds a process to the priority queue
+     *
+     * @param elem  the process to be added
+     */
+    public void add(T elem) {
             if (heapSize < heapCapacity) {
                 heap.set(heapSize, elem);
             } else {
@@ -58,7 +90,14 @@ public class MinHeap<T> {
             heapSize++;
         }
 
-        // Tests if the value of node i <= node j
+    /** Less tests if the value of node i < node j
+     * This is based on the comparator object the minheap was constructed with.
+     * This method is used in heapup and heapdown to sort the processes in the array
+     *
+     * @param i index of a process
+     * @param j index of another process
+     * @return boolean  True if i < j, false if not
+     */
         private boolean less(int i, int j) {
             T node1 = heap.get(i);
             T node2 = heap.get(j);
@@ -66,9 +105,12 @@ public class MinHeap<T> {
             return val == 1;
         }
 
-        // Perform heap up towards the top of the tree
-        private void heapUp(int k) {
-
+    /** Perform heap up towards the top of the tree
+     *
+     * @param k index of a process in the array
+     */
+    private void heapUp(int k) {
+            //index of parent node in the array
             int parent = (k-1)/2;
 
             while (k > 0 && less(k, parent)) {
@@ -79,8 +121,11 @@ public class MinHeap<T> {
             }
         }
 
-        // Perform heap down towards the bottom of tree
-        private void heapDown(int k) {
+    /** Perform heap down towards the bottom of tree
+     *
+     * @param k index of a process in the array
+     */
+    private void heapDown(int k) {
             while (true) {
                 int left  = 2 * k + 1; // Left child
                 int right = 2 * k + 2; // Right child
@@ -101,8 +146,12 @@ public class MinHeap<T> {
             }
         }
 
-        // Swap two nodes
-        private void swap(int i, int j) {
+    /** Swap two nodes
+     *
+     * @param i index of a process
+     * @param j index of another process
+     */
+    private void swap(int i, int j) {
             T elem_i = heap.get(i);
             T elem_j = heap.get(j);
 
@@ -111,8 +160,16 @@ public class MinHeap<T> {
         }
 
 
-        // Removes a node at i index
-        private T removeAt(int i) {
+    /** Removes a node at i index
+     * This method was intended for troubleshooting purposes and the functionality is not
+     * totally necessary in the scheduler.
+     * This method is called by Poll()
+     * This method also calls heapDown and heapUp to satisfy the MinHeap invariant
+     *
+     * @param i index of process
+     * @return  the process at the index
+     */
+    private T removeAt(int i) {
             if (isEmpty()) return null;
 
             heapSize--;

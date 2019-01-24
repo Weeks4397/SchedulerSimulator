@@ -26,7 +26,8 @@ public class ProcessI extends process {
     }
 
     /**
-     * generate the block record, processes of type 1 have either 1 or no blocks
+     * generate the block record
+     * processes of type 1 have either 1 or no blocks
      */
     public void genBlockRecord(){
         if (newBlock.getBT() != 0){
