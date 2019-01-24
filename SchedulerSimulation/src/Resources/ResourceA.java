@@ -35,10 +35,11 @@ public class ResourceA extends Resource {
         //update Active time by the amount of time the process was served
         this.updateActiveTime(oldProcess.getNextBlockTime());
 
-        //determing whether the BlockedProcessQ has more processes waiting to use the resource or not
+        //determine whether the BlockedProcessQ has more processes waiting to use the resource or not
         if (!this.BlockedProcessQ.isEmpty()) {
             //If there are processes waiting, get the next process and update variables
             process theProcess = this.BlockedProcessQ.remove();
+            this.Count--;
             this.updateNextUnblockTime(oldTime + theProcess.getNextBlockTime());
             this.ServingProcess = theProcess;
             theProcess.ServiceStartTime = oldTime;  //the time at which the last process finished is the ServiceStartTime for this process
@@ -57,7 +58,7 @@ public class ResourceA extends Resource {
         oldProcess.BlockServiceTime += oldTime - oldProcess.getServiceStartTime();
         oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() + oldProcess.getNextBlockTime() - oldProcess.getGlobalBlockInstant();
 
-        //update the block record of the process to move to the next block if there is one
+        //update the block record of the finishing process to move to the next block if there is one
         //or have process not block again if there is not one.
         if (!oldProcess.getBlockRecord().isEmpty()) {
             Block nextBlock = oldProcess.BlockRecord.poll();
@@ -92,6 +93,7 @@ public class ResourceA extends Resource {
         }
         else {
             this.BlockedProcessQ.add(theProcess);		// insert at end of queue to wait for service
+            this.Count++;
         }
     }
 
