@@ -40,16 +40,25 @@ public class Report {
      */
     public static void PrintProcessInfo(List<process> Processes) {
         for (int i = 0; i < Processes.size(); i++) {
-            String id = Processes.get(i).getStringID();
-            int type = Processes.get(i).getType();
-            int arrive = Processes.get(i).getArrivalTime();
-            int RT = Processes.get(i).getRunTime();
+            //P is the process we are currently reporting on
+            process P = Processes.get(i);
 
+            //get variables from P
+            String id = P.getStringID();
+            int type = P.getType();
+            int arrive = P.getArrivalTime();
+            int RT = P.getRunTime();
+
+            //format those variables for printing
             System.out.format("%-10s %-8d %-8d %-10d  ",id, type, arrive, RT);
 
+            //TBT is the total block time for the process
             int TBT = 0;
+
             //LB is a shallow copy of the block record for reporting purposes
             Queue<Block> LB = Processes.get(i).getBlockRecord();
+
+            //Now begin to format and print the block record and TBT if necessary
             if (LB == null) {
                 System.out.print("null");
                 System.out.print("                                               " + 0);
@@ -61,16 +70,18 @@ public class Report {
                 String[] LBarr = new String[LB.size()+1];
 
                 //The first block has already been polled and is no longer in queue
-                String blist1 = String.format("(%d, %s, %d)", Processes.get(i).getNextBlockInstant(),
-                        Processes.get(i).getNextBlockResource(), Processes.get(i).getNextBlockTime());
-                LBarr[0] = blist1;
-                TBT += Processes.get(i).getNextBlockTime();
+                //b1 is the first block formatted into a string.
+                String b1 = String.format("(%d, %s, %d)", P.getNextBlockInstant(),
+                        P.getNextBlockResource(), P.getNextBlockTime());
+                LBarr[0] = b1;
+                TBT += P.getNextBlockTime();
 
                 //j is the index of LBarr, starts at 1 because we alrady have first block formatted in LBarr
                 int j = 1;
                 //BlockRecordNew is a new block record to maintain the original block record during reporting
                 Queue<Block> BlockRecordNew = new LinkedList<Block>();
                 while(!LB.isEmpty()){
+                    //B is the next block in the block record
                     Block B = LB.poll();
                     int BI = B.getBI();
                     String R = B.getR();
@@ -78,8 +89,9 @@ public class Report {
 
                     TBT += BT;
 
-                    String blist = String.format("(%d, %s, %d)", BI, R, BT);
-                    LBarr[j] = blist;
+                    //b_string is the next block formatted into a string
+                    String b_string = String.format("(%d, %s, %d)", BI, R, BT);
+                    LBarr[j] = b_string;
                     j++;
                     BlockRecordNew.add(B);
                 }
@@ -89,6 +101,7 @@ public class Report {
 
                 //LBarr has been totally populated
                 //Next Figure out if there will be one, two, or thre blocks on the first line to properly format first line
+                //L1, L2, and L3 are the 1st, 2nd, and 3rd block strings respectively
                 String L1 = "";
                 String L2 = "";
                 String L3 = "";
@@ -126,6 +139,7 @@ public class Report {
                     }
                 }
             }
+            //The entire line has been printed, now go to next line
             System.out.println();
         }
     }
