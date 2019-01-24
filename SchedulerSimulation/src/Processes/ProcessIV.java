@@ -17,9 +17,10 @@ public class ProcessIV extends process{
         this.Type = 4;
         this.RunTime = PG4.getprocessRunTime();
         this.genBlockRecord();
-        this.NextBlockInstant = this.getBlockRecord().get(this.getCurrentListIndex()).getBI();
-        this.NextBlockResource = this.getBlockRecord().get(this.getCurrentListIndex()).getR();
-        this.NextBlockTime = this.getBlockRecord().get(this.getCurrentListIndex()).getBT();
+        Block Block1 = this.BlockRecord.poll();
+        this.NextBlockInstant = Block1.getBI();
+        this.NextBlockResource = Block1.getR();
+        this.NextBlockTime = Block1.getBT();
     }
 
     /**
@@ -42,7 +43,6 @@ public class ProcessIV extends process{
                 this.BlockRecord.add(newBlock);
             }
         }
-        this.CurrentListIndex = 0;
-        this.MaxListIndex = this.getBlockRecord().size()-1;
     }
+
 }

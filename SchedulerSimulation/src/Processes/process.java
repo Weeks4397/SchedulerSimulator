@@ -2,6 +2,8 @@ package Processes;
 import Generators.ProccessGenator;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * A Process contains a set of numbers, a list of blocks, and a string for the next resource.
@@ -45,20 +47,10 @@ public abstract class process {
     public int NextBlockTime;
 
     /**
-     *  BlockRecords is a list of all of the blocks for a process or can be null
+     *  BlockRecord is a queue filled with all of the blocks for a process or can be null
      *  A block consists of a block instant, a type of resoruce, and a block length
      */
-    public ArrayList<Block> BlockRecord;
-
-    /**
-     * CurrentListIndex is the index of the next block in the BlockRecord or null
-     */
-    public int CurrentListIndex;
-
-    /**
-     * MaxListIndex is the index of the last block in the BlockRecord or null
-     */
-    public int MaxListIndex;
+    public Queue<Block> BlockRecord;
 
     /**
      *  ArricalTime is the time at which a process initally arrives to the ready queue from the master list of processes
@@ -88,7 +80,7 @@ public abstract class process {
     public int FinishTime;
 
     /**
-     * BlockServiceTime is the total amount of time a process spent in the blocked state
+     * BlockServiceTime is the total amount of time a process has spent being serviced by a resource
      */
     public int BlockServiceTime;
 
@@ -123,12 +115,12 @@ public abstract class process {
         this.NextBlockInstant = -1;
         this.NextBlockResource = null;
         this.NextBlockTime = -1;
-        this.BlockRecord = new ArrayList<Block>();
-        this.CurrentListIndex = -1;
-        this.MaxListIndex = -1;
+        this.BlockRecord = new LinkedList<Block>();
         this.ArrivalTime = -1;
         this.NextReadyTime = -1;
         this.ServiceStartTime = ProccessGenator.MAXINT;
+        this.BlockWaitTime = 0;
+        this.GlobalBlockInstant = Integer.MAX_VALUE;
     }
 
     //setters for processes
@@ -155,9 +147,8 @@ public abstract class process {
     }
 
     /**Generate the BlockRecord
-     * sets the block record, the current list index to 0, and the max index
-     * to the length of the block record - 1;
-     * if there are no blocks, the block record, current index, and max index are set to null
+     * Populates the block record with blocks in order
+     * if there are no blocks, the block record is set to null
      */
     public abstract void genBlockRecord();
 
@@ -200,16 +191,8 @@ public abstract class process {
         return this.NextBlockTime;
     }
 
-    public ArrayList<Block> getBlockRecord() {
+    public Queue<Block> getBlockRecord() {
         return this.BlockRecord;
-    }
-
-    public int getCurrentListIndex() {
-        return this.CurrentListIndex;
-    }
-
-    public int getMaxListIndex() {
-        return this.MaxListIndex;
     }
 
     public int getArrivalTime() {

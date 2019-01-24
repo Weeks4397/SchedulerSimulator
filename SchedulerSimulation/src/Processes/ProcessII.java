@@ -27,8 +27,6 @@ public class ProcessII extends process{
      */
     public void genBlockRecord(){
             this.BlockRecord = null;
-            this.CurrentListIndex = 0;
-            this.MaxListIndex = 0;
     }
 
 }

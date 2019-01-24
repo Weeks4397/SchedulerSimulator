@@ -38,16 +38,30 @@ public class Report {
             System.out.format("%-10s %-8d %-8d %-10d  ",id, type, arrive, RT);
 
             int TBT = 0;
-            List<Block> LB = Processes.get(i).getBlockRecord();
+            //LB is a shallow copy of the block record for reporting purposes
+            Queue<Block> LB = Processes.get(i).getBlockRecord();
             if (LB == null) {
                 System.out.print("null");
                 System.out.print("                                               " + 0);
             }
             else {
                 //format each block into "(BI, R, BT)"
-                String[] LBarr = new String[LB.size()];
-                for (int j=0; j<LB.size(); j++) {
-                    Block B = LB.get(j);
+
+                //Initalize an array LBarr that will be populated with blocks formatted into strings
+                String[] LBarr = new String[LB.size()+1];
+
+                //The first block has already been polled and is no longer in queue
+                String blist1 = String.format("(%d, %s, %d)", Processes.get(i).getNextBlockInstant(),
+                        Processes.get(i).getNextBlockResource(), Processes.get(i).getNextBlockTime());
+                LBarr[0] = blist1;
+                TBT += Processes.get(i).getNextBlockTime();
+
+                //j is the index of LBarr, starts at 1 because we alrady have first block formatted in LBarr
+                int j = 1;
+                //BlockRecordNew is a new block record to maintain the original block record during reporting
+                Queue<Block> BlockRecordNew = new LinkedList<Block>();
+                while(!LB.isEmpty()){
+                    Block B = LB.poll();
                     int BI = B.getBI();
                     String R = B.getR();
                     int BT = B.getBT();
@@ -56,8 +70,15 @@ public class Report {
 
                     String blist = String.format("(%d, %s, %d)", BI, R, BT);
                     LBarr[j] = blist;
+                    j++;
+                    BlockRecordNew.add(B);
                 }
-                //Figure out if there will be one, two, or thre blocks on the first line to properly format first line
+                //Update the block record back to its orignial form
+                Processes.get(i).BlockRecord = BlockRecordNew;
+
+
+                //LBarr has been totally populated
+                //Next Figure out if there will be one, two, or thre blocks on the first line to properly format first line
                 String L1 = "";
                 String L2 = "";
                 String L3 = "";
@@ -101,7 +122,7 @@ public class Report {
 
     /**
      * Labels2   Running Time	  Blocks and Blocked Time per Resource 			  Total Blocking
-     * @return
+     * @return  String  A formatted label
      */
     public static String Labels2() {
         return String.format("%-20s %-65s %s", "Running Time", "Blocks and Blocked Time per Resource", "Total Blocking");
@@ -109,7 +130,7 @@ public class Report {
 
     /**
      * Labels3   Total	    	  A   time	       B   time	       C   time	       Total    time
-     * @return
+     * @return  String  A formatted label
      */
     public static String Labels3() {
         return String.format("%-20s %-20s %-20s %-23s %s", "   Total", "A        time", "B        time", "C        time", "Total       time");

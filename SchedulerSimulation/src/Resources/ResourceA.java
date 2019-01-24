@@ -1,7 +1,7 @@
 package Resources;
 import Processes.process;
 import Processes.Block;
-
+//TODO comment this whole class Alec!
 public class ResourceA extends Resource {
     //setters for ResourceA objects
     public void setType() {
@@ -39,12 +39,11 @@ public class ResourceA extends Resource {
         oldProcess.BlockServiceTime += oldTime - oldProcess.getServiceStartTime();
         oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() + oldProcess.getNextBlockTime() - oldProcess.getGlobalBlockInstant();
 
-        if (oldProcess.CurrentListIndex < oldProcess.MaxListIndex) {
-            Block nextBlock = oldProcess.getBlockRecord().get(oldProcess.getCurrentListIndex() + 1);
+        if (!oldProcess.getBlockRecord().isEmpty()) {
+            Block nextBlock = oldProcess.BlockRecord.poll();
             oldProcess.NextBlockInstant = nextBlock.getBI();
             oldProcess.NextBlockResource = nextBlock.getR();
             oldProcess.NextBlockTime = nextBlock.getBT();
-            oldProcess.CurrentListIndex += 1;
         }
         else {
             oldProcess.NextBlockInstant = Integer.MAX_VALUE;

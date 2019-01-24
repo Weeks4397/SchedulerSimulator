@@ -20,10 +20,8 @@ public class ProcessI extends process {
         super();
         this.Type = 1;
         this.RunTime = PG1.getprocessRunTime();
-        this.NextBlockInstant = newBlock.getBI();
-        this.NextBlockResource = newBlock.getR();
-        this.NextBlockTime = newBlock.getBT();
         this.genBlockRecord();
+        updateP1BlockVariables();
 
     }
 
@@ -33,14 +31,27 @@ public class ProcessI extends process {
     public void genBlockRecord(){
         if (newBlock.getBT() != 0){
             this.BlockRecord.add(newBlock);
-            this.CurrentListIndex = 0;
-            this.MaxListIndex = 0;
         }
         else {
             this.BlockRecord = null;
-            this.CurrentListIndex = 0;
-            this.MaxListIndex = 0;
         }
+    }
+
+    /**updates the NextBlockInstance, NextBlockResource, and NextBlockTime for processes of type 1
+     *
+     */
+    public void updateP1BlockVariables(){
+       if (this.getBlockRecord() == null) {
+           this.NextBlockInstant = Integer.MAX_VALUE;
+           this.NextBlockResource = null;
+           this.NextBlockTime = 0;
+       }
+       else{
+           Block Block1 = this.BlockRecord.poll();
+           this.NextBlockInstant = Block1.getBI();
+           this.NextBlockResource = Block1.getR();
+           this.NextBlockTime = Block1.getBT();
+       }
     }
 
 

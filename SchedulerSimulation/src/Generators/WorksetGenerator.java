@@ -1,5 +1,8 @@
 package Generators;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 import Processes.*;
 
 /**
@@ -137,33 +140,49 @@ public class WorksetGenerator {
             }
             else if(P.getType() == 3){
                 Type3Count++;
-                for (int j = 0; j < P.getBlockRecord().size(); j++){
-                    if (P.getBlockRecord().get(j).getR() == "A"){
+                //shallow copy of the block record for reporting
+                Queue<Block> P3BlockRecordCopy = P.getBlockRecord();
+                //New queue so original block record is kept in tact, blocks will be added to this queue
+                //as they are reported on
+                Queue<Block> P3BlockRecordNew = new LinkedList<Block>();
+                 while(!P3BlockRecordCopy.isEmpty()){
+                    Block currentBlock = P3BlockRecordCopy.poll();
+                    if (currentBlock.getR() == "A"){
                         RACount++;
-                        BATime += P.getBlockRecord().get(j).getBT();
+                        BATime += currentBlock.getBT();
                     }
-                    else if (P.getBlockRecord().get(j).getR() == "B"){
+                    else if (currentBlock.getR() == "B"){
                         RBCount++;
-                        BBTime += P.getBlockRecord().get(j).getBT();
+                        BBTime += currentBlock.getBT();
                     }
-                    else if (P.getBlockRecord().get(j).getR() == "C"){
+                    else if (currentBlock.getR() == "C"){
                         RCCount++;
-                        BCTime += P.getBlockRecord().get(j).getBT();
+                        BCTime += currentBlock.getBT();
                     }
+                    P3BlockRecordNew.add(currentBlock);
 
                 }
+                 P.BlockRecord = P3BlockRecordNew;
             }
             else if(P.getType() == 4) {
                 Type4Count++;
-                for (int j = 0; j < P.getBlockRecord().size(); j++) {
-                    if (P.getBlockRecord().get(j).getR() == "B") {
+                //shallow copy of the block record for reporting
+                Queue<Block> P4BlockRecordCopy = P.getBlockRecord();
+                //New queue so original block record is kept in tact, blocks will be added to this queue
+                //as they are reported on
+                Queue<Block> P4BlockRecordNew = new LinkedList<Block>();
+                while(!P4BlockRecordCopy.isEmpty()){
+                    Block currentBlock = P4BlockRecordCopy.poll();
+                    if (currentBlock.getR() == "B") {
                         RBCount++;
-                        BBTime += P.getBlockRecord().get(j).getBT();
-                    } else if (P.getBlockRecord().get(j).getR() == "C") {
+                        BBTime += currentBlock.getBT();
+                    } else if (currentBlock.getR() == "C") {
                         RCCount++;
-                        BCTime += P.getBlockRecord().get(j).getBT();
+                        BCTime += currentBlock.getBT();
                     }
+                    P4BlockRecordNew.add(currentBlock);
                 }
+                P.BlockRecord = P4BlockRecordNew;
             }
 
             totalRunTime += P.getRunTime();
@@ -206,33 +225,49 @@ public class WorksetGenerator {
             }
             else if(P.getType() == 3){
                 Type3Count++;
-                for (int j = 0; j < P.getBlockRecord().size(); j++){
-                    if (P.getBlockRecord().get(j).getR() == "A"){
+                //shallow copy of the block record for reporting
+                Queue<Block> P3BlockRecordCopy = P.getBlockRecord();
+                //New queue so original block record is kept in tact, blocks will be added to this queue
+                //as they are reported on
+                Queue<Block> P3BlockRecordNew = new LinkedList<Block>();
+                while(!P3BlockRecordCopy.isEmpty()){
+                    Block currentBlock = P3BlockRecordCopy.poll();
+                    if (currentBlock.getR() == "A"){
                         RACount++;
-                        BATime += P.getBlockRecord().get(j).getBT();
+                        BATime += currentBlock.getBT();
                     }
-                    else if (P.getBlockRecord().get(j).getR() == "B"){
+                    else if (currentBlock.getR() == "B"){
                         RBCount++;
-                        BBTime += P.getBlockRecord().get(j).getBT();
+                        BBTime += currentBlock.getBT();
                     }
-                    else if (P.getBlockRecord().get(j).getR() == "C"){
+                    else if (currentBlock.getR() == "C"){
                         RCCount++;
-                        BCTime += P.getBlockRecord().get(j).getBT();
+                        BCTime += currentBlock.getBT();
                     }
+                    P3BlockRecordNew.add(currentBlock);
 
                 }
+                P.BlockRecord = P3BlockRecordNew;
             }
             else if(P.getType() == 4) {
                 Type4Count++;
-                for (int j = 0; j < P.getBlockRecord().size(); j++) {
-                    if (P.getBlockRecord().get(j).getR() == "B") {
+                //shallow copy of the block record for reporting
+                Queue<Block> P4BlockRecordCopy = P.getBlockRecord();
+                //New queue so original block record is kept in tact, blocks will be added to this queue
+                //as they are reported on
+                Queue<Block> P4BlockRecordNew = new LinkedList<Block>();
+                while(!P4BlockRecordCopy.isEmpty()){
+                    Block currentBlock = P4BlockRecordCopy.poll();
+                    if (currentBlock.getR() == "B") {
                         RBCount++;
-                        BBTime += P.getBlockRecord().get(j).getBT();
-                    } else if (P.getBlockRecord().get(j).getR() == "C") {
+                        BBTime += currentBlock.getBT();
+                    } else if (currentBlock.getR() == "C") {
                         RCCount++;
-                        BCTime += P.getBlockRecord().get(j).getBT();
+                        BCTime += currentBlock.getBT();
                     }
+                    P4BlockRecordNew.add(currentBlock);
                 }
+                P.BlockRecord = P4BlockRecordNew;
             }
 
             totalRunTime += P.getRunTime();
