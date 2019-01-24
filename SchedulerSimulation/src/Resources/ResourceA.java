@@ -56,7 +56,7 @@ public class ResourceA extends Resource {
 
         //increment finishing processes variables to keep track of performance
         oldProcess.BlockServiceTime += oldTime - oldProcess.getServiceStartTime();
-        oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() + oldProcess.getNextBlockTime() - oldProcess.getGlobalBlockInstant();
+        oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() - oldProcess.getGlobalBlockInstant();
 
         //update the block record of the finishing process to move to the next block if there is one
         //or have process not block again if there is not one.
