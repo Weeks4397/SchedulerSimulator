@@ -2,15 +2,16 @@ package ReadyQueue;
 import java.util.*;
 
 /**
- * The MinHeap class offers minheap functionality to serve as a priority queue for processes
+ * The MinHeap class is a generic minheap used for priority queue functionality in the simulation
+ * MinHeap is used in ReadyQ and for ResourceB
  * MinHeap invariant: In the BST, each Parent node must be less than its children nodes.
  *                    The BST must remain a complete tree.
- * @param <T>   T   Process
+ * @param <T>   T   any object that implements comparator
  */
 public class MinHeap<T> {
 
     /**
-     * The number of processes currently inside the heap
+     * The number of objects currently inside the heap
      */
     private int heapSize = 0;
 
@@ -19,7 +20,7 @@ public class MinHeap<T> {
      */
     private int heapCapacity = 0;
 
-    /** A list to track the processes inside the heap
+    /** A list to track the objects inside the heap
      *
      */
     private List<T> heap = null;
@@ -27,19 +28,19 @@ public class MinHeap<T> {
     /**
      * Initialize a comparator object to be set in the constructor for the minheap.
      */
-        public Comparator<T> algObj;
+        public Comparator<T> CompObj;
 
     /** Constructor for MinHeap
      *
      * @param size  init capacity
-     * @param alg   comparator object to enable comparason of processes in heap
+     * @param comp   comparator object to enable comparason of objects in heap
      */
-    public MinHeap(int size, Comparator<T>alg) {
+    public MinHeap(int size, Comparator<T>comp) {
             heap = new ArrayList<T>(size);
-            algObj = alg;
+            CompObj = comp;
         }
 
-    /**check to see if the priority queue is empty
+    /**check to see if the min heap is empty
      *
      * @return  boolean true if empty, false if not
      */
@@ -49,13 +50,13 @@ public class MinHeap<T> {
 
     /** Return the size of the heap
      *
-     * @return  int   amount of processes currently in heap
+     * @return  int   amount of objects currently in heap
      */
     public int size() {
             return heapSize;
         }
 
-        /** check the next in priority process in the heap
+        /** check the next in priority object in the heap
          * if the heap is empty, return null
          */
         public T peek() {
@@ -67,14 +68,14 @@ public class MinHeap<T> {
 
     /** Removes the root of the heap
      *
-     * @return  Process     the next in priority process
+     * @return  T     the next in priority object
      */
     public T poll() {
             return removeAt(0);
         }
 
 
-    /** Adds a process to the priority queue
+    /** Adds an object to the minheap
      *
      * @param elem  the process to be added
      */
@@ -92,22 +93,22 @@ public class MinHeap<T> {
 
     /** Less tests if the value of node i < node j
      * This is based on the comparator object the minheap was constructed with.
-     * This method is used in heapup and heapdown to sort the processes in the array
+     * This method is used in heapup and heapdown to sort the objects in the array
      *
-     * @param i index of a process
-     * @param j index of another process
+     * @param i index of an object
+     * @param j index of another object
      * @return boolean  True if i < j, false if not
      */
         private boolean less(int i, int j) {
             T node1 = heap.get(i);
             T node2 = heap.get(j);
-            int val = algObj.compare(node1, node2);
+            int val = CompObj.compare(node1, node2);
             return val == 1;
         }
 
     /** Perform heap up towards the top of the tree
      *
-     * @param k index of a process in the array
+     * @param k index of an object in the array
      */
     private void heapUp(int k) {
             //index of parent node in the array
@@ -123,7 +124,7 @@ public class MinHeap<T> {
 
     /** Perform heap down towards the bottom of tree
      *
-     * @param k index of a process in the array
+     * @param k index of an object in the array
      */
     private void heapDown(int k) {
             while (true) {
@@ -148,8 +149,8 @@ public class MinHeap<T> {
 
     /** Swap two nodes
      *
-     * @param i index of a process
-     * @param j index of another process
+     * @param i index of an object
+     * @param j index of another object
      */
     private void swap(int i, int j) {
             T elem_i = heap.get(i);
@@ -166,8 +167,8 @@ public class MinHeap<T> {
      * This method is called by Poll()
      * This method also calls heapDown and heapUp to satisfy the MinHeap invariant
      *
-     * @param i index of process
-     * @return  the process at the index
+     * @param i index of object
+     * @return  the object at index i
      */
     private T removeAt(int i) {
             if (isEmpty()) return null;
@@ -179,14 +180,14 @@ public class MinHeap<T> {
 
             // Check if the last element was removed
             if (i == heapSize) return removed_data;
-            //P is the process now at the root that will most likely be violating the heap invariant
-            T P = heap.get(i);
+            //o is the object now at the root that will most likely be violating the heap invariant
+            T o = heap.get(i);
 
-            // Try heap down on the process to satisfy the invariant
+            // Try heap down to satisfy the invariant
             heapDown(i);
 
-            // try heap up on the process
-            if (heap.get(i).equals(P))
+            // try heap up to satisfy the invariant
+            if (heap.get(i).equals(o))
                 heapUp(i);
             return removed_data;
         }
