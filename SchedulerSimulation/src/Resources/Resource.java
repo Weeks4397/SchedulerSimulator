@@ -5,14 +5,13 @@ import java.util.List;
 import java.util.Queue;
 import Processes.process;
 //TODO: implement abstract class for exclusive resources A and C
-//TODO: implement resource B
 //TODO: make a tester for these resources
 /**
  * A Resource is a:  string for type, a collection of numbers, and either a queue or MinHeap of processes
  * depending on whether the resource is exclusive or not.
  * A Resource can be in 1 of 2 states:
- *      Idle state: The resource is not currently serving any processes.
- *      Active state:  The resource is currently serving at least 1 process.
+ *     1) Idle state: The resource is not currently serving any processes.
+ *     2) Active state:  The resource is currently serving at least 1 process.
  * A Resource can be of 3 different types: typeA, typeB, or typeC.
  */
 public abstract class  Resource {
