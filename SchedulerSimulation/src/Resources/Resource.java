@@ -1,6 +1,7 @@
 package Resources;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import Processes.process;
 //TODO: implement abstract class for exclusive resources A and C
@@ -167,7 +168,6 @@ public abstract class  Resource {
      * @return  Process     The process that has finishing using the resource
      */
     public abstract process finishService ();
-
 
     /**
      * additional methods for updating resource object
