@@ -1,13 +1,15 @@
 package Schedulers;
 
+import Processes.process;
 import ReadyQueue.ReadyQ;
 import Resources.Resource;
 import Resources.ResourceA;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-//TODO: finish the super constructor for scheduler, update methods, and work on subclass FIFO
+//TODO: update methods and work on subclass FIFO
 
 /**
  * a Scheduler is a collection of numbers, a ReadyQ, a running process, a list of resources,
@@ -19,6 +21,8 @@ import java.util.Queue;
  * The scheduler tracks active and idle time of the CPU for reporting performance.
  * Scheduler keeps track of Resources to handle unblocking event
  * Processes entering finished state are added to FinishedQueue for reporting after simulation has completed.
+ *
+ * There is a subclass of scheduler for each algorithm.
  */
 public abstract class Scheduler {
     /**
@@ -39,12 +43,12 @@ public abstract class Scheduler {
      * ActiveProcess is the process currently receiving CPU time
      * if there is no active process, set to null
      */
-    public Process ActiveProcess;
+    public process ActiveProcess;
 
     /**
-     * TheResources is an arrayList of the resources that processes can block on
+     * TheResources is an array of the resources that processes can block on
      */
-    public List<Resource> TheResources;
+    public Resource[] TheResources;
 
     /**
      * NextUnblockResource is a resource currently serving a process that is going to
@@ -57,8 +61,9 @@ public abstract class Scheduler {
      * NextScedExit: The time the currently running process will will enter the Finished state
      * NextTimeOut: The time at which a running process will complete its time slice and be placed back into ReadyQ
      * NextUnblock: The next time at which a process finishes using a resource and must be placed back into ReadyQ
+     * NextBlock: The time at which the running process will block
      */
-    public int NextArrival, NextSchedExit, NextTimeOut, NextUnblock;
+    public int NextArrival, NextSchedExit, NextTimeOut, NextUnblock, NextBlock;
 
     /**
      * NextEvent is the lowest of the possible event times
@@ -80,7 +85,7 @@ public abstract class Scheduler {
     /**
      * MasterList is the arraylist of processes generated up front in the WorksetGenerator for the simulation
      */
-    public List<Process> MasterList;
+    public List<process> MasterList;
 
     /**
      * CurrentIndex is the index of the next process to be released into the ReadyQ
@@ -91,25 +96,40 @@ public abstract class Scheduler {
      *FinishedQueue is a queue that processes that finish running with the CPU are added to for
      * reporting purposes after the simulation.
      */
-     public Queue<Process> FinishedQueue;
+     public Queue<process> FinishedQ;
 
 
     /**
      * super constructor for scheduler
      */
-/**
-    public Scheduler(){
+
+    public Scheduler(List<process> masterList, ReadyQ readyQ){
         this.Time = 0;
         this.ActiveProcess = null;
-        setTheResources();
 
+        //initialize the array of resources that processes can block on
+        //setTheResources();
+        this.NextUnblockResource = null;
+
+        //all possible events initialize to MAXVAL
+        this.NextArrival = Integer.MAX_VALUE;
+        this.NextSchedExit = Integer.MAX_VALUE;
+        this.NextTimeOut = Integer.MAX_VALUE;
+        this.NextUnblock = Integer.MAX_VALUE;
+        this.NextBlock = Integer.MAX_VALUE;
+
+        this.NextEvent = Integer.MAX_VALUE;
+        this.ActiveTime = 0;
+        this.IdleTime = 0;
+        this.StartIdleTime = Integer.MAX_VALUE;
+        this.MasterList = masterList;
+        this.CurrentIndex = 0;
+        this.FinishedQ = new LinkedList<process>();
 
     }
 
     /**
-     * setters for scheduler
-     *
-
+     * Initializes an array of the Resources a process can block on
 
     public void setTheResources(){
         Resource A = new ResourceA();
@@ -118,192 +138,173 @@ public abstract class Scheduler {
 
         this.TheResources = {A, B, C};
     }
-
+*/
+    /**
+     *Getters for Scheduler
+     */
     public int getTime() {
-        return time;
+        return this.Time;
     }
 
-    public ReadyQueue getReadyProcesses() {
-        return readyProcesses;
+    public ReadyQ getReadyProcesses() {
+        return this.ReadyProcesses;
     }
 
-    public abstract void setReadyProcesses();
-
-    public Process getActiveProcess() {
-        return activeProcess;
+    public process getActiveProcess() {
+        return this.ActiveProcess;
     }
 
-    public List<Resource> getTheResources() {
-        return theResources;
+    public Resource[] getTheResources() {
+        return this.TheResources;
     }
-
 
     public Resource getNextUnblockResource() {
-        return nextUnblockResource;
-    }
-
-    public void setNextUnblockResource() {
-        this.nextUnblockResource = null;
+        return this.NextUnblockResource;
     }
 
     public int getNextArrival() {
-        return nextArrival;
-    }
-
-    public void setNextArrival() {
-        this.nextArrival = RNG.MAXINT;
+        return this.NextArrival;
     }
 
     public int getNextSchedExit() {
-        return nextSchedExit;
-    }
-
-    public void setNextSchedExit() {
-        this.nextSchedExit = RNG.MAXINT;
+        return this.NextSchedExit;
     }
 
     public int getNextTimeOut() {
-        return nextTimeOut;
-    }
-
-    public void setNextTimeOut() {
-        this.nextTimeOut = RNG.MAXINT;
+        return this.NextTimeOut;
     }
 
     public int getNextUnblock() {
-        return nextUnblock;
+        return this.NextUnblock;
     }
 
-    public void setNextUnblock() {
-        this.nextUnblock = RNG.MAXINT;
+    public int getNextBlock(){
+        return this.NextBlock;
     }
 
     public int getNextEvent() {
-        return nextEvent;
-    }
-
-    public void setNextEvent() {
-        this.nextEvent = 0;
+        return this.NextEvent;
     }
 
     public int getActiveTime() {
-        return activeTime;
-    }
-
-    public void setActiveTime() {
-        this.activeTime = 0;
-    }
-
-    public int getOverheadTime() {
-        return overheadTime;
-    }
-
-    public void setOverheadTime() {
-        this.overheadTime = 0;
+        return this.ActiveTime;
     }
 
     public int getIdleTime() {
-        return idleTime;
-    }
-
-    public void setIdleTime() {
-        this.idleTime = 0;
+        return this.IdleTime;
     }
 
     public int getStartIdleTime() {
-        return startIdleTime;
+        return this.StartIdleTime;
     }
 
-    public void setStartIdleTime() {
-        this.startIdleTime = 0;
-    }
-
-    public List<Process> getMasterList() {
-        return MasterList;
-    }
-
-    public void setMasterList(List<Process> masterList) {
-        MasterList = masterList;
+    public List<process> getMasterList() {
+        return this.MasterList;
     }
 
     public int getCurrentIndex() {
-        return CurrentIndex;
+        return this.CurrentIndex;
     }
 
-    public void setCurrentIndex() {
-        CurrentIndex = 0;
+    public Queue<process> getFinishedQ(){
+        return this.FinishedQ;
     }
 
 
+    /**
+     * Methods to update and handle events
+     */
 
-    //update next event to be the min of the possible events
+    /**updateNextEvent mutates NextEvent to be the min of the possible events
+     *
+     */
     public void updateNextEvent () {
-        int[] PossibleEvents = {this.nextArrival, this.nextSchedExit, this.nextTimeOut, this.nextUnblock, this.activeProcess.nextBlockInstant};
+        int[] PossibleEvents = {this.NextArrival, this.NextSchedExit, this.NextTimeOut, this.NextUnblock, this.NextBlock};
         int min = PossibleEvents[0];
         for (int x : PossibleEvents) {
             if (x < min) {
-                x = min;
+                min = x;
             }
         }
-        this.nextEvent = min;
+        this.NextEvent = min;
     }
 
-    //next unblock time and resource
-    public void updateNextUnblock (int theUnblock, Resource theResource) {
-        if (this.nextUnblock < theUnblock) {
-            this.nextUnblock = theUnblock;
-            this.nextUnblockResource = theResource;
-        }
-    }
-
-
+    /**
+     * handleNextEvent determines the necessary course of action after the next event has been determined.
+     * This is when Processes will change state and report variables will be incremented
+     * Methods interacting with the MasterList, ReadyQ, FinishedQ, and Resources occur here
+     */
     public abstract void handleNextEvent();
 
-    //min unblock time of the 3 resources
-    public int getMinUnblock() {
-        int min = theResources.get(0).getNextUnblockTime();
-        for (Resource x : theResources) {
+
+    /**
+     * Update_NextUnblock_and_Resource  determines the min NextUnblockTime of all the resources and which resource has this time
+     * Mutates NextUnblock to be this time
+     * Mutates NextUnblockResource to be the resource associated with the time
+     *
+     * If there are no unblocks occurring,
+     * NextUnblock is set to Max_Val
+     * NextUnblockResource is set to null
+     */
+    public void Update_NextUnblock_and_Resource() {
+        int min = TheResources[0].getNextUnblockTime();
+        Resource R = null;
+        for (Resource x : TheResources) {
             if (x.getNextUnblockTime() < min) {
                 min = x.getNextUnblockTime();
+                R = x;
             }
         }
-        return min;
-    }
-
-    //the resource with the min unblock time
-    public Resource getMinUnblockProcess() {
-        int min = theResources.get(0).getNextUnblockTime();
-        Resource theResource = theResources.get(0);
-        for (Resource x: theResources) {
-            if(x.getNextUnblockTime() < min) {
-                min = x.getNextUnblockTime();
-                theResource = x;
-            }
+        if (min < Integer.MAX_VALUE){
+            this.NextUnblock = min;
+            this.NextUnblockResource = R;
         }
-        return theResource;
+        else {
+            this.NextUnblock = Integer.MAX_VALUE;
+            this.NextUnblockResource = null;
+        }
     }
 
-
-    //further updaters for data members
-
-    public void updateTime() {
-        this.time += this.nextEvent;
-    }
-
-    public void updateActiveProcess(Process P) {
-        this.activeProcess = P;
-    }
-
+    /**
+     * updateNextArrival  mutates NextArrival to be the the ArrivalTime of the process that is next in the MasterList
+     * if at the end of the list, then set to MAXVAL
+     */
     public void updateNextArrival() {
-        this.nextArrival = this.MasterList.get(CurrentIndex).arrivalTime;
+        if (this.getCurrentIndex() < this.getMasterList().size()) {
+            this.NextArrival = this.getMasterList().get(getCurrentIndex()).getArrivalTime();
+        }
+        else{
+            this.NextArrival = Integer.MAX_VALUE;
+        }
     }
 
+    /**
+     * updateNextSchedExit mutates NextSchedExit to be the global time at which the currently running process's
+     * RunTime - CPUTime will equal 0
+     *If there is no active Process than set NextSchedExit to MAXVAL
+     */
     public void updateNextSchedExit() {
-        this.nextSchedExit= (this.activeProcess.totalRunTime - this.activeProcess.CPUTime);
+        if (this.getActiveProcess() == null){
+            this.NextSchedExit = Integer.MAX_VALUE;
+        }
+        else{
+            this.NextSchedExit= this.getTime() + (this.ActiveProcess.getRunTime() - this.ActiveProcess.getCPUTime());
+        }
     }
 
+    /**
+     * updateNextTimeOut mutates NextTimeOut to be the global time at which the
+     * currently running process will complete its time slice.
+     */
     public abstract void updateNextTimeOut();
 
+    /**
+     * updateNextBlock  mutates NextBlock to be the global time at which the active process will block
+     * If the process is not going to block or there is no active process, set to MAXVAL
+     */
+
+
+/**
     public void updateActiveTime(int t) {
         this.activeTime += t;
     }
@@ -326,7 +327,23 @@ public abstract class Scheduler {
         }
     }
 
+
+
     public abstract void populateReadyQueue();
 */
 
+    /**
+     * Mutates time to be equal to the time at which the event has occurred
+     */
+    public void updateTime() {
+        this.Time = this.NextEvent;
+    }
+
+    /**
+     * updateActiveProcess  Mutates ActiveProcess to be the given process
+     * @param P   process      The given Process
+     */
+    public void updateActiveProcess(process P) {
+        this.ActiveProcess = P;
+    }
 }

@@ -20,7 +20,7 @@ public class MinHeap<T> {
      */
     private int heapCapacity = 0;
 
-    /** A list to track the objects inside the heap
+    /** An arrayList to track the objects inside the heap
      *
      */
     private List<T> heap = null;
