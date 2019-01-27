@@ -23,6 +23,7 @@ public class readyQtest {
 
         }
         //TODO make sure all of these ReadyQs are working correctly, not every ReadyQ sorts by run time
+        //TODO also we need an isEmpty method for ReadyQ
         for(int i = 0; i <= 5; i++){
             System.out.println(i + ":");
             System.out.println(RQ1.poll().getRunTime());

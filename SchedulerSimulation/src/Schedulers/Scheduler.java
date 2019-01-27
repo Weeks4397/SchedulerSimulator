@@ -9,7 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-//TODO: update methods and work on subclass FIFO
+//TODO: further abstraction is needed, update methods as we abstract
+//TODO: Also figure out if SJF LWC and SRT have time slice
 
 /**
  * a Scheduler is a collection of numbers, a ReadyQ, a running process, a list of resources,
@@ -103,7 +104,7 @@ public abstract class Scheduler {
      * super constructor for scheduler
      */
 
-    public Scheduler(List<process> masterList, ReadyQ readyQ){
+    public Scheduler(List<process> masterList){
         this.Time = 0;
         this.ActiveProcess = null;
 
@@ -238,7 +239,7 @@ public abstract class Scheduler {
 
 
     /**
-     * Update_NextUnblock_and_Resource  determines the min NextUnblockTime of all the resources and which resource has this time
+     * update_NextUnblock_and_Resource  determines the min NextUnblockTime of all the resources and which resource has this time
      * Mutates NextUnblock to be this time
      * Mutates NextUnblockResource to be the resource associated with the time
      *
@@ -246,7 +247,7 @@ public abstract class Scheduler {
      * NextUnblock is set to Max_Val
      * NextUnblockResource is set to null
      */
-    public void Update_NextUnblock_and_Resource() {
+    public void update_NextUnblock_and_Resource() {
         int min = TheResources[0].getNextUnblockTime();
         Resource R = null;
         for (Resource x : TheResources) {
@@ -302,35 +303,48 @@ public abstract class Scheduler {
      * updateNextBlock  mutates NextBlock to be the global time at which the active process will block
      * If the process is not going to block or there is no active process, set to MAXVAL
      */
+    public void updateNextBlock(){
+        if(this.getActiveProcess() == null || this.getActiveProcess().getNextBlockResource() == null){
+            this.NextBlock = Integer.MAX_VALUE;
+        }
+        else{
+            process P = this.getActiveProcess();
+            this.NextBlock = P.getNextBlockInstant() - P.getCPUTime() + this.getTime();
+        }
+
+    }
 
 
-/**
+    /**
+     * updateActiveTime increments ActiveTime by the given int
+     * @param t int     the time the scheduler was active this cycle
+     */
     public void updateActiveTime(int t) {
-        this.activeTime += t;
+        this.ActiveTime += t;
     }
 
+    /**
+     * updateIdolTime   increments IdolTime by the given int
+     * @param t    int  The time the scheduler was idol this cycle
+     */
     public void updateIdolTime(int t) {
-        this.idleTime = t;
+        this.IdleTime = t;
     }
 
+    /**
+     * updateStartIdleTime mutates StartIdol Time to the be the given int
+     * @param t int     The global time at which the scheduler became idol
+     */
     public void updateStartIdolTime(int t) {
-        this.startIdleTime += t;
+        this.StartIdleTime = t;
     }
 
+    /**
+     * updateCurrentIndex increments the CurrentIndex by 1
+     */
     public void updateCurrentIndex() {
         this.CurrentIndex += 1;
     }
-
-    public void checkUpdateStartIdle() {
-        if(!(this.startIdleTime == 0)) {
-            this.startIdleTime += this.nextEvent;
-        }
-    }
-
-
-
-    public abstract void populateReadyQueue();
-*/
 
     /**
      * Mutates time to be equal to the time at which the event has occurred
@@ -346,4 +360,18 @@ public abstract class Scheduler {
     public void updateActiveProcess(process P) {
         this.ActiveProcess = P;
     }
+
+    /**
+     * populateReadyQ  populates ReadyQ with the initial ready processes the simulation will start with
+     */
+    public  void populateReadyQ(){
+        //while the next process in the MasterList has an arrival time of 0
+        //add it to the ReadyQ because that is one of the initial processes
+        while(this.getMasterList().get(this.getCurrentIndex()).getArrivalTime() == 0){
+            this.ReadyProcesses.add(this.getMasterList().get(getCurrentIndex()));
+            this.updateCurrentIndex();
+        }
+    }
+
+
 }

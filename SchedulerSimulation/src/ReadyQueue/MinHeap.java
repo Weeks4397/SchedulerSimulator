@@ -6,7 +6,7 @@ import java.util.*;
  * MinHeap is used in ReadyQ and for ResourceB
  * MinHeap invariant: In the BST, each Parent node must be less than its children nodes.
  *                    The BST must remain a complete tree.
- * @param <T>   T   any object that implements comparator
+ * @param <T>   T   any object that implements comparator using a comparator object that has a method called compare
  */
 public class MinHeap<T> {
 
