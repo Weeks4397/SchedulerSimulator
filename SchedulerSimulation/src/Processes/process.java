@@ -234,10 +234,6 @@ public abstract class process {
 
     //Mutators for Processes
 
-
-    //public void updateBlocked (int time) { blockedTime += time – lastEventTime; }
-    //public void updateReady (int time) { … }
-
     /**updates the global block instant to be current global time
      * @param time  time is a non null int > 0
      */
@@ -248,4 +244,59 @@ public abstract class process {
         this.CPUTime += time;
     }
 
+    public void updateRunTime(int runTime) {
+        RunTime = runTime;
+    }
+
+    public void updateNextBlockInstant(int nextBlockInstant) {
+        NextBlockInstant = nextBlockInstant;
+    }
+
+    public void updateNextBlockResource(String nextBlockResource) {
+        NextBlockResource = nextBlockResource;
+    }
+
+    public void updateNextBlockTime(int nextBlockTime) {
+        NextBlockTime = nextBlockTime;
+    }
+
+    public void updateArrivalTime(int arrivalTime) {
+        ArrivalTime = arrivalTime;
+    }
+
+    public void updateNextReadyTime(int nextReadyTime) {
+        NextReadyTime = nextReadyTime;
+    }
+
+    public void setLastEventTime(int lastEventTime) {
+        LastEventTime = lastEventTime;
+    }
+
+    public void updateFinishTime(int finishTime) {
+        FinishTime = finishTime;
+    }
+
+    public void updateBlockServiceTime(int blockServiceTime) {
+        BlockServiceTime = blockServiceTime;
+    }
+
+    public void updateBlockWaitTime(int blockWaitTime) {
+        BlockWaitTime = blockWaitTime;
+    }
+
+    public void updateServiceStartTime(int serviceStartTime) {
+        ServiceStartTime = serviceStartTime;
+    }
+
+    public void updateType(int type) {
+        Type = type;
+    }
+
+    public void updateBlockRecord(Queue<Block> blockRecord) {
+        BlockRecord = blockRecord;
+    }
+
+    public void updateStringID(String stringID) {
+        StringID = stringID;
+    }
 }

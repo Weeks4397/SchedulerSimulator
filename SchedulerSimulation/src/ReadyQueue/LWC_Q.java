@@ -26,4 +26,8 @@ public class LWC_Q extends ReadyQ {
     public void add(process elem) {
         PriQ.add(elem);
     }
+
+    public Boolean isEmpty() {
+        return PriQ.isEmpty();
+    }
 }

@@ -27,4 +27,9 @@ public class SJF_Q extends ReadyQ {
     public void add(process elem) {
         PriQ.add(elem);
     }
+
+    @Override
+    public Boolean isEmpty() {
+        return PriQ.isEmpty();
+    }
 }

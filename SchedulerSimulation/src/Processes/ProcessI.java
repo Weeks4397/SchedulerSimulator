@@ -1,6 +1,9 @@
 package Processes;
 import Generators.*;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Processes of type I
  */
@@ -57,6 +60,41 @@ public class ProcessI extends process {
            this.NextBlockTime = Block1.getBT();
        }
     }
+    /**
+     * creates a clone of this process
+     * @return the cloned process
+     */
+    public ProcessI cloneProcess() {
+        ProcessI PI = new ProcessI();
+        PI.updateGlobalBlockInstant(this.GlobalBlockInstant);
+        PI.updateCPU(this.CPUTime);
+        PI.updateRunTime(this.RunTime);
+        PI.updateType(this.Type);
+        PI.updateNextBlockInstant(this.NextBlockInstant);
+        PI.updateNextBlockResource(this.NextBlockResource);
+        PI.updateNextBlockTime(this.NextBlockTime);
+        PI.updateArrivalTime(this.ArrivalTime);
+        PI.updateNextReadyTime(this.NextReadyTime);
+        PI.setLastEventTime(this.LastEventTime);
+        PI.updateFinishTime(this.FinishTime);
+        PI.updateBlockServiceTime(this.BlockServiceTime);
+        PI.updateBlockWaitTime(this.BlockWaitTime);
+        PI.updateServiceStartTime(this.ServiceStartTime);
+        PI.updateStringID(this.StringID);
 
+        if (this.BlockRecord != null){
+            Queue<Block> BQ = new LinkedList<Block>();
+            Queue<Block> saveQ = new LinkedList<Block>();
+            Block currentBlock;
+            for(int i = 0; i < this.BlockRecord.size(); i++){
+                currentBlock = this.BlockRecord.poll();
+                BQ.add(currentBlock);
+                saveQ.add(currentBlock);
+            }
+            PI.updateBlockRecord(BQ);
+            this.updateBlockRecord(saveQ);
+        }
 
+        return PI;
+    }
 }

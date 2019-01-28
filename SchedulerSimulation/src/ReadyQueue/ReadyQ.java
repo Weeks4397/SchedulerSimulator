@@ -42,4 +42,6 @@ public abstract class ReadyQ {
      */
     public abstract void add(process elem);
 
+    public abstract Boolean isEmpty();
+
 }

@@ -1,6 +1,9 @@
 package Processes;
 import Generators.*;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Processes of type IV
  */
@@ -46,6 +49,42 @@ public class ProcessIV extends process{
                 this.BlockRecord.add(newBlock);
             }
         }
+    }
+
+    /**
+     * creates a clone of this process
+     * @return the cloned process
+     */
+    public ProcessIV cloneProcess() {
+        ProcessIV PIV = new ProcessIV();
+        PIV.updateGlobalBlockInstant(this.GlobalBlockInstant);
+        PIV.updateCPU(this.CPUTime);
+        PIV.updateRunTime(this.RunTime);
+        PIV.updateType(this.Type);
+        PIV.updateNextBlockInstant(this.NextBlockInstant);
+        PIV.updateNextBlockResource(this.NextBlockResource);
+        PIV.updateNextBlockTime(this.NextBlockTime);
+        PIV.updateArrivalTime(this.ArrivalTime);
+        PIV.updateNextReadyTime(this.NextReadyTime);
+        PIV.setLastEventTime(this.LastEventTime);
+        PIV.updateFinishTime(this.FinishTime);
+        PIV.updateBlockServiceTime(this.BlockServiceTime);
+        PIV.updateBlockWaitTime(this.BlockWaitTime);
+        PIV.updateServiceStartTime(this.ServiceStartTime);
+        PIV.updateStringID(this.StringID);
+
+        Queue<Block> BQ = new LinkedList<Block>();
+        Queue<Block> saveQ = new LinkedList<Block>();
+        Block currentBlock;
+        for(int i = 0; i < this.BlockRecord.size(); i++){
+            currentBlock = this.BlockRecord.poll();
+            BQ.add(currentBlock);
+            saveQ.add(currentBlock);
+        }
+        PIV.updateBlockRecord(BQ);
+        this.updateBlockRecord(saveQ);
+
+        return PIV;
     }
 
 }

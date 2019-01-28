@@ -28,4 +28,9 @@ public class RR_Q extends ReadyQ {
     public void add(process elem) {
         Q.add(elem);
     }
+
+    @Override
+    public Boolean isEmpty() {
+        return Q.isEmpty();
+    }
 }
