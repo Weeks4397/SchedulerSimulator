@@ -3,7 +3,7 @@ package Schedulers;
 import Processes.process;
 import ReadyQueue.ReadyQ;
 import Resources.Resource;
-import Resources.ResourceA;
+import Resources.ExclusiveResource;
 
 import java.util.LinkedList;
 import java.util.List;
