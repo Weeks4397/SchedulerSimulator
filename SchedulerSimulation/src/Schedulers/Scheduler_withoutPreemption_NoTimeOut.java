@@ -32,6 +32,106 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
     }
 
     /**
+     *handleNextEvent does not include TimeOut as a potential event
+     */
+    public void handleNextEvent(){
+        if (this.getNextEvent() == this.getNextUnblock()){
+            this.handleNextUnblock();
+        }
+        else if (this.getNextEvent() == this.getNextArrival()){
+            this.handleNextArrival();
+        }
+        else if (this.getNextEvent() == this.getNextSchedExit()){
+            this.handleNextSchedExit();
+        }
+        //the event was a block
+        else {
+            this.handleNextBlock();
+        }
+
+        //update global time
+        this.updateTime();
+
+        //update what the next event will be
+        this.updateNextEvent ();
+    };
+
+
+    /**
+     * methods to handle each individual event
+     */
+
+    /**
+     * Handles the next unblock event with out considering preemption
+     */
+    public void handleNextUnblock(){
+        //P is the process that is unblocking
+        process P = this.getNextUnblockResource().finishService();
+
+        //P has finished service and now must arrive to readyQ
+        this.arriveReadyQ(P);
+
+        //update the next unblock event
+        this.update_NextUnblock_and_Resource();
+
+    }
+
+    /**
+     * Handles the next arrival event with out considering preemption
+     */
+    public void handleNextArrival(){
+        //P is the process arriving from the MasterList
+        process P = this.getMasterList().get(this.getCurrentIndex());
+
+        //Handle P arriving to the readyQ
+        this.arriveReadyQ(P);
+
+        //update the next arrival event
+        this.updateNextArrival();
+    }
+
+    /**
+     * Handles the next finishing event with out considering preemption
+     */
+    public void handleNextSchedExit(){
+        //The active process is finshed running, update its CPUTime and add it to the FinishedQ.
+        this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
+        this.FinishedQ.add(this.getActiveProcess());
+        //update Active time of CPU as well
+        this.updateActiveTime(this.getNextEvent() - this.getTime());
+
+        //The active process has exited CPU.
+        //Bring in next process to run if there is one.
+        this.ExitCPU();
+    }
+
+
+    /**
+     * Handles the next blocking event with out considering preemption
+     */
+     public void handleNextBlock(){
+        //update the active processes CPUTime
+        this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
+
+        //Check to see what resource the process is blocking on and send it to that resource
+        if (this.getActiveProcess().getNextBlockResource() == "A") {
+            TheResources[0].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
+        }
+        else if (this.getActiveProcess().getNextBlockResource() == "B") {
+            TheResources[1].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
+        }
+        else {
+            TheResources[2].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
+        }
+
+        //The active process has exited CPU.
+        //Bring in next process to run if there is one.
+        this.ExitCPU();
+    }
+
+
+
+    /**
      * arriveReadyQ does not take into account preemption
      */
     public void arriveReadyQ(process P){
@@ -80,122 +180,6 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
             this.updateNextBlock();
             this.updateNextSchedExit();
         }
-    }
-
-    /**
-     *handleNextEvent does not include TimeOut as a potential event
-     */
-    public void handleNextEvent(){
-        if (this.getNextEvent() == this.getNextUnblock()){
-            this.handleNextUnblock();
-        }
-        else if (this.getNextEvent() == this.getNextArrival()){
-            this.handleNextArrival();
-        }
-        else if (this.getNextEvent() == this.getNextSchedExit()){
-            this.handleNextSchedExit();
-        }
-        //the event was a block
-        else {
-            this.handleNextBlock();
-        }
-    };
-
-
-    /**
-     * methods to handle each individual event
-     */
-
-    /**
-     * Handles the next unblock event with out considering preemption
-     */
-    public void handleNextUnblock(){
-        //P is the process that is unblocking
-        process P = this.getNextUnblockResource().finishService();
-
-        //P has finished service and now must arrive to readyQ
-        this.arriveReadyQ(P);
-
-        //update global time
-        this.updateTime();
-
-        //update the next unblock event
-        this.update_NextUnblock_and_Resource();
-
-        //update what the next event will be
-        this.updateNextEvent();
-    }
-
-    /**
-     * Handles the next arrival event with out considering preemption
-     */
-    public void handleNextArrival(){
-        //P is the process arriving from the MasterList
-        process P = this.getMasterList().get(this.getCurrentIndex());
-
-        //Handle P arriving to the readyQ
-        this.arriveReadyQ(P);
-
-        //update global time
-        this.updateTime();
-
-        //update the next arrival event
-        this.updateNextArrival();
-
-        //update what the next event will be
-        this.updateNextEvent();
-
-    }
-
-    /**
-     * Handles the next finishing event with out considering preemption
-     */
-    public void handleNextSchedExit(){
-        //The active process is finshed running, update its CPUTime and add it to the FinishedQ.
-        this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
-        this.FinishedQ.add(this.getActiveProcess());
-        //update Active time of CPU as well
-        this.updateActiveTime(this.getNextEvent() - this.getTime());
-
-        //The active process has exited CPU.
-        //Bring in next process to run if there is one.
-        this.ExitCPU();
-
-        //update global time
-        this.updateTime();
-
-        //update what the next event will be
-        this.updateNextEvent ();
-    }
-
-
-    /**
-     * Handles the next blocking event with out considering preemption
-     */
-     public void handleNextBlock(){
-        //update the active processes CPUTime
-        this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
-
-        //Check to see what resource the process is blocking on and send it to that resource
-        if (this.getActiveProcess().getNextBlockResource() == "A") {
-            TheResources[0].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
-        }
-        else if (this.getActiveProcess().getNextBlockResource() == "B") {
-            TheResources[1].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
-        }
-        else {
-            TheResources[2].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
-        }
-
-        //The active process has exited CPU.
-        //Bring in next process to run if there is one.
-        this.ExitCPU();
-
-        //update global time
-        this.updateTime();
-
-        //update what the next event will be
-        this.updateNextEvent ();
     }
 
 }
