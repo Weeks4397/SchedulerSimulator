@@ -22,10 +22,9 @@ public class readyQtest {
             RQ5.add(WG.Workset.get(i));
 
         }
-        //TODO make sure all of these ReadyQs are working correctly, not every ReadyQ sorts by run time
-        //TODO also we need an isEmpty method for ReadyQ
         for(int i = 0; i <= 5; i++){
             System.out.println(i + ":");
+            System.out.println(WG.Workset.get(i).getRunTime());
             System.out.println(RQ1.poll().getRunTime());
             System.out.println(RQ2.poll().getRunTime());
             System.out.println(RQ3.poll().getRunTime());
