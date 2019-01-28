@@ -210,17 +210,19 @@ public abstract class Scheduler {
     /**
      * The scheduler needs to handle the arrival and Exiting of Processes
      * Arrival: Processes can arrive to the ReadyQ or directly to CPU after unblocking or arriving from MasterList
-     * Exiting and arriving: Processes can exit from using CPU or Resources, The next process will now have to arrive
+     * Exiting and arriving: Processes can exit from using CPU, The next process will now have to arrive
      *                      to use the CPU.
      */
 
     /**
      * arriveReadyQ handles a process arriving to the ReadyQ
+     * @param P process     the process that is arriving
      */
-    public abstract void arriveReadyQ();
+    public abstract void arriveReadyQ(process P);
 
     /**
      * ExitCPU handles a process exiting from use of the CPU
+     * @param P process     the process that is exiting
      */
     public abstract void ExitCPU();
 

@@ -28,25 +28,12 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
 
     /**
      *Constructor for scheduler with time out
-     * @param TQ    int  is the given time quantum
      */
-    public Scheduler_with_TimeOut(List<process> masterList, int TQ){
+    public Scheduler_with_TimeOut(List<process> masterList){
         super(masterList);
-        this.TimeQuantum = TQ;
         this.NextTimeOut = Integer.MAX_VALUE;
     }
 
-
-    public void updateNextEvent () {
-        int[] PossibleEvents = {this.NextArrival, this.NextSchedExit, this.NextTimeOut, this.NextUnblock, this.NextBlock};
-        int min = PossibleEvents[0];
-        for (int x : PossibleEvents) {
-            if (x < min) {
-                min = x;
-            }
-        }
-        this.NextEvent = min;
-    }
 
     /**
      * getters for scheduler with timeout
@@ -60,9 +47,59 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
     }
 
     /**
+     * arriveReadyQ is a helper method to help handle the events of a process unblocking or arriving from Master List
+     */
+    public abstract void arriveReadyQ(process P);
+
+    /**
+     *ExitCPU is a helper method to help handle the events of a process blocking, finishing, or timing out
+     */
+    public abstract void ExitCPU();
+
+    /**
+     * updateNextEvent now includes NextTimeout as a potential event
+     */
+    public void updateNextEvent () {
+        int[] PossibleEvents = {this.NextArrival, this.NextSchedExit, this.NextTimeOut, this.NextUnblock, this.NextBlock};
+        int min = PossibleEvents[0];
+        for (int x : PossibleEvents) {
+            if (x < min) {
+                min = x;
+            }
+        }
+        this.NextEvent = min;
+    }
+
+    /**
+     *handleNextEvent will include TimeOut as a potential event
+     */
+    public abstract void handleNextEvent();
+
+    /**
+     * methods to handle each individual event
+     * handleNextTimeOut is included to handle the event of a process completing its time slice
+     */
+    public abstract void handleNextUnblock();
+    public abstract void handleNextArrival();
+    public abstract void handleNextSchedExit();
+    public abstract void handleNextBlock();
+    public abstract void handleNextTimeOut();
+
+
+    /**
      * updateNextTimeOut mutates NextTimeOut to be the global time at which the
      * currently running process will complete its time slice.
+     * If there is no active process, set NextTimeOut to MAXVAL.
      */
-    public abstract void updateNextTimeOut();
+    public void updateNextTimeOut(){
+        if (this.getActiveProcess() == null){
+            this.NextTimeOut = Integer.MAX_VALUE;
+        }
+        else{
+            this.NextSchedExit= this.getTime() + (this.getTimeQuantum() - this.ActiveProcess.getCPUTime());
+        }
+    }
+
+
 }
 
