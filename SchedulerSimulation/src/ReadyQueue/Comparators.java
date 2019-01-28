@@ -1,6 +1,7 @@
 package ReadyQueue;
 
 import Processes.process;
+import Resources.*;
 
 import java.util.Comparator;
 
@@ -17,7 +18,7 @@ public class Comparators {
     public static final Comparator<process> By_SJF = new Comparators.BySJF();
     public static final Comparator<process> By_SRT = new Comparators.BySRT();
     public static final Comparator<process> By_LWC = new Comparators.ByLWC();
-    public static final Comparator<process> By_RB = new Comparators.ByRB();
+    public static final Comparator<unBlockTimePair> By_RB = new Comparators.ByRB();
 
     /**Generate comparator object for shortest job first algorithm.
      *
@@ -74,15 +75,15 @@ public class Comparators {
             else return 0;
         }
     }
-    public static class ByRB implements Comparator<process> {
+    public static class ByRB implements Comparator<unBlockTimePair> {
         /**compare compares the processes based on NextBlockTime of each process
          * @param P1    the first process
          * @param P2    the second process
          * @return int  -1 if P1 < P2 , 1 if P1 > P2, or 0 if they are equal
          */
-        public int compare(process P1, process P2) {
-            int P1remainingTime = P1.getNextBlockTime();
-            int P2remainingTime = P2.getNextBlockTime();
+        public int compare(unBlockTimePair P1, unBlockTimePair P2) {
+            int P1remainingTime = P1.getnextunBlockTime();
+            int P2remainingTime = P2.getnextunBlockTime();
             if (P1remainingTime > P2remainingTime) return 1;
             if (P1remainingTime < P2remainingTime) return -1;
             else return 0;

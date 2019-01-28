@@ -23,7 +23,7 @@ public class ResourceB extends Resource {
      */
     //TODO use processList we do not need processMap
     TreeMap<Integer, List<process>> processMap;
-    public MinHeap processList = new MinHeap(100, Comparators.By_RB);
+    public MinHeap<unBlockTimePair> processList = new MinHeap(100, Comparators.By_RB);
 
     /**
      * Handles a process arriving for inclusive resource
