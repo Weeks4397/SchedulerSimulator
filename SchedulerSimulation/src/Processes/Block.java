@@ -2,7 +2,7 @@ package Processes;
 
 /** A block is two ints for block instance and block length
  * and a string for the type of resource needed
- * Blocks are generated in the process class
+ * Blocks are generated in the process class and do not exist outside of a process object
  */
 
 public class Block {

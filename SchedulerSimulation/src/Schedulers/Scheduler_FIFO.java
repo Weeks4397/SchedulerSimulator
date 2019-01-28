@@ -28,7 +28,7 @@ public class Scheduler_FIFO extends Scheduler {
                 this.ActiveProcess.updateCPU (this.getNextEvent()- this.getTime());
                 this.updateActiveTime(this.getNextEvent() - this.getTime());
 
-                //add the next process into the ReadyQ and increment CurrentIndex
+                //add P into the ReadyQ and increment CurrentIndex
                 this.ReadyProcesses.add(P);
                 this.updateCurrentIndex();
             }
@@ -64,7 +64,7 @@ public class Scheduler_FIFO extends Scheduler {
                 this.ActiveProcess.updateCPU (this.getNextEvent()- this.getTime());
                 this.updateActiveTime(this.getNextEvent() - this.getTime());
 
-                //add the next process into the ReadyQ and increment CurrentIndex
+                //add P into the ReadyQ and increment CurrentIndex
                 this.ReadyProcesses.add(P);
                 this.updateCurrentIndex();
             }

@@ -212,10 +212,31 @@ public abstract class Scheduler {
     }
 
 
+
+    /**
+     * The scheduler needs to handle the arrival and Exiting of Processes
+     * Arrival: Processes can arrive to the ReadyQ or directly to CPU after unblocking or arriving from MasterList
+     * Exiting and arriving: Processes can exit from using CPU or Resources, The next process will now have to arrive
+     *                      to use the CPU.
+     */
+
+    /**
+     * arriveReadyQ handles a process arriving to the ReadyQ
+     */
+    public abstract void arriveReadyQ();
+
+    /**
+     * ExitCPU handles a process exiting from use of the CPU
+     */
+    public abstract void ExitCPU();
+
+
+
     /**
      * Methods to update and handle events
      */
 
+    //TODO: make this method abstract time slice will not be included for FIFO
     /**updateNextEvent mutates NextEvent to be the min of the possible events
      *
      */
@@ -237,6 +258,38 @@ public abstract class Scheduler {
      */
     public abstract void handleNextEvent();
 
+
+
+    /**
+     * methods to handle each individual event
+     */
+
+    /**
+     * handleNextUnblock handles the event of a process unblocking from a resource
+     */
+    public abstract void handleNextUnblock();
+
+    /**
+     * handleNextArrival handles the event of a process arriving from MasterList
+     */
+    public abstract void handleNextArrival();
+
+    /**
+     * handleNextSchedExit handles the event of a process finishing its run time with CPU
+     */
+    public abstract void handleNextSchedExit();
+
+    /**
+     * handleNextBlock handles the event of a process blocking and exiting CPU
+     */
+    public abstract void handleNextBlock();
+
+
+    
+
+    /**
+     * Methods to update individual event
+     */
 
     /**
      * update_NextUnblock_and_Resource  determines the min NextUnblockTime of all the resources and which resource has this time
