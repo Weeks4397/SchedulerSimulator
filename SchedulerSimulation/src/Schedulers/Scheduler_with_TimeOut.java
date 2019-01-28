@@ -48,8 +48,15 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
         this.NextEvent = min;
     }
 
+    /**
+     * getters for scheduler with timeout
+     */
     public int getNextTimeOut() {
         return this.NextTimeOut;
+    }
+
+    public int getTimeQuantum() {
+        return this.TimeQuantum;
     }
 
     /**
