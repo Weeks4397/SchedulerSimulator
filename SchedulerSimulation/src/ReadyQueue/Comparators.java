@@ -17,6 +17,7 @@ public class Comparators {
     public static final Comparator<process> By_SJF = new Comparators.BySJF();
     public static final Comparator<process> By_SRT = new Comparators.BySRT();
     public static final Comparator<process> By_LWC = new Comparators.ByLWC();
+    public static final Comparator<process> By_RB = new Comparators.ByRB();
 
     /**Generate comparator object for shortest job first algorithm.
      *
@@ -60,15 +61,28 @@ public class Comparators {
      */
     public static class ByLWC implements Comparator<process> {
         /**compare compares the processes based on least work completed
-         * least work completed is equal to (RunTime - CPUTime)
-         * this is the opposite of shortest remaining time.
+         * least work completed is equal to CPUTime
          * @param P1    the first process
          * @param P2    the second process
          * @return int  -1 if P1 < P2 , 1 if P1 > P2, or 0 if they are equal
          */
         public int compare(process P1, process P2) {
-            int P1remainingTime = P1.getRunTime() - P1.getCPUTime();
-            int P2remainingTime = P2.getRunTime() - P2.getCPUTime();
+            int P1remainingTime = P1.getCPUTime();
+            int P2remainingTime = P2.getCPUTime();
+            if (P1remainingTime > P2remainingTime) return 1;
+            if (P1remainingTime < P2remainingTime) return -1;
+            else return 0;
+        }
+    }
+    public static class ByRB implements Comparator<process> {
+        /**compare compares the processes based on NextBlockTime of each process
+         * @param P1    the first process
+         * @param P2    the second process
+         * @return int  -1 if P1 < P2 , 1 if P1 > P2, or 0 if they are equal
+         */
+        public int compare(process P1, process P2) {
+            int P1remainingTime = P1.getNextBlockTime();
+            int P2remainingTime = P2.getNextBlockTime();
             if (P1remainingTime > P2remainingTime) return 1;
             if (P1remainingTime < P2remainingTime) return -1;
             else return 0;

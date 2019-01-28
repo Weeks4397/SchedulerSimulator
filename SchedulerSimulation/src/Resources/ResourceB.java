@@ -2,6 +2,8 @@ package Resources;
 
 import Processes.Block;
 import Processes.process;
+import ReadyQueue.Comparators;
+import ReadyQueue.MinHeap;
 
 import java.util.List;
 import java.util.TreeMap;
@@ -19,7 +21,9 @@ public class ResourceB extends Resource {
      * The TreeMaps key is the unblock time and the value stored at each key is a List of processes
      * that unblock at the time that the key is
      */
+    //TODO use processList we do not need processMap
     TreeMap<Integer, List<process>> processMap;
+    public MinHeap processList = new MinHeap(100, Comparators.By_RB);
 
     /**
      * Handles a process arriving for inclusive resource
