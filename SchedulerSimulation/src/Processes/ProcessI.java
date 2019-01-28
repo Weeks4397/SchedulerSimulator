@@ -82,18 +82,9 @@ public class ProcessI extends process {
         PI.updateServiceStartTime(this.ServiceStartTime);
         PI.updateStringID(this.StringID);
 
-        if (this.BlockRecord != null){
-            Queue<Block> BQ = new LinkedList<Block>();
-            Queue<Block> saveQ = new LinkedList<Block>();
-            Block currentBlock;
-            for(int i = 0; i < this.BlockRecord.size(); i++){
-                currentBlock = this.BlockRecord.poll();
-                BQ.add(currentBlock);
-                saveQ.add(currentBlock);
-            }
-            PI.updateBlockRecord(BQ);
-            this.updateBlockRecord(saveQ);
-        }
+
+        PI.updateBlockRecord(null);
+
 
         return PI;
     }
