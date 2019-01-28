@@ -59,11 +59,10 @@ public abstract class Scheduler {
     /**These are the possible events that can occur to a process in a scheduler causing the process to change states
      * NextArrival: The next time at which a process in the Master List state will arrive to the ReadyQ entering the ready state
      * NextScedExit: The time the currently running process will will enter the Finished state
-     * NextTimeOut: The time at which a running process will complete its time slice and be placed back into ReadyQ
      * NextUnblock: The next time at which a process finishes using a resource and must be placed back into ReadyQ
      * NextBlock: The time at which the running process will block
      */
-    public int NextArrival, NextSchedExit, NextTimeOut, NextUnblock, NextBlock;
+    public int NextArrival, NextSchedExit, NextUnblock, NextBlock;
 
     /**
      * NextEvent is the lowest of the possible event times
@@ -101,6 +100,7 @@ public abstract class Scheduler {
 
     /**
      * super constructor for scheduler
+     * @param masterList    List<Process>   the work set of processes
      */
 
     public Scheduler(List<process> masterList){
@@ -114,7 +114,6 @@ public abstract class Scheduler {
         //all possible events initialize to MAXVAL
         this.NextArrival = Integer.MAX_VALUE;
         this.NextSchedExit = Integer.MAX_VALUE;
-        this.NextTimeOut = Integer.MAX_VALUE;
         this.NextUnblock = Integer.MAX_VALUE;
         this.NextBlock = Integer.MAX_VALUE;
 
@@ -168,10 +167,6 @@ public abstract class Scheduler {
 
     public int getNextSchedExit() {
         return this.NextSchedExit;
-    }
-
-    public int getNextTimeOut() {
-        return this.NextTimeOut;
     }
 
     public int getNextUnblock() {
@@ -235,20 +230,10 @@ public abstract class Scheduler {
      * Methods to update and handle events
      */
 
-    //TODO: make this method abstract time slice will not be included for FIFO
     /**updateNextEvent mutates NextEvent to be the min of the possible events
      *
      */
-    public void updateNextEvent () {
-        int[] PossibleEvents = {this.NextArrival, this.NextSchedExit, this.NextTimeOut, this.NextUnblock, this.NextBlock};
-        int min = PossibleEvents[0];
-        for (int x : PossibleEvents) {
-            if (x < min) {
-                min = x;
-            }
-        }
-        this.NextEvent = min;
-    }
+    public abstract void updateNextEvent ();
 
     /**
      * handleNextEvent determines the necessary course of action after the next event has been determined.
@@ -284,7 +269,7 @@ public abstract class Scheduler {
     public abstract void handleNextBlock();
 
 
-    
+
 
     /**
      * Methods to update individual event
@@ -344,12 +329,6 @@ public abstract class Scheduler {
             this.NextSchedExit= this.getTime() + (this.ActiveProcess.getRunTime() - this.ActiveProcess.getCPUTime());
         }
     }
-
-    /**
-     * updateNextTimeOut mutates NextTimeOut to be the global time at which the
-     * currently running process will complete its time slice.
-     */
-    public abstract void updateNextTimeOut();
 
     /**
      * updateNextBlock  mutates NextBlock to be the global time at which the active process will block
