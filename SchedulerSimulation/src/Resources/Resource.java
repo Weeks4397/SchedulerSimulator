@@ -48,21 +48,6 @@ public abstract class  Resource {
     public int IdleTime;
 
     /**
-     * BlockedProcessQ can either be an empty queue or a queue of processes.
-     * These processes are in the blocked state.
-     * BlockedProcessQ is used for exclusive resources that only serve one process at a time.
-     * Processes waiting to be served by the resource wait in the BlockedProcessQ
-     */
-    public Queue<process> BlockedProcessQ;
-
-    /**
-     * BlockedProcessHeap can either be an empty MinHeap or a MinHeap of processes.
-     * These processes are in the blocked state.
-     * BlockedProcessHeap is used for inclusive resources that serve all blocked processes at once
-     */
-   // public Minheap<Process> BlockedProcessHeap
-
-    /**
      * ServingProcess is the process currently being served by the resource.
      * For inclusive resources, ServingProcess is the process that is going to finish first.
      */

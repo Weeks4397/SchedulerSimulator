@@ -5,10 +5,16 @@ import Resources.*;
 
 import java.util.Comparator;
 
-/**The Comparators class serves as a comparator interface for processes.
- * A comparator object of type process is generated for each algorithm.
- * Each comparator object has one method called compare that takes in two processes and compares them.
- * This compare method is based on the algorithm
+/**The Comparators class serves as a comparator interface for objects.
+ * For the ReadyQs:
+ *      A comparator object of type process is generated for each algorithm.
+ *      Each comparator object has one method called compare that takes in two processes and compares them.
+ *      This compare method is based on the algorithm
+ *
+ * For ResourceB:
+ *      A comparator object of type UnblockTimePair is generated.
+ *      This comparator object has one method called compare that takes in two UnblockTimePairs and compares them.
+ *      This compare method is based on a key in the UnblockTimePair.
  */
 public class Comparators {
 
@@ -18,7 +24,7 @@ public class Comparators {
     public static final Comparator<process> By_SJF = new Comparators.BySJF();
     public static final Comparator<process> By_SRT = new Comparators.BySRT();
     public static final Comparator<process> By_LWC = new Comparators.ByLWC();
-    public static final Comparator<unBlockTimePair> By_RB = new Comparators.ByRB();
+    public static final Comparator<UnblockTimePair> By_UBT = new Comparators.ByUBT();
 
     /**Generate comparator object for shortest job first algorithm.
      *
@@ -65,27 +71,31 @@ public class Comparators {
          * least work completed is equal to CPUTime
          * @param P1    the first process
          * @param P2    the second process
-         * @return int  -1 if P1 < P2 , 1 if P1 > P2, or 0 if they are equal
+         * @return int  1 if P1 < P2 , -1 if P1 > P2, or 0 if they are equal
          */
         public int compare(process P1, process P2) {
-            int P1remainingTime = P1.getCPUTime();
-            int P2remainingTime = P2.getCPUTime();
-            if (P1remainingTime > P2remainingTime) return 1;
-            if (P1remainingTime < P2remainingTime) return -1;
+            int P1work = P1.getCPUTime();
+            int P2work = P2.getCPUTime();
+            if (P1work < P2work) return 1;
+            if (P1work > P2work) return -1;
             else return 0;
         }
     }
-    public static class ByRB implements Comparator<unBlockTimePair> {
-        /**compare compares the processes based on NextBlockTime of each process
-         * @param P1    the first process
-         * @param P2    the second process
-         * @return int  -1 if P1 < P2 , 1 if P1 > P2, or 0 if they are equal
+
+    /**Generate comparator object to for UnblockTimePair objects constructed in resourceB
+     *
+     */
+    public static class ByUBT implements Comparator<UnblockTimePair> {
+        /**compare compares the UnblockTImePairs based on the UnblockTime of each process
+         * @param UTP1    the first UnblockTimePair
+         * @param UTP2   the second UnblockTimePair
+         * @return int  1 if UTP1 < UTP2 , -1 if UTP1 > UTP2, or 0 if they are equal
          */
-        public int compare(unBlockTimePair P1, unBlockTimePair P2) {
-            int P1remainingTime = P1.getnextunBlockTime();
-            int P2remainingTime = P2.getnextunBlockTime();
-            if (P1remainingTime > P2remainingTime) return 1;
-            if (P1remainingTime < P2remainingTime) return -1;
+        public int compare(UnblockTimePair UTP1, UnblockTimePair UTP2){
+            int UTP1time = UTP1.getNextUnblockTime();
+            int UTP2time = UTP2.getNextUnblockTime();
+            if (UTP1time < UTP2time) return 1;
+            if (UTP1time > UTP2time) return -1;
             else return 0;
         }
     }

@@ -12,6 +12,14 @@ import java.util.Queue;
 public abstract class ExclusiveResource extends Resource {
 
     /**
+     * BlockedProcessQ can either be an empty queue or a queue of processes.
+     * These processes are in the blocked state.
+     * BlockedProcessQ is used for exclusive resources that only serve one process at a time.
+     * Processes waiting to be served by the resource wait in the BlockedProcessQ
+     */
+    public Queue<process> BlockedProcessQ;
+
+    /**
      * Constructor for resource of type A
      */
     public ExclusiveResource(){
