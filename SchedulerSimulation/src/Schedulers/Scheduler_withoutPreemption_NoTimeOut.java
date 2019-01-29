@@ -86,6 +86,9 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
         //Handle P arriving to the readyQ
         this.arriveReadyQ(P);
 
+        //update the current masterList index
+        this.updateCurrentIndex();
+
         //update the next arrival event
         this.updateNextArrival();
     }
@@ -141,9 +144,8 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
             this.ActiveProcess.updateCPU (this.getNextEvent()- this.getTime());
             this.updateActiveTime(this.getNextEvent() - this.getTime());
 
-            //add P into the ReadyQ and increment CurrentIndex
+            //add P into the ReadyQ
             this.ReadyProcesses.add(P);
-            this.updateCurrentIndex();
         }
         else {
             //if there is no running process, make P the new running process

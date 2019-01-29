@@ -222,7 +222,6 @@ public abstract class Scheduler {
 
     /**
      * ExitCPU handles a process exiting from use of the CPU
-     * @param P process     the process that is exiting
      */
     public abstract void ExitCPU();
 
