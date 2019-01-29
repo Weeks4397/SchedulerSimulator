@@ -53,18 +53,18 @@ public class MinHeap<T> {
      * @return  int   amount of objects currently in heap
      */
     public int size() {
-            return heapSize;
-        }
+        return heapSize;
+    }
 
-        /** check the next in priority object in the heap
-         * if the heap is empty, return null
-         */
-        public T peek() {
-            if (isEmpty()) {
-                return null;
-            }
-            else return heap.get(0);
+    /** check the next in priority object in the heap* if the heap is empty, return null
+     *
+     */
+    public T peek() {
+        if (isEmpty()) {
+            return null;
         }
+        else return heap.get(0);
+    }
 
     /** Removes the root of the heap
      *
