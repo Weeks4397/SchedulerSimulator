@@ -25,6 +25,7 @@ public abstract class ProccessGenator {
     public int BlockOccurs;
     /**
      * this is the Max runtime of the system
+     * this is updated when the work set is generated
      */
     public static int MAXINT = 25000;
 

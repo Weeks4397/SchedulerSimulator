@@ -58,10 +58,6 @@ public abstract class  Resource {
      */
     public int Count;
 
-    /**
-     *  Exclusive is a boolean that is true if the resource is exclusive and false if not.
-     */
-    public boolean Exclusive;
 
     /**
      * numOFBlocks is the total number of processes the resource has served.
@@ -120,10 +116,6 @@ public abstract class  Resource {
 
     public int getCount() {
         return this.Count;
-    }
-
-    public boolean getExclusive() {
-        return this.Exclusive;
     }
 
     public int getNumOfBlocks() {

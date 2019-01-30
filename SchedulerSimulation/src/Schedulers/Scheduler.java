@@ -108,7 +108,7 @@ public abstract class Scheduler {
         this.ActiveProcess = null;
 
         //initialize the array of resources that processes can block on
-        //setTheResources();
+        setTheResources();
         this.NextUnblockResource = null;
 
         //all possible events initialize to MAXVAL
@@ -129,15 +129,15 @@ public abstract class Scheduler {
 
     /**
      * Initializes an array of the Resources a process can block on
-
+     */
     public void setTheResources(){
         Resource A = new ResourceA();
         Resource B = new ResourceB();
         Resource C = new ResourceC();
 
-        this.TheResources = {A, B, C};
+        this.TheResources = new Resource[] {A, B, C};
     }
-*/
+
     /**
      *Getters for Scheduler
      */
@@ -349,7 +349,7 @@ public abstract class Scheduler {
 
     /**
      * updateActiveTime increments ActiveTime by the given int
-     * @param t int     the time the scheduler was active this cycle
+     * @param t    int     the time the scheduler was active this cycle
      */
     public void updateActiveTime(int t) {
         this.ActiveTime += t;
@@ -365,7 +365,7 @@ public abstract class Scheduler {
 
     /**
      * updateStartIdleTime mutates StartIdol Time to the be the given int
-     * @param t int     The global time at which the scheduler became idol
+     * @param t   int     The global time at which the scheduler became idol
      */
     public void updateStartIdolTime(int t) {
         this.StartIdleTime = t;

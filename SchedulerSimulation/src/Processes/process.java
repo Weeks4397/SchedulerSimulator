@@ -114,9 +114,9 @@ public abstract class process {
         this.StringID = "P-1";
         this.CPUTime = 0;
         this.LastEventTime = 0;
-        this.FinishTime = ProccessGenator.MAXINT;
+        this.FinishTime = Integer.MAX_VALUE;
         this.BlockServiceTime = 0;
-        this.ServiceStartTime = ProccessGenator.MAXINT;
+        this.ServiceStartTime = Integer.MAX_VALUE;
         this.Type = -1;
         this.RunTime = -1;
         this.NextBlockInstant = -1;
@@ -125,7 +125,7 @@ public abstract class process {
         this.BlockRecord = new LinkedList<Block>();
         this.ArrivalTime = -1;
         this.NextReadyTime = -1;
-        this.ServiceStartTime = ProccessGenator.MAXINT;
+        this.ServiceStartTime = Integer.MAX_VALUE;
         this.BlockWaitTime = 0;
         this.GlobalBlockInstant = Integer.MAX_VALUE;
     }
@@ -298,5 +298,24 @@ public abstract class process {
 
     public void updateStringID(String stringID) {
         StringID = stringID;
+    }
+
+
+    /**
+     * GotoNextBlock    goes to the next block in the block record if there is one
+     * if not set block variables appropriately
+     */
+    public void GotoNextBlock(){
+        if (!this.getBlockRecord().isEmpty()) {
+            Block nextBlock = this.BlockRecord.poll();
+            this.NextBlockInstant = nextBlock.getBI();
+            this.NextBlockResource = nextBlock.getR();
+            this.NextBlockTime = nextBlock.getBT();
+        }
+        else {
+            this.NextBlockInstant = Integer.MAX_VALUE;
+            this.NextBlockResource = null;
+            this.NextBlockTime = 0;
+        }
     }
 }

@@ -21,7 +21,7 @@ public class ProcessII extends process{
         super();
         this.Type = 2;
         this.RunTime = PG2.getprocessRunTime();
-        this.NextBlockInstant = ProccessGenator.MAXINT;
+        this.NextBlockInstant =Integer.MAX_VALUE;
         this.NextBlockResource = null;
         this.NextBlockTime = 0;
         this.genBlockRecord();

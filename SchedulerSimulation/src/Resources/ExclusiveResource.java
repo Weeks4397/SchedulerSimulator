@@ -24,62 +24,16 @@ public abstract class ExclusiveResource extends Resource {
      */
     public ExclusiveResource(){
         super();
-        this.Exclusive = true;
         this.BlockedProcessQ = new LinkedList<process>();
     }
 
-
-    /**finisService for an exclusive resource
-     *
-     * @return Process  the process that has finished using the resource
+    /**
+     * Getter for BlockedProcessQ
      */
-    public process finishService() {
-        //get the time the process finished and the actual process
-        int oldTime = this.getNextUnblockTime();
-        process oldProcess = this.getServingProcess();
-
-        //update Active time by the amount of time the process was served
-        this.updateActiveTime(oldProcess.getNextBlockTime());
-
-        //determine whether the BlockedProcessQ has more processes waiting to use the resource or not
-        if (!this.BlockedProcessQ.isEmpty()) {
-            //If there are processes waiting, get the next process and update variables
-            process theProcess = this.BlockedProcessQ.remove();
-            this.Count--;
-            this.updateNextUnblockTime(oldTime + theProcess.getNextBlockTime());
-            this.ServingProcess = theProcess;
-            theProcess.ServiceStartTime = oldTime;  //the time at which the last process finished is the ServiceStartTime for this process
-            this.numOfBlocks += 1;
-            this.totalBlockTime += theProcess.getNextBlockTime();
-        }
-        else {
-            //if there are no processes waiting set NextUnblockTime to Maxval so event does not occur in scheduler
-            this.updateNextUnblockTime(Integer.MAX_VALUE);
-            this.ServingProcess = null;
-            //keep track of when idle time begins
-            this.StartIdleTime = oldTime;
-        }
-
-        //increment finishing process's variables to keep track of performance
-        oldProcess.BlockServiceTime += oldTime - oldProcess.getServiceStartTime();
-        oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() - oldProcess.getGlobalBlockInstant();
-
-        //update the block record of the finishing process to move to the next block if there is one
-        //or have process not block again if there is not one.
-        if (!oldProcess.getBlockRecord().isEmpty()) {
-            Block nextBlock = oldProcess.BlockRecord.poll();
-            oldProcess.NextBlockInstant = nextBlock.getBI();
-            oldProcess.NextBlockResource = nextBlock.getR();
-            oldProcess.NextBlockTime = nextBlock.getBT();
-        }
-        else {
-            oldProcess.NextBlockInstant = Integer.MAX_VALUE;
-            oldProcess.NextBlockResource = null;
-            oldProcess.NextBlockTime = 0;
-        }
-        return oldProcess;
-
+    public Queue<process> getBlockedProcessQ() {
+        return this.BlockedProcessQ;
     }
+
 
     /**arrivingProcess for exclusive resource
      *
@@ -103,10 +57,47 @@ public abstract class ExclusiveResource extends Resource {
         }
     }
 
-    /**
-     * Getter for BlockedProcessQ
+    /**finishService for an exclusive resource
+     *
+     * @return Process  the process that has finished using the resource
      */
-    public Queue<process> getBlockedProcessQ() {
-        return this.BlockedProcessQ;
+    public process finishService() {
+        //get the time the process finished and the actual process
+        int oldTime = this.getNextUnblockTime();
+        process oldProcess = this.getServingProcess();
+        this.numOfBlocks += 1;
+        this.totalBlockTime += oldProcess.getNextBlockTime();
+
+        //update Active time by the amount of time the process was served
+        this.updateActiveTime(oldProcess.getNextBlockTime());
+
+        //determine whether the BlockedProcessQ has more processes waiting to use the resource or not
+        if (!this.BlockedProcessQ.isEmpty()) {
+            //If there are processes waiting, get the next process and update variables
+            process theProcess = this.BlockedProcessQ.remove();
+            this.Count--;
+            this.updateNextUnblockTime(oldTime + theProcess.getNextBlockTime());
+            this.ServingProcess = theProcess;
+            theProcess.ServiceStartTime = oldTime;  //the time at which the last process finished is the ServiceStartTime for this process
+        }
+        else {
+            //if there are no processes waiting set NextUnblockTime to Maxval so event does not occur in scheduler
+            this.updateNextUnblockTime(Integer.MAX_VALUE);
+            this.ServingProcess = null;
+            //keep track of when idle time begins
+            this.StartIdleTime = oldTime;
+        }
+
+        //increment finishing process's variables to keep track of performance
+        oldProcess.BlockServiceTime += oldTime - oldProcess.getServiceStartTime();
+        oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() - oldProcess.getGlobalBlockInstant();
+
+        //update the block record of the finishing process to move to the next block if there is one
+        //or have process not block again if there is not one.
+        oldProcess.GotoNextBlock();
+
+        return oldProcess;
+
     }
+
 }
