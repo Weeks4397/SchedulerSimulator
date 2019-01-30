@@ -57,7 +57,7 @@ public class ProcessIII extends process{
     public ProcessIII cloneProcess() {
         ProcessIII PIII = new ProcessIII();
         PIII.updateGlobalBlockInstant(this.GlobalBlockInstant);
-        PIII.updateCPU(this.CPUTime);
+        PIII.setCPU(this.CPUTime);
         PIII.updateRunTime(this.RunTime);
         PIII.updateType(this.Type);
         PIII.updateNextBlockInstant(this.NextBlockInstant);

@@ -43,7 +43,7 @@ public class ProcessII extends process{
     public ProcessII cloneProcess() {
         ProcessII PII = new ProcessII();
         PII.updateGlobalBlockInstant(this.GlobalBlockInstant);
-        PII.updateCPU(this.CPUTime);
+        PII.setCPU(this.CPUTime);
         PII.updateRunTime(this.RunTime);
         PII.updateType(this.Type);
         PII.updateNextBlockInstant(this.NextBlockInstant);

@@ -42,7 +42,7 @@ public class FIFOtester {
 
         System.out.println("FinishedQ size  " + FIFO.FinishedQ.size());
 
-        System.out.printl("init Q size"+ FIFO.ReadyProcesses.
+        //System.out.println("init Q size"+ FIFO.ReadyProcesses.
 
         int NE = FIFO.NextEvent;
         //begin handling the events until end of simulation
