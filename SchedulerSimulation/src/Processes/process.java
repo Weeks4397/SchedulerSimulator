@@ -244,6 +244,10 @@ public abstract class process {
         this.CPUTime += time;
     }
 
+    public void setCPU (int time) {
+        this.CPUTime = time;
+    }
+
     public void updateRunTime(int runTime) {
         RunTime = runTime;
     }

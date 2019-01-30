@@ -2,6 +2,7 @@ package Testing;
 
 import Generators.WorksetGenerator;
 import Processes.process;
+import Schedulers.Report;
 import Schedulers.Scheduler_FIFO;
 
 public class FIFOtester {
@@ -9,7 +10,7 @@ public class FIFOtester {
     public static void main(String[] args){
 
         WorksetGenerator Test = new WorksetGenerator();
-        //WorksetReport.ReportWorkSet(Test);
+        //Report.ReportWorkSet(Test);
         Scheduler_FIFO FIFO = new Scheduler_FIFO(Test.Workset);
 
         //Begin the algorithm
@@ -41,7 +42,7 @@ public class FIFOtester {
 
         System.out.println("FinishedQ size  " + FIFO.FinishedQ.size());
 
-       // System.out.println("init Q size"+ FIFO.ReadyProcesses.
+        System.out.printl("init Q size"+ FIFO.ReadyProcesses.
 
         int NE = FIFO.NextEvent;
         //begin handling the events until end of simulation
