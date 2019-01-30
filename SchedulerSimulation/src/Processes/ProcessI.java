@@ -58,6 +58,7 @@ public class ProcessI extends process {
            this.NextBlockInstant = Block1.getBI();
            this.NextBlockResource = Block1.getR();
            this.NextBlockTime = Block1.getBT();
+           this.BlockRecord = null;
        }
     }
     /**
