@@ -1,4 +1,4 @@
-package Schedulers;
+package Reports;
 
 import Generators.WorksetGenerator;
 import Processes.process;
@@ -7,10 +7,10 @@ import Processes.Block;
 import java.util.*;
 
 /**
- * The Report class provides methods to print out report variables from a workset generator object
+ * The WorksetReport class provides methods to print out report variables from a workset generator object
  * as well as information specific to each process in a formatted fashion.
  */
-public class Report {
+public class WorksetReport {
 
     /**Print out how many processes created total and how many of each type were created
      * takes in data members of work set generator object
@@ -21,7 +21,7 @@ public class Report {
      * @param T3C       total amount of type 3 processes generated
      * @param T4C       total amount of type 4 processes generated
      */
-    public static void PrintNumProcesses(int total, int T1C, int T2C, int T3C, int T4C){
+    public static void PrintNumProcesses(int total, int T1C, int T2C, int T3C, int T4C) {
 
         System.out.println(String.format("%d processes generated, %d type1, %d type2, %d type3, and %d type4 ",
                 total, T1C, T2C, T3C, T4C));
@@ -207,7 +207,7 @@ public class Report {
        PrintNumProcesses(WSG.totalNumProcesses, WSG.Type1Count, WSG.Type2Count, WSG.Type3Count, WSG.Type4Count);
         System.out.println();
         System.out.println(Labels1());
-        Report.PrintProcessInfo(WSG.Workset);
+        WorksetReport.PrintProcessInfo(WSG.Workset);
         System.out.println();
         System.out.println();
         System.out.println(Labels2());

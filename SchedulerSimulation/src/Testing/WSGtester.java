@@ -1,11 +1,11 @@
 package Testing;
 import Generators.WorksetGenerator;
-import Schedulers.Report;
+import Reports.WorksetReport;
 
 public class WSGtester {
 
     public static void main(String arg[]){
         WorksetGenerator Test = new WorksetGenerator();
-        Report.ReportWorkSet(Test);
+        WorksetReport.ReportWorkSet(Test);
     }
 }
