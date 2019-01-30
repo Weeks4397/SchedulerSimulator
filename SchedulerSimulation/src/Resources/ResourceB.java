@@ -64,13 +64,14 @@ public class ResourceB extends Resource {
         theProcess.ServiceStartTime = time;
 
         //Check to see if resource has been idle
-        if (this.BlockedList.isEmpty() && this.ServingProcess == null) {
-
+        if (this.BlockedList.size() == 1 && this.ServingProcess == null){
+            //If the resource has been idle...
             //This is the only process that will be in service
             this.ServingProcess = theProcess;
 
             //update the idle time because the resource was idle until this process arrived.
             this.updateIdleTime (time - this.StartIdleTime);
+
             //This is the only process being served so it must have the Next Unblock Time
             this.updateNextUnblockTime(UnblockTime);
 

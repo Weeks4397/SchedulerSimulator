@@ -2,6 +2,7 @@ package Testing;
 
 import Generators.WorksetGenerator;
 import Processes.process;
+import Resources.Resource;
 import Schedulers.Report;
 import Schedulers.Scheduler_FIFO;
 
@@ -42,13 +43,13 @@ public class FIFOtester {
 
         System.out.println("FinishedQ size  " + FIFO.FinishedQ.size());
 
-        System.out.printl("init Q size"+ FIFO.ReadyProcesses.
+        //System.out.println("init Q size"+ FIFO.ReadyProcesses.
 
         int NE = FIFO.NextEvent;
         //begin handling the events until end of simulation
         //When there are no more events, all events will be equal to MAXVAL
         int i = 0;
-        while (i < 3){
+        while (i < 20){
             FIFO.handleNextEvent();
             i++;
         }
@@ -81,6 +82,11 @@ public class FIFOtester {
         System.out.println(FIFO.CurrentIndex);
         System.out.println(FIFO.getMasterList().get(FIFO.CurrentIndex).getArrivalTime());
         System.out.println(FIFO.getNextEvent());
+
+        System.out.println(P1.toString());
+        Resource A = FIFO.TheResources[0];
+        System.out.println(A.toString());
+
 
     }
 }

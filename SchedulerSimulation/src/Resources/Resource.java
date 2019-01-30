@@ -77,7 +77,7 @@ public abstract class  Resource {
 
     public Resource(){
         this.NextUnblockTime = Integer.MAX_VALUE;
-        this.StartIdleTime = Integer.MAX_VALUE;
+        this.StartIdleTime = 0;
         this.ActiveTime = 0;
         this.IdleTime = 0;
         this.ServingProcess = null;
@@ -171,6 +171,17 @@ public abstract class  Resource {
      */
     public void updateActiveTime(int T) {
         this.ActiveTime += T;
+    }
+
+    /**
+     * toString formats important information about process into a string for debugging purposes
+     */
+    public String toString(){
+        String theResource = String.format("Type: %s\nActive time: %d\nIdle time: %d\nNumber of blocks served: %d" +
+                        "\nAmount of Block Time Served: %d",
+                this.getType(), this.getActiveTime(), this.getIdleTime(),
+                this.getNumOfBlocks(), this.getTotalBlockTime());
+        return theResource;
     }
 
 

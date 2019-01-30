@@ -131,9 +131,9 @@ public abstract class Scheduler {
      * Initializes an array of the Resources a process can block on
      */
     public void setTheResources(){
-        Resource A = new ResourceA();
-        Resource B = new ResourceB();
-        Resource C = new ResourceC();
+        ResourceA A = new ResourceA();
+        ResourceB B = new ResourceB();
+        ResourceC C = new ResourceC();
 
         this.TheResources = new Resource[] {A, B, C};
     }
