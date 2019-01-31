@@ -56,7 +56,7 @@ public class ResourceB extends Resource {
      * @param time     int  The global time at which the process has arrived to the resource
      */
     public void arrivingProcess (process theProcess, int time) {
-        //UnblockTime is the gobal time this process is scheduled to unblock at.
+        //UnblockTime is the global time this process is scheduled to unblock at.
         int  UnblockTime = theProcess.getNextBlockTime() + time;
 
         //Pair the Process with its unblock time and add to the BlockedList

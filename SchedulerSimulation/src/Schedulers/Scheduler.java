@@ -287,7 +287,7 @@ public abstract class Scheduler {
      */
     public void update_NextUnblock_and_Resource() {
         int min = TheResources[0].getNextUnblockTime();
-        Resource R = null;
+        Resource R = TheResources[0];
         for (Resource x : TheResources) {
             if (x.getNextUnblockTime() < min) {
                 min = x.getNextUnblockTime();
@@ -297,10 +297,8 @@ public abstract class Scheduler {
         if (min < Integer.MAX_VALUE){
             this.NextUnblock = min;
             this.NextUnblockResource = R;
-            System.out.println("we got to resource and something here");
         }
         else {
-            System.out.println("we got to resource null");
             this.NextUnblock = Integer.MAX_VALUE;
             this.NextUnblockResource = null;
         }

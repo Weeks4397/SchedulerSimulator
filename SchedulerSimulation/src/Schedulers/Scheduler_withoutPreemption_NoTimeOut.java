@@ -54,13 +54,6 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
      */
     public void handleNextUnblock(){
         //P is the process that is unblocking
-        System.out.println("how many times we get here");
-        if (this.getNextUnblockResource() == null) {
-            System.out.println("the resource is null right now");
-        }
-        else{ System.out.println("the resource is this type: " + this.getNextUnblockResource().getType());
-
-        }
         process P = this.getNextUnblockResource().finishService();
 
         //P has finished service and now must arrive to readyQ
@@ -92,8 +85,9 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
      * Handles the next finishing event with out considering preemption
      */
     public void handleNextSchedExit(){
-        //The active process is finshed running, update its CPUTime and add it to the FinishedQ.
+        //The active process is finshed running, update its CPUTime, finished time and add it to the FinishedQ.
         this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
+        this.ActiveProcess.updateFinishTime(this.getNextEvent());
         this.FinishedQ.add(this.getActiveProcess());
 
         //update Active time of CPU as well
@@ -109,7 +103,6 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
      * Handles the next blocking event with out considering preemption
      */
      public void handleNextBlock(){
-         System.out.println("were blocking here");
         //update the active processes CPUTime
         this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
 
@@ -162,6 +155,8 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
             //Update idol time because the CPU is back to being active
             this.updateIdolTime(this.getNextEvent() - this.getStartIdleTime());
         }
+        //Update Ps ready time
+        P.NextReadyTime = this.getNextEvent();
     }
 
     /**

@@ -2,16 +2,15 @@ package Testing;
 
 import Generators.WorksetGenerator;
 import Processes.process;
-import Resources.Resource;
 import Reports.WorksetReport;
 import Schedulers.Scheduler_FIFO;
 
 public class FIFOtester {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         WorksetGenerator Test = new WorksetGenerator();
-        //Report.ReportWorkSet(Test);
+        WorksetReport.ReportWorkSet(Test);
         Scheduler_FIFO FIFO = new Scheduler_FIFO(Test.Workset);
 
         //Begin the algorithm
@@ -33,15 +32,56 @@ public class FIFOtester {
         //begin handling the events until end of simulation
         //When there are no more events, all events will be equal to MAXVAL
         int I = 1;
-        while (FIFO.getNextEvent() != Integer.MAX_VALUE){
+        while (FIFO.getNextEvent() != Integer.MAX_VALUE) {
             FIFO.handleNextEvent();
-            System.out.println(I++);
         }
 
-        System.out.println(FIFO.getTime());
-        System.out.println(FIFO.getActiveTime());
-        System.out.println(FIFO.getIdleTime());
+        System.out.println("time: " + FIFO.getTime());
+        System.out.println("Active time: " + FIFO.getActiveTime());
+        System.out.println("Idle time: " + FIFO.getIdleTime());
 
+        System.out.println("Finished processes: " + FIFO.getFinishedQ().size());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println();
+        System.out.println(FIFO.FinishedQ.poll().toString());
 
+        System.out.println();
+        System.out.println();
+        System.out.println(Test.Workset.get(0));
+        System.out.println();
+        System.out.println(Test.Workset.get(1));
+        System.out.println();
+        System.out.println(Test.Workset.get(2));
+        System.out.println();
+        System.out.println(Test.Workset.get(3));
+        System.out.println();
+        System.out.println(Test.Workset.get(4));
+        System.out.println();
+        System.out.println(Test.Workset.get(5));
+        System.out.println();
+        System.out.println(Test.Workset.get(6));
+        System.out.println();
+        System.out.println(Test.Workset.get(7));
     }
 }
