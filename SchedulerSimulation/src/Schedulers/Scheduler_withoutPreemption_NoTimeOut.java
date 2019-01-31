@@ -17,19 +17,7 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
         super(masterList);
     }
 
-    /**
-     * updateNextEvent does not include Timeout as a possible event
-     */
-    public void updateNextEvent () {
-        int[] PossibleEvents = {this.NextArrival, this.NextSchedExit, this.NextUnblock, this.NextBlock};
-        int min = PossibleEvents[0];
-        for (int x : PossibleEvents) {
-            if (x < min) {
-                min = x;
-            }
-        }
-        this.NextEvent = min;
-    }
+
 
     /**
      *handleNextEvent does not include TimeOut as a potential event
@@ -53,7 +41,7 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
         this.updateTime();
 
         //update what the next event will be
-        this.updateNextEvent ();
+        this.updateNextEvent();
     };
 
 
@@ -62,10 +50,17 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
      */
 
     /**
-     * Handles the next unblock event with out considering preemption
+     * Handles the next unblock event without considering preemption
      */
     public void handleNextUnblock(){
         //P is the process that is unblocking
+        System.out.println("how many times we get here");
+        if (this.getNextUnblockResource() == null) {
+            System.out.println("the resource is null right now");
+        }
+        else{ System.out.println("the resource is this type: " + this.getNextUnblockResource().getType());
+
+        }
         process P = this.getNextUnblockResource().finishService();
 
         //P has finished service and now must arrive to readyQ
@@ -100,6 +95,7 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
         //The active process is finshed running, update its CPUTime and add it to the FinishedQ.
         this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
         this.FinishedQ.add(this.getActiveProcess());
+
         //update Active time of CPU as well
         this.updateActiveTime(this.getNextEvent() - this.getTime());
 
@@ -113,23 +109,31 @@ public abstract class Scheduler_withoutPreemption_NoTimeOut extends Scheduler_wi
      * Handles the next blocking event with out considering preemption
      */
      public void handleNextBlock(){
+         System.out.println("were blocking here");
         //update the active processes CPUTime
         this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
 
+         //update Active time of CPU as well
+         this.updateActiveTime(this.getNextEvent() - this.getTime());
+
         //Check to see what resource the process is blocking on and send it to that resource
         if (this.getActiveProcess().getNextBlockResource() == "A") {
-            TheResources[0].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
+            TheResources[0].arrivingProcess(this.ActiveProcess, this.getNextEvent());
         }
         else if (this.getActiveProcess().getNextBlockResource() == "B") {
-            TheResources[1].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
+            TheResources[1].arrivingProcess(this.ActiveProcess, this.getNextEvent());
         }
         else {
-            TheResources[2].arrivingProcess(this.ActiveProcess, this.getTime() + this.getNextEvent());
+            TheResources[2].arrivingProcess(this.ActiveProcess, this.getNextEvent());
         }
+
+         //Update NextUnblock because a process has blocked
+         this.update_NextUnblock_and_Resource();
 
         //The active process has exited CPU.
         //Bring in next process to run if there is one.
         this.ExitCPU();
+
     }
 
 

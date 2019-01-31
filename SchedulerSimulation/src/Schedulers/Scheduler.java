@@ -117,7 +117,7 @@ public abstract class Scheduler {
         this.NextUnblock = Integer.MAX_VALUE;
         this.NextBlock = Integer.MAX_VALUE;
 
-        this.NextEvent = Integer.MAX_VALUE;
+        this.NextEvent = 0;
         this.ActiveTime = 0;
         this.IdleTime = 0;
         this.StartIdleTime = Integer.MAX_VALUE;
@@ -297,8 +297,10 @@ public abstract class Scheduler {
         if (min < Integer.MAX_VALUE){
             this.NextUnblock = min;
             this.NextUnblockResource = R;
+            System.out.println("we got to resource and something here");
         }
         else {
+            System.out.println("we got to resource null");
             this.NextUnblock = Integer.MAX_VALUE;
             this.NextUnblockResource = null;
         }
@@ -327,7 +329,7 @@ public abstract class Scheduler {
             this.NextSchedExit = Integer.MAX_VALUE;
         }
         else{
-            this.NextSchedExit= this.getTime() + (this.ActiveProcess.getRunTime() - this.ActiveProcess.getCPUTime());
+            this.NextSchedExit= this.getNextEvent() + (this.ActiveProcess.getRunTime() - this.ActiveProcess.getCPUTime());
         }
     }
 
@@ -341,7 +343,7 @@ public abstract class Scheduler {
         }
         else{
             process P = this.getActiveProcess();
-            this.NextBlock = P.getNextBlockInstant() - P.getCPUTime() + this.getTime();
+            this.NextBlock = P.getNextBlockInstant() - P.getCPUTime() + this.getNextEvent();
         }
 
     }
@@ -360,7 +362,7 @@ public abstract class Scheduler {
      * @param t    int  The time the scheduler was idol this cycle
      */
     public void updateIdolTime(int t) {
-        this.IdleTime = t;
+        this.IdleTime += t;
     }
 
     /**
@@ -400,7 +402,7 @@ public abstract class Scheduler {
         //while the next process in the MasterList has an arrival time of 0
         //add it to the ReadyQ because that is one of the initial processes
         while(this.getMasterList().get(this.getCurrentIndex()).getArrivalTime() == 0){
-            this.ReadyProcesses.add(this.getMasterList().get(getCurrentIndex()));
+            this.ReadyProcesses.add(this.getMasterList().get(this.getCurrentIndex()));
             this.updateCurrentIndex();
         }
     }
