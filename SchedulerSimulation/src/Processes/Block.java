@@ -55,4 +55,12 @@ public class Block {
     public int getBT() {
         return this.BT;
     }
+
+    /**
+     * updateBI mutates the block instance to be the given val
+     * @param  val    int   the given value
+     */
+    public void updateBI(int val){
+        this.BI = val;
+    }
 }

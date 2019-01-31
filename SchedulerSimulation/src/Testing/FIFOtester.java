@@ -3,7 +3,7 @@ package Testing;
 import Generators.WorksetGenerator;
 import Processes.process;
 import Resources.Resource;
-import Schedulers.Report;
+import Reports.WorksetReport;
 import Schedulers.Scheduler_FIFO;
 
 public class FIFOtester {

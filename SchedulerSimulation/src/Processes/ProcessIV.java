@@ -45,6 +45,7 @@ public class ProcessIV extends process{
             PG4.BlockGen4();
             newBlock = PG4.getBlock();
             newBI += newBlock.getBI();
+            newBlock.updateBI(newBI);
             if (newBI < RT) {
                 this.BlockRecord.add(newBlock);
             }
