@@ -9,3 +9,6 @@ SchedulerSimulation/out/production/SchedulerSimulation/Schedulers/Report.class
 SchedulerSimulation/out/production/SchedulerSimulation/Processes/process.class
 SchedulerSimulation/out/production/SchedulerSimulation/Processes/process.class
 *.class
+*.class
+SchedulerSimulation/out/production/SchedulerSimulation/Generators/ProccessGenator.class
+*.class

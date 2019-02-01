@@ -6,7 +6,7 @@ import Processes.process;
 /**
  * is the ReadyQ to be used in the scheduler
  */
-public abstract class ReadyQ {
+public abstract class ReadyQ implements ReadyQInterface{
 
     /**
      * priQ is used as the ReadyQ for some of the schedulers Algorithms(sjf, srt, lwc)
@@ -16,6 +16,8 @@ public abstract class ReadyQ {
      * Q is used as the ReadyQ for some of the schedulers Algorithms(Fifo, RR)
      */
     public Queue<process> Q;
+
+
 
     /**
      * super Constructor for ReadyQ
@@ -42,6 +44,10 @@ public abstract class ReadyQ {
      */
     public abstract void add(process elem);
 
+    /**
+     * checks to see if the ReadyQ isEmpty
+     * @return a bool that these you if it is empty or not
+     */
     public abstract Boolean isEmpty();
 
 }
