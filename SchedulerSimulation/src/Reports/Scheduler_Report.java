@@ -73,7 +73,7 @@ public class Scheduler_Report {
 
     public static void overViewTable2(Scheduler scheduler) {
         String titles = "| Process | Type | Arrival | Running Time | Ready Time  | Block Service | Block Wait | Sched Instants | Timeouts | Preempts | Finish Time |";
-        
+
 
         System.out.println("Overview Table 2");
         System.out.println(getBorder(titles, 1) + "\n" + titles + "\n" + getBorder(titles,2));
