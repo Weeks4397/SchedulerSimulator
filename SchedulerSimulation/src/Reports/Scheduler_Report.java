@@ -3,7 +3,9 @@ package Reports;
 import Generators.WorksetGenerator;
 import Resources.Resource;
 import Schedulers.Scheduler;
-//import com.sun.tools.javac.util.StringUtils;
+import Schedulers.Scheduler_FIFO;
+
+import java.awt.*;
 
 public class Scheduler_Report {
 
@@ -18,6 +20,7 @@ public class Scheduler_Report {
 
         String boarder = getBorder(msg, 1);
         String boarder2 = getBorder(msg2, 1);
+        System.out.println("Table A:");
         System.out.println(boarder + "\n" + msg + "\n" + boarder);
         System.out.println(boarder2 + "\n" + msg2 + "\n" + boarder2 + "\n");
     }
@@ -52,21 +55,48 @@ public class Scheduler_Report {
         String msg2 = String.format("| Total BlockTime for Resource: %d  | A: %d | B: %d | C: %d |",TR1+TR2+TR3, TR1, TR2, TR3);
         String boarder = getBorder(msg, 1);
         String boarder2 = getBorder(msg2, 1);
-
+        System.out.println("Table B:");
         System.out.println(boarder + "\n" + msg + "\n" + boarder);
         System.out.println(boarder2 + "\n" + msg2 + "\n" + boarder2 + "\n");
     }
 
-    public static void tableC(Scheduler scheduler) {
+    public static void overViewTable1(Scheduler scheduler) {
         String titles = "| Algorithm | Service Time | Overhead Time | Idle Time | Finish Time | # of Timeouts | #  of Preempts | Min Throughput | Min Service Ratio |";
+
+        System.out.println("Overview Table 1");
+        System.out.println(getBorder(titles, 1) + "\n" + titles + "\n" + getBorder(titles,2));
+        System.out.println("| " + getAlgorithm(scheduler) + " | "  + scheduler.getActiveTime() + " | " + (scheduler.getActiveTime() + scheduler.getIdleTime()) + " | " +
+        scheduler.getIdleTime() + scheduler.getActiveTime() + (scheduler.getIdleTime()) + " | " + scheduler.getTime() +
+        " | " + "# TIMEOUT" + " | " + "# Preempt" + " | " + "Min Throughput" + " | " + "Min Service Ratio" + "\n");
+
+    }
+
+    public static void overViewTable2(Scheduler scheduler) {
+        String titles = "| Process | Type | Arrival | Running Time | Ready Time  | Block Service | Block Wait | Sched Instants | Timeouts | Preempts | Finish Time |";
+        
+
+        System.out.println("Overview Table 2");
         System.out.println(getBorder(titles, 1) + "\n" + titles + "\n" + getBorder(titles,2));
 
     }
 
     public static void CreateReport(WorksetGenerator WSG, Scheduler scheduler) {
+        System.out.println("*** Process Set Characteristics ***" + "\n");
         tableA(WSG);
         tableB(scheduler);
-        tableC(scheduler);
+
+        System.out.println("*** CPU View ***" + "\n");
+        overViewTable1(scheduler);
+        overViewTable2(scheduler);
+    }
+
+    private static String getAlgorithm(Scheduler s) {
+
+        if (s instanceof Scheduler_FIFO) {
+            return "FIFO";
+        }
+        //TODO: ADD OTHER SCHEDULERS
+        return "";
     }
 
 
