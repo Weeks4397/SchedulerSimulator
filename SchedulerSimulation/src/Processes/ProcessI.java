@@ -2,7 +2,6 @@ package Processes;
 import Generators.*;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Processes of type I
@@ -64,9 +63,9 @@ public class ProcessI extends process {
      * creates a clone of this process
      * @return the cloned process
      */
-    public ProcessI cloneProcess() {
+    public process cloneProcess() {
         ProcessI PI = new ProcessI();
-        PI.updateGlobalBlockInstant(this.GlobalBlockInstant);
+        PI.updateGlobalBlockInstant(this.StartBlockWaitTime);
         PI.setCPU(this.CPUTime);
         PI.updateRunTime(this.RunTime);
         PI.updateType(this.Type);

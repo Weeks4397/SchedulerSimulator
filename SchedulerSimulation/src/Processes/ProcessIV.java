@@ -56,9 +56,9 @@ public class ProcessIV extends process{
      * creates a clone of this process
      * @return the cloned process
      */
-    public ProcessIV cloneProcess() {
+    public process cloneProcess() {
         ProcessIV PIV = new ProcessIV();
-        PIV.updateGlobalBlockInstant(this.GlobalBlockInstant);
+        PIV.updateGlobalBlockInstant(this.StartBlockWaitTime);
         PIV.setCPU(this.CPUTime);
         PIV.updateRunTime(this.RunTime);
         PIV.updateType(this.Type);

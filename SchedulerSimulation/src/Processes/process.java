@@ -79,14 +79,14 @@ public abstract class process {
 
     /**
      * BlockWaitTime is the total amount of time a process waited for service
-     * This is the ServiceStartTime - GlobalBlockInstant
+     * This is the ServiceStartTime - StartBlockWaitTime
      */
     public int BlockWaitTime;
 
     /**
-     * GlobalBlockInstant is the last global time at which the process has blocked
+     * StartBlockWaitTime is the last global time at which the process has blocked
      */
-    public int GlobalBlockInstant;
+    public int StartBlockWaitTime;
 
     /**
      * ServiceStartTime is the global time at which a process begins to use the resource
@@ -114,7 +114,7 @@ public abstract class process {
         this.NextReadyTime = -1;
         this.ServiceStartTime = Integer.MAX_VALUE;
         this.BlockWaitTime = 0;
-        this.GlobalBlockInstant = Integer.MAX_VALUE;
+        this.StartBlockWaitTime = Integer.MAX_VALUE;
     }
 
     //setters for processes
@@ -219,7 +219,7 @@ public abstract class process {
 
     public int getBlockWaitTime(){return this.BlockWaitTime;}
 
-    public int getGlobalBlockInstant() {return this.GlobalBlockInstant;}
+    public int getStartBlockWaitTime() {return this.StartBlockWaitTime;}
 
     //Mutators for Processes
 
@@ -227,7 +227,7 @@ public abstract class process {
      * @param time  time is a non null int > 0
      */
     public void updateGlobalBlockInstant(int time){
-        this.GlobalBlockInstant = time;
+        this.StartBlockWaitTime = time;
     }
     public void updateCPU (int time) {
         this.CPUTime += time;
@@ -324,5 +324,11 @@ public abstract class process {
                 this.getBlockServiceTime(), this.getBlockWaitTime(), this.getFinishTime());
        return theProcess;
     }
+
+    /**
+     * cloneProcess makes a deep copy of a given process
+     * @return process  a deep copy of the given process
+     */
+    public abstract process cloneProcess();
 
 }
