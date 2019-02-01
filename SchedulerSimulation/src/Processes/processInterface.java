@@ -1,4 +1,7 @@
 package Processes;
+
+import java.util.Queue;
+
 /**
  * A Process contains a set of numbers, a queue of blocks, and a string for the next resource.
  * A process is updated and tracked through the scheduler to provide performance data in the simulation.
@@ -12,7 +15,30 @@ package Processes;
  *
  */
 public interface processInterface {
+    /**Sets the StringID
+     * If string id is over max limit set to "-1"
+     * @param i  keeps track of current processID index
+     * @param iMax  the maximum amount of process IDs available
+     */
+    void setStringID(int i, int iMax);
 
+
+    /**
+     * GotoNextBlock    goes to the next block in the block record if there is one
+     * if not set block variables appropriately
+     */
+    void GotoNextBlock();
+
+    /**
+     * toString formats important information about process into a string for debugging purposes
+     */
+    String toString();
+
+    /**
+     * cloneProcess makes a deep copy of a given process
+     * @return process  a deep copy of the given process
+     */
+    process cloneProcess();
 
 
 }

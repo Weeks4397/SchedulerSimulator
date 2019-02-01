@@ -2,7 +2,7 @@ package Processes;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public abstract class process {
+public abstract class process implements processInterface {
 
     //data members of process
 
