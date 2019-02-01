@@ -96,7 +96,7 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
             this.NextTimeOut = Integer.MAX_VALUE;
         }
         else{
-            this.NextSchedExit= this.getTime() + (this.getTimeQuantum() - this.ActiveProcess.getCPUTime());
+            this.NextSchedExit= this.getNextEvent() + this.getTimeQuantum();
         }
     }
 
