@@ -5,19 +5,18 @@ import Processes.process;
 import java.util.List;
 
 /**
- * Scheduler_withPreemption_NoTimeout is a subclass of Scheduler_without_Timeout.
- * This class extends Scheduler_without_Timeout to include preemption in the handling of events
- * Algorithms that are subclasses of this are...currently none
+ * Scheduler_withoutPreemption_withTimeout is a subclass of Scheduler_with_Timeout.
+ * This class extends Scheduler_with_Timeout to not include preemption in the handling of events
+ * Algorithms that are subclasses of this are RR.
  */
-public class Scheduler_withPreemption_NoTimeOut extends Scheduler_without_TimeOut {
+public abstract class Scheduler_withoutPreemption_withTimeOut extends Scheduler_with_TimeOut {
 
     /**
      *Constructor for scheduler without preemption and with out time out
      */
-    public Scheduler_withPreemption_NoTimeOut(List<process> masterList){
+    public Scheduler_withoutPreemption_withTimeOut(List<process> masterList){
         super(masterList);
     }
-
 
     /**
      *handleNextEvent does not include TimeOut as a potential event
@@ -31,6 +30,9 @@ public class Scheduler_withPreemption_NoTimeOut extends Scheduler_without_TimeOu
         }
         else if (this.getNextEvent() == this.getNextSchedExit()){
             this.handleNextSchedExit();
+        }
+        else if(this.getNextEvent() == this.getNextTimeOut()){
+            this.handleNextTimeOut();
         }
         //the event was a block
         else {
@@ -129,6 +131,24 @@ public class Scheduler_withPreemption_NoTimeOut extends Scheduler_without_TimeOu
 
     }
 
+    /**
+     * Handles the next time out event with out considering preemption
+     */
+    public void handleNextTimeOut(){
+        //update the active processes CPUTime
+        this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
+
+        //update Active time of CPU as well
+        this.updateActiveTime(this.getNextEvent() - this.getTime());
+
+        //place the running process back into readyQ
+        this.ReadyProcesses.add(this.ActiveProcess);
+
+        //The active process has exited CPU.
+        //Bring in next process to run if there is one.
+        this.ExitCPU();
+    }
+
 
 
     /**
@@ -143,17 +163,15 @@ public class Scheduler_withPreemption_NoTimeOut extends Scheduler_without_TimeOu
 
             //add P into the ReadyQ
             this.ReadyProcesses.add(P);
-
-            //Consider preempting the currently running process
-           // if(this.ReadyProcesses.peek() )
         }
         else {
             //if there is no running process, make P the new running process
             this.updateActiveProcess(P);
 
-            //The ActiveProcess has changed, update NextBlock and NextSchedExit
+            //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
             this.updateNextBlock();
             this.updateNextSchedExit();
+            this.updateNextTimeOut();
 
             //Update idol time because the CPU is back to being active
             this.updateIdolTime(this.getNextEvent() - this.getStartIdleTime());
@@ -172,18 +190,19 @@ public class Scheduler_withPreemption_NoTimeOut extends Scheduler_without_TimeOu
             //there is no active process now
             this.ActiveProcess = null;
 
-            //update NextBlock and NextSchedExit because the ActiveProcess has changed
+            //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
             this.updateNextBlock();
             this.updateNextSchedExit();
+            this.updateNextTimeOut();
         }
         else {
             //update ActiveProcess to be the next ready process
             this.updateActiveProcess(this.ReadyProcesses.poll());
 
-            //Update NextBlock and NextSchedExit because the ActiveProcess has changed
+            //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
             this.updateNextBlock();
             this.updateNextSchedExit();
+            this.updateNextTimeOut();
         }
     }
-
 }

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Queue;
 
 //TODO: further abstraction is needed, update methods as we abstract
-//TODO: Also figure out if SJF LWC and SRT have time slice
 
 /**
  * a Scheduler is a collection of numbers, a ReadyQ, a running process, a list of resources,

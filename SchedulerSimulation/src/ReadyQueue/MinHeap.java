@@ -28,7 +28,7 @@ public class MinHeap<T> {
     /**
      * Initialize a comparator object to be set in the constructor for the minheap.
      */
-        public Comparator<T> CompObj;
+    public Comparator<T> CompObj;
 
     /** Constructor for MinHeap
      *
