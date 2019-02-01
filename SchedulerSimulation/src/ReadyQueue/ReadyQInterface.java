@@ -2,10 +2,11 @@ package ReadyQueue;
 
 import Processes.process;
 
-import java.util.Queue;
-
+/**
+ * is the ReadyQ to be used in the scheduler
+ * can be either a standard queue or a priority queue
+ */
 public interface ReadyQInterface {
-
 
     /**
      * looks at the first elem of the list based on what list is being used

@@ -12,3 +12,4 @@ SchedulerSimulation/out/production/SchedulerSimulation/Processes/process.class
 *.class
 SchedulerSimulation/out/production/SchedulerSimulation/Generators/ProccessGenator.class
 *.class
+*.class

@@ -3,10 +3,6 @@ package ReadyQueue;
 import java.util.*;
 import Processes.process;
 
-/**
- * is the ReadyQ to be used in the scheduler
- * can be either a standard queue or a priority queue
- */
 public abstract class ReadyQ implements ReadyQInterface{
 
     /**
