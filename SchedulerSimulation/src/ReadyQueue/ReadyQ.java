@@ -5,6 +5,7 @@ import Processes.process;
 
 /**
  * is the ReadyQ to be used in the scheduler
+ * can be either a standard queue or a priority queue
  */
 public abstract class ReadyQ {
 
@@ -12,16 +13,17 @@ public abstract class ReadyQ {
      * priQ is used as the ReadyQ for some of the schedulers Algorithms(sjf, srt, lwc)
      */
     public MinHeap<process> PriQ;
+
     /**
      * Q is used as the ReadyQ for some of the schedulers Algorithms(Fifo, RR)
      */
     public Queue<process> Q;
 
+
     /**
      * super Constructor for ReadyQ
      */
     public ReadyQ(){
-
     }
 
     /**
@@ -42,6 +44,10 @@ public abstract class ReadyQ {
      */
     public abstract void add(process elem);
 
+    /**
+     * checks to see if Queue is empty
+     * @return Boolean  true or false
+     */
     public abstract Boolean isEmpty();
 
 }

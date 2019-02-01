@@ -19,7 +19,7 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
     /**
      * TimeQuantum is the length of time slice afforded to each process before they timeout
      */
-    public int TimeQuantum;
+    public final int TimeQuantum = 50;
 
     /**NextTimeout is potential event
      * NextTimeOut: The time at which a running process will complete its time slice and be placed back into ReadyQ
@@ -46,15 +46,6 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
         return this.TimeQuantum;
     }
 
-    /**
-     * arriveReadyQ is a helper method to help handle the events of a process unblocking or arriving from Master List
-     */
-    public abstract void arriveReadyQ(process P);
-
-    /**
-     *ExitCPU is a helper method to help handle the events of a process blocking, finishing, or timing out
-     */
-    public abstract void ExitCPU();
 
     /**
      * updateNextEvent now includes NextTimeout as a potential event
@@ -73,18 +64,30 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
     /**
      *handleNextEvent will include TimeOut as a potential event
      */
-    public abstract void handleNextEvent();
+    public void handleNextEvent(){
+        if (this.getNextEvent() == this.getNextUnblock()){
+            this.handleNextUnblock();
+        }
+        else if (this.getNextEvent() == this.getNextArrival()){
+            this.handleNextArrival();
+        }
+        else if (this.getNextEvent() == this.getNextSchedExit()){
+            this.handleNextSchedExit();
+        }
+        else if(this.getNextEvent() == this.getNextTimeOut()){
+            this.handleNextTimeOut();
+        }
+        //the event was a block
+        else {
+            this.handleNextBlock();
+        }
 
-    /**
-     * methods to handle each individual event
-     * handleNextTimeOut is included to handle the event of a process completing its time slice
-     */
-    public abstract void handleNextUnblock();
-    public abstract void handleNextArrival();
-    public abstract void handleNextSchedExit();
-    public abstract void handleNextBlock();
-    public abstract void handleNextTimeOut();
+        //update global time
+        this.updateTime();
 
+        //update what the next event will be
+        this.updateNextEvent();
+    };
 
     /**
      * updateNextTimeOut mutates NextTimeOut to be the global time at which the
@@ -96,7 +99,56 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
             this.NextTimeOut = Integer.MAX_VALUE;
         }
         else{
-            this.NextSchedExit= this.getNextEvent() + this.getTimeQuantum();
+            this.NextTimeOut= this.getNextEvent() + this.getTimeQuantum();
+        }
+    }
+
+    /**
+     * Handles the next time out event
+     */
+    public void handleNextTimeOut(){
+        //update the active processes CPUTime
+        this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
+
+        //update Active time of CPU as well
+        this.updateActiveTime(this.getNextEvent() - this.getTime());
+
+        //place the running process back into readyQ
+        this.ReadyProcesses.add(this.ActiveProcess);
+
+        //The active process has exited CPU.
+        //Bring in next process to run if there is one.
+        this.ExitCPU();
+    }
+
+    /**
+     * arriveReadyQ is a helper method to help handle the events of a process unblocking or arriving from Master List
+     */
+    public abstract void arriveReadyQ(process P);
+
+    /**
+     *ExitCPU is a helper method to help handle the events of a process blocking, finishing, or timing out
+     */
+    public void ExitCPU(){
+        if (this.ReadyProcesses.isEmpty()) {
+            //if there are no processes ready to run, begin idol time
+            this.updateStartIdolTime(this.getNextEvent());
+            //there is no active process now
+            this.ActiveProcess = null;
+
+            //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
+            this.updateNextBlock();
+            this.updateNextSchedExit();
+            this.updateNextTimeOut();
+        }
+        else {
+            //update ActiveProcess to be the next ready process
+            this.updateActiveProcess(this.ReadyProcesses.poll());
+
+            //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
+            this.updateNextBlock();
+            this.updateNextSchedExit();
+            this.updateNextTimeOut();
         }
     }
 

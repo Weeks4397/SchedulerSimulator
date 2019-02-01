@@ -16,15 +16,6 @@ public abstract class Scheduler_without_TimeOut extends Scheduler {
         super(masterList);
     }
 
-    /**
-     * arriveReadyQ is a helper method to help handle the events of a process unblocking or arriving from Master List
-     */
-    public abstract void arriveReadyQ(process P);
-
-    /**
-     *ExitCPU is a helper method to help handle the events of a process blocking or finishing
-     */
-    public abstract void ExitCPU();
 
     /**
      * updateNextEvent does not include time out as a possible event
@@ -41,16 +32,60 @@ public abstract class Scheduler_without_TimeOut extends Scheduler {
     }
 
     /**
-     *handleNextEvent will include TimeOut as a potential event
+     *handleNextEvent does not include TimeOut as a potential event
      */
-    public abstract void handleNextEvent();
+    public void handleNextEvent(){
+        if (this.getNextEvent() == this.getNextUnblock()){
+            this.handleNextUnblock();
+        }
+        else if (this.getNextEvent() == this.getNextArrival()){
+            this.handleNextArrival();
+        }
+        else if (this.getNextEvent() == this.getNextSchedExit()){
+            this.handleNextSchedExit();
+        }
+        //the event was a block
+        else {
+            this.handleNextBlock();
+        }
+
+        //update global time
+        this.updateTime();
+
+        //update what the next event will be
+        this.updateNextEvent();
+    }
 
     /**
-     * methods to handle each individual event
+     * arriveReadyQ is a helper method to help handle the events of a process unblocking or arriving from Master List
+     * This method depends on whether the algorithm includes preemption
      */
-    public abstract void handleNextUnblock();
-    public abstract void handleNextArrival();
-    public abstract void handleNextSchedExit();
-    public abstract void handleNextBlock();
+    public abstract void arriveReadyQ(process P);
+
+    /**
+     *ExitCPU is a helper method to help handle the events of a process blocking or finishing
+     * this method will not consider time out
+     */
+    public void ExitCPU(){
+        if (this.ReadyProcesses.isEmpty()) {
+            //if there are no processes ready to run, begin idol time
+            this.updateStartIdolTime(this.getNextEvent());
+            //there is no active process now
+            this.ActiveProcess = null;
+
+            //update NextBlock and NextSchedExit because the ActiveProcess has changed
+            this.updateNextBlock();
+            this.updateNextSchedExit();
+        }
+        else {
+            //update ActiveProcess to be the next ready process
+            this.updateActiveProcess(this.ReadyProcesses.poll());
+
+            //Update NextBlock and NextSchedExit because the ActiveProcess has changed
+            this.updateNextBlock();
+            this.updateNextSchedExit();
+        }
+    }
+
 
 }

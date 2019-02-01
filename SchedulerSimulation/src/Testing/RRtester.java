@@ -2,72 +2,72 @@ package Testing;
 
 import Generators.WorksetGenerator;
 import Processes.process;
-import Reports.Scheduler_Report;
 import Reports.WorksetReport;
-import Schedulers.Scheduler_FIFO;
+import Schedulers.Scheduler_RR;
 
-public class FIFOtester {
+public class RRtester {
 
     public static void main(String[] args) {
 
         WorksetGenerator Test = new WorksetGenerator();
         WorksetReport.ReportWorkSet(Test);
-        Scheduler_FIFO FIFO = new Scheduler_FIFO(Test.Workset);
+        Scheduler_RR rr = new Scheduler_RR(Test.Workset);
 
         //Begin the algorithm
 
         //P is the init process to get time with CPU
-        process P = FIFO.ReadyProcesses.poll();
-        FIFO.updateActiveProcess(P);
+        process P = rr.ReadyProcesses.poll();
+        rr.updateActiveProcess(P);
 
         //update all of the initial events
-        FIFO.update_NextUnblock_and_Resource();
-        FIFO.updateNextSchedExit();
-        FIFO.updateNextArrival();
-        FIFO.updateNextBlock();
+        rr.update_NextUnblock_and_Resource();
+        rr.updateNextSchedExit();
+        rr.updateNextArrival();
+        rr.updateNextBlock();
+        rr.updateNextTimeOut();
 
         //Get the next event out of these
-        FIFO.updateNextEvent();
+        rr.updateNextEvent();
 
 
         //begin handling the events until end of simulation
         //When there are no more events, all events will be equal to MAXVAL
         int I = 1;
-        while (FIFO.getNextEvent() != Integer.MAX_VALUE) {
-            FIFO.handleNextEvent();
+        while (rr.getNextEvent() != Integer.MAX_VALUE) {
+            rr.handleNextEvent();
         }
-       // Scheduler_Report.CreateReport(Test,FIFO);
+        // Scheduler_Report.CreateReport(Test,rr);
 
 
-        System.out.println("time: " + FIFO.getTime());
-        System.out.println("Active time: " + FIFO.getActiveTime());
-        System.out.println("Idle time: " + FIFO.getIdleTime());
+        System.out.println("time: " + rr.getTime());
+        System.out.println("Active time: " + rr.getActiveTime());
+        System.out.println("Idle time: " + rr.getIdleTime());
 
-        System.out.println("Finished processes: " + FIFO.getFinishedQ().size());
+        System.out.println("Finished processes: " + rr.getFinishedQ().size());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
         System.out.println();
-        System.out.println(FIFO.FinishedQ.poll().toString());
+        System.out.println(rr.FinishedQ.poll().toString());
 
         System.out.println();
         System.out.println();
@@ -87,6 +87,6 @@ public class FIFOtester {
         System.out.println();
         System.out.println(Test.Workset.get(7));
 
-        
+
     }
 }

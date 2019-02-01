@@ -6,10 +6,10 @@ import ReadyQueue.FIFO_Q;
 import java.util.List;
 
 /**
- * Scheduler_FIFO is a subclass of Scheduler_withoutPreemption_NoTimeOut.
+ * Scheduler_FIFO is a subclass of Scheduler_withoutTimeOut_withoutPreemption.
  * FIFO is a first come, first serve algorithm that does not include preemption or time slice.
  */
-public class Scheduler_FIFO extends Scheduler_withoutPreemption_NoTimeOut {
+public class Scheduler_FIFO extends Scheduler_withoutTimeOut_withoutPreemption {
 
     /**
      * constructor for Scheduler_FIFO
