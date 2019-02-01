@@ -1,9 +1,6 @@
 package Processes;
 import Generators.*;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * Processes of type II
  */
@@ -40,9 +37,9 @@ public class ProcessII extends process{
      * creates a clone of this process
      * @return the cloned process
      */
-    public ProcessII cloneProcess() {
+    public process cloneProcess() {
         ProcessII PII = new ProcessII();
-        PII.updateGlobalBlockInstant(this.GlobalBlockInstant);
+        PII.updateGlobalBlockInstant(this.StartBlockWaitTime);
         PII.setCPU(this.CPUTime);
         PII.updateRunTime(this.RunTime);
         PII.updateType(this.Type);

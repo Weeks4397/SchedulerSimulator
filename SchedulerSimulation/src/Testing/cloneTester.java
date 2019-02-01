@@ -2,14 +2,14 @@ package Testing;
 import Processes.*;
 public class cloneTester {
     public static void main(String arg[]){
-        ProcessI PI = new ProcessI();
-        ProcessII PII = new ProcessII();
-        ProcessIII PIII = new ProcessIII();
-        ProcessIV PIV = new ProcessIV();
-        ProcessI PIClone = PI.cloneProcess();
-        ProcessII PIIClone = PII.cloneProcess();
-        ProcessIII PIIIClone = PIII.cloneProcess();
-        ProcessIV PIVClone = PIV.cloneProcess();
+        process PI = new ProcessI();
+        process PII = new ProcessII();
+        process PIII = new ProcessIII();
+        process PIV = new ProcessIV();
+        process PIClone = PI.cloneProcess();
+        process PIIClone = PII.cloneProcess();
+        process PIIIClone = PIII.cloneProcess();
+        process PIVClone = PIV.cloneProcess();
 
         if(PI.getBlockRecord() == null){
            System.out.println("it is null");

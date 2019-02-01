@@ -1,6 +1,5 @@
 package Resources;
 import Processes.process;
-import Processes.Block;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -90,7 +89,7 @@ public abstract class ExclusiveResource extends Resource {
 
         //increment finishing process's variables to keep track of performance
         oldProcess.BlockServiceTime += oldTime - oldProcess.getServiceStartTime();
-        oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() - oldProcess.getGlobalBlockInstant();
+        oldProcess.BlockWaitTime += oldProcess.getServiceStartTime() - oldProcess.getStartBlockWaitTime();
 
         //update the block record of the finishing process to move to the next block if there is one
         //or have process not block again if there is not one.

@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-//TODO: further abstraction is needed, update methods as we abstract
 
 /**
  * a Scheduler is a collection of numbers, a ReadyQ, a running process, a list of resources,
@@ -96,6 +95,17 @@ public abstract class Scheduler {
      * reporting purposes after the simulation.
      */
      public Queue<process> FinishedQ;
+
+     //TODO figure out what context switches are
+    /**
+     * The scheduler has costs for context switch that increment overhead
+     * SCostMin:  occurs when readyQ is empty:
+     *                  - process finishes or times out
+     * SCostFull: occurs when readyQ is not empty:
+     *                  -process blocks or times out
+     *                  -if algorithm is preemptive and process arrives or unblocks
+     * SCostComp: occurs when readyQ is not empty
+     */
 
 
     /**
