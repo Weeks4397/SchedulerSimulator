@@ -45,6 +45,7 @@ public class ProcessIII extends process{
             PG3.BlockGen3();
             newBlock = PG3.getBlock();
             newBI += newBlock.getBI();
+            newBlock.updateBI(newBI);
             if (newBI < RT) {
                 this.BlockRecord.add(newBlock);
             }

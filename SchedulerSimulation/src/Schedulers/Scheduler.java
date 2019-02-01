@@ -4,12 +4,12 @@ import Processes.process;
 import ReadyQueue.ReadyQ;
 import Resources.*;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 //TODO: further abstraction is needed, update methods as we abstract
-//TODO: Also figure out if SJF LWC and SRT have time slice
 
 /**
  * a Scheduler is a collection of numbers, a ReadyQ, a running process, a list of resources,
@@ -117,7 +117,7 @@ public abstract class Scheduler {
         this.NextUnblock = Integer.MAX_VALUE;
         this.NextBlock = Integer.MAX_VALUE;
 
-        this.NextEvent = Integer.MAX_VALUE;
+        this.NextEvent = 0;
         this.ActiveTime = 0;
         this.IdleTime = 0;
         this.StartIdleTime = Integer.MAX_VALUE;
@@ -131,9 +131,9 @@ public abstract class Scheduler {
      * Initializes an array of the Resources a process can block on
      */
     public void setTheResources(){
-        Resource A = new ResourceA();
-        Resource B = new ResourceB();
-        Resource C = new ResourceC();
+        ResourceA A = new ResourceA();
+        ResourceB B = new ResourceB();
+        ResourceC C = new ResourceC();
 
         this.TheResources = new Resource[] {A, B, C};
     }
@@ -210,18 +210,20 @@ public abstract class Scheduler {
     /**
      * The scheduler needs to handle the arrival and Exiting of Processes
      * Arrival: Processes can arrive to the ReadyQ or directly to CPU after unblocking or arriving from MasterList
-     * Exiting and arriving: Processes can exit from using CPU, The next process will now have to arrive
-     *                      to use the CPU.
+     * Exiting and arriving: Processes can exit from using CPU, The next process will now have to get access
+     *                      to the CPU.
      */
 
     /**
-     * arriveReadyQ handles a process arriving to the ReadyQ
+     * arriveReadyQ is a helper for handling a process arriving to the ReadyQ
+     * This method depends on whether the algorithm has time out and/or preemption.
      * @param P process     the process that is arriving
      */
     public abstract void arriveReadyQ(process P);
 
     /**
-     * ExitCPU handles a process exiting from use of the CPU
+     * ExitCPU is a helper for handling a process exiting from use of the CPU
+     * This method depends on whether the algorithm has time out or not
      */
     public abstract void ExitCPU();
 
@@ -232,7 +234,7 @@ public abstract class Scheduler {
      */
 
     /**updateNextEvent mutates NextEvent to be the min of the possible events
-     *
+     *this method depends on whether the algorithm as time out or not
      */
     public abstract void updateNextEvent ();
 
@@ -240,6 +242,8 @@ public abstract class Scheduler {
      * handleNextEvent determines the necessary course of action after the next event has been determined.
      * This is when Processes will change state and report variables will be incremented
      * Methods interacting with the MasterList, ReadyQ, FinishedQ, and Resources occur here
+     *
+     * This method depends on whether the algorithm has time out or not
      */
     public abstract void handleNextEvent();
 
@@ -252,22 +256,79 @@ public abstract class Scheduler {
     /**
      * handleNextUnblock handles the event of a process unblocking from a resource
      */
-    public abstract void handleNextUnblock();
+    public void handleNextUnblock(){
+        //P is the process that is unblocking
+        process P = this.getNextUnblockResource().finishService();
+
+        //P has finished service and now must arrive to readyQ
+        this.arriveReadyQ(P);
+
+        //update the next unblock event
+        this.update_NextUnblock_and_Resource();
+    };
 
     /**
      * handleNextArrival handles the event of a process arriving from MasterList
      */
-    public abstract void handleNextArrival();
+    public void handleNextArrival() {
+        //P is the process arriving from the MasterList
+        process P = this.getMasterList().get(this.getCurrentIndex());
+
+        //Handle P arriving to the readyQ
+        this.arriveReadyQ(P);
+
+        //update the current masterList index
+        this.updateCurrentIndex();
+
+        //update the next arrival event
+        this.updateNextArrival();
+    }
 
     /**
      * handleNextSchedExit handles the event of a process finishing its run time with CPU
      */
-    public abstract void handleNextSchedExit();
+    public void handleNextSchedExit(){
+        //The active process is finshed running, update its CPUTime, finished time and add it to the FinishedQ.
+        this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
+        this.ActiveProcess.updateFinishTime(this.getNextEvent());
+        this.FinishedQ.add(this.getActiveProcess());
+
+        //update Active time of CPU as well
+        this.updateActiveTime(this.getNextEvent() - this.getTime());
+
+        //The active process has exited CPU.
+        //Bring in next process to run if there is one.
+        this.ExitCPU();
+    };
 
     /**
      * handleNextBlock handles the event of a process blocking and exiting CPU
      */
-    public abstract void handleNextBlock();
+    public void handleNextBlock(){
+        //update the active processes CPUTime
+        this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
+
+        //update Active time of CPU as well
+        this.updateActiveTime(this.getNextEvent() - this.getTime());
+
+        //Check to see what resource the process is blocking on and send it to that resource
+        if (this.getActiveProcess().getNextBlockResource() == "A") {
+            TheResources[0].arrivingProcess(this.ActiveProcess, this.getNextEvent());
+        }
+        else if (this.getActiveProcess().getNextBlockResource() == "B") {
+            TheResources[1].arrivingProcess(this.ActiveProcess, this.getNextEvent());
+        }
+        else {
+            TheResources[2].arrivingProcess(this.ActiveProcess, this.getNextEvent());
+        }
+
+        //Update NextUnblock because a process has blocked
+        this.update_NextUnblock_and_Resource();
+
+        //The active process has exited CPU.
+        //Bring in next process to run if there is one.
+        this.ExitCPU();
+    };
 
 
 
@@ -287,7 +348,7 @@ public abstract class Scheduler {
      */
     public void update_NextUnblock_and_Resource() {
         int min = TheResources[0].getNextUnblockTime();
-        Resource R = null;
+        Resource R = TheResources[0];
         for (Resource x : TheResources) {
             if (x.getNextUnblockTime() < min) {
                 min = x.getNextUnblockTime();
@@ -327,7 +388,7 @@ public abstract class Scheduler {
             this.NextSchedExit = Integer.MAX_VALUE;
         }
         else{
-            this.NextSchedExit= this.getTime() + (this.ActiveProcess.getRunTime() - this.ActiveProcess.getCPUTime());
+            this.NextSchedExit= this.getNextEvent() + (this.ActiveProcess.getRunTime() - this.ActiveProcess.getCPUTime());
         }
     }
 
@@ -341,7 +402,7 @@ public abstract class Scheduler {
         }
         else{
             process P = this.getActiveProcess();
-            this.NextBlock = P.getNextBlockInstant() - P.getCPUTime() + this.getTime();
+            this.NextBlock = P.getNextBlockInstant() - P.getCPUTime() + this.getNextEvent();
         }
 
     }
@@ -360,7 +421,7 @@ public abstract class Scheduler {
      * @param t    int  The time the scheduler was idol this cycle
      */
     public void updateIdolTime(int t) {
-        this.IdleTime = t;
+        this.IdleTime += t;
     }
 
     /**
@@ -400,7 +461,7 @@ public abstract class Scheduler {
         //while the next process in the MasterList has an arrival time of 0
         //add it to the ReadyQ because that is one of the initial processes
         while(this.getMasterList().get(this.getCurrentIndex()).getArrivalTime() == 0){
-            this.ReadyProcesses.add(this.getMasterList().get(getCurrentIndex()));
+            this.ReadyProcesses.add(this.getMasterList().get(this.getCurrentIndex()));
             this.updateCurrentIndex();
         }
     }

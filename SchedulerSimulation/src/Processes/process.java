@@ -230,6 +230,8 @@ public abstract class process {
         return this.ServiceStartTime;
     }
 
+    public int getBlockWaitTime(){return this.BlockWaitTime;}
+
     public int getGlobalBlockInstant() {return this.GlobalBlockInstant;}
 
     //Mutators for Processes
@@ -322,4 +324,18 @@ public abstract class process {
             this.NextBlockTime = 0;
         }
     }
+
+    /**
+     * toString formats important information about process into a string for debugging purposes
+     */
+    public String toString(){
+       String theProcess = String.format("StringID: %s\nType: %s\nArrival Time: %d\nRun Time: %d" +
+                       "\nCPU time: %d\nNext Block Time: %d\nNext Block Resource: %s \nNext Block Instant: %d" +
+                       "\nBlock Service Time: %d\nBlock Wait Time: %d\nFinish Time: %d",
+               this.getStringID(), this.getType(), this.getArrivalTime(), this.getRunTime(),
+               this.getCPUTime(), this.getNextBlockTime(), this.getNextBlockResource(), this.getNextBlockInstant(),
+                this.getBlockServiceTime(), this.getBlockWaitTime(), this.getFinishTime());
+       return theProcess;
+    }
+
 }

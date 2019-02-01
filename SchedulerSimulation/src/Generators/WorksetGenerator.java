@@ -35,14 +35,34 @@ public class WorksetGenerator {
     public int initCount = 0;
 
     /**
+     * is the number of type 1 process created at time = 0
+     */
+    public int initType1Count = 0;
+
+    /**
      * is the number of type 1 process in the final set of processes
      */
     public int Type1Count = 0;
 
     /**
+     * is the number of type 2 process created at time = 0
+     */
+    public int initType2Count = 0;
+
+    /**
      * is the number of type 2 process in the final set of processes
      */
     public int Type2Count = 0;
+
+    /**
+     * is the number of type 3 process created at time = 0
+     */
+    public int initType3Count = 0;
+
+    /**
+     * is the number of type 4 process created at time = 0
+     */
+    public int initType4Count = 0;
 
     /**
      * is the number of type 3 process in the final set of processes
@@ -138,6 +158,7 @@ public class WorksetGenerator {
             P.setStringID( totalNumProcesses , 1000);
 
             if(P.getType() == 1){
+                initType1Count ++;
                 Type1Count++;
                 if(P.getNextBlockResource() == null){
 
@@ -152,9 +173,11 @@ public class WorksetGenerator {
                 }
             }
             else if(P.getType() == 2){
+                initType2Count++;
                 Type2Count++;
             }
             else if(P.getType() == 3){
+                initType3Count++;
                 Type3Count++;
                 //get the information for the first block and record it
                 if (P.getNextBlockResource() == "A"){
@@ -196,6 +219,7 @@ public class WorksetGenerator {
             }
             else if(P.getType() == 4) {
                 Type4Count++;
+                initType4Count++;
 
                 //get the information for the first block and record it
                 if (P.getNextBlockResource() == "B"){

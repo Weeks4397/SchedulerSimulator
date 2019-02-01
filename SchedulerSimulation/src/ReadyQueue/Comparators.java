@@ -82,7 +82,7 @@ public class Comparators {
         }
     }
 
-    /**Generate comparator object to for UnblockTimePair objects constructed in resourceB
+    /**Generate comparator object for UnblockTimePair objects constructed in resourceB
      *
      */
     public static class ByUBT implements Comparator<UnblockTimePair> {

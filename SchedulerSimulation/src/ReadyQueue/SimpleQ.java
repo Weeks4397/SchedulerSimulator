@@ -2,6 +2,8 @@ package ReadyQueue;
 
 import Processes.process;
 
+import java.util.Comparator;
+
 public abstract class SimpleQ extends ReadyQ {
 
     public SimpleQ(){
@@ -30,4 +32,5 @@ public abstract class SimpleQ extends ReadyQ {
     public Boolean isEmpty() {
         return Q.isEmpty();
     }
+
 }

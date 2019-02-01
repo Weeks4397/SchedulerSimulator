@@ -2,7 +2,10 @@ package ReadyQueue;
 
 import Processes.process;
 
+import java.util.Comparator;
+
 public abstract class PrioityQ extends ReadyQ {
+
 
     public PrioityQ(){
         super();
@@ -29,4 +32,5 @@ public abstract class PrioityQ extends ReadyQ {
     public Boolean isEmpty() {
         return PriQ.isEmpty();
     }
+
 }
