@@ -14,6 +14,8 @@ import Processes.process;
  * Processes entering finished state are added to FinishedQueue for reporting after simulation has completed.
  *
  * There is a subclass of scheduler for each algorithm.
+ *
+ * Time for the scheduler simulation is represented in hundredths of seconds.
  */
 public interface SchedulerInterface {
     /**
@@ -43,7 +45,7 @@ public interface SchedulerInterface {
      */
 
     /**updateNextEvent mutates NextEvent to be the min of the possible events
-     *this method depends on whether the algorithm as time out or not
+     *this method depends on whether the algorithm has time out or not
      */
     void updateNextEvent ();
 
@@ -83,7 +85,7 @@ public interface SchedulerInterface {
     void handleNextBlock();
 
     /**
-     * Methods to update individual event
+     * Methods to update individual events
      */
 
     /**
@@ -98,8 +100,8 @@ public interface SchedulerInterface {
     void update_NextUnblock_and_Resource();
 
     /**
-     * updateNextArrival  mutates NextArrival to be the the ArrivalTime of the process that is next in the MasterList
-     * if at the end of the list, then set to MAXVAL
+     * updateNextArrival  mutates NextArrival to be the the ArrivalTime of the process that is next in the MasterList.
+     * If at the end of the list, then set to MAXVAL
      */
     void updateNextArrival();
 

@@ -18,7 +18,7 @@ public interface ResourceInterface {
      */
     /**arrivingProcess handles the event of a process arriving to a resource for service
      * This method is handled differently depending on whether the resource is exclusive or not
-     * @param theProcess    Process     the process that has arrived at the resource for service
+     * @param theProcess    process     the process that has arrived at the resource for service
      * @param time     int  The global time at which the process has arrived to the resource
      */
     void arrivingProcess(process theProcess, int time);
@@ -54,7 +54,7 @@ public interface ResourceInterface {
     void updateActiveTime(int T);
 
     /**
-     * toString formats important information about process into a string for debugging purposes
+     * toString formats important information about resource into a string for debugging purposes
      */
     String toString();
 }

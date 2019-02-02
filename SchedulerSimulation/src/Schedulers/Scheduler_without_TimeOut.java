@@ -52,6 +52,9 @@ public abstract class Scheduler_without_TimeOut extends Scheduler {
         //update global time
         this.updateTime();
 
+        //update overhead
+        this.updateOverhead();
+
         //update what the next event will be
         this.updateNextEvent();
     }

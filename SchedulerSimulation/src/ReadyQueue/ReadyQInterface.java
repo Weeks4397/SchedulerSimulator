@@ -32,4 +32,10 @@ public interface ReadyQInterface {
      */
     Boolean isEmpty();
 
+    /**
+     * returns how many processes are in the readyQ
+     * @return int  the amount of processes in the readyQ
+     */
+    int size();
+
 }

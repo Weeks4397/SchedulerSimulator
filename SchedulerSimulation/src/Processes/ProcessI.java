@@ -65,7 +65,7 @@ public class ProcessI extends process {
      */
     public process cloneProcess() {
         ProcessI PI = new ProcessI();
-        PI.updateGlobalBlockInstant(this.StartBlockWaitTime);
+        PI.updateStartBlockWaitTime(this.StartBlockWaitTime);
         PI.setCPU(this.CPUTime);
         PI.updateRunTime(this.RunTime);
         PI.updateType(this.Type);

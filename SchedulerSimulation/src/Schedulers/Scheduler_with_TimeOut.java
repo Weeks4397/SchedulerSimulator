@@ -85,6 +85,9 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
         //update global time
         this.updateTime();
 
+        //update overhead
+        this.updateOverhead();
+
         //update what the next event will be
         this.updateNextEvent();
     };
@@ -99,7 +102,7 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
             this.NextTimeOut = Integer.MAX_VALUE;
         }
         else{
-            this.NextTimeOut= this.getNextEvent() + this.getTimeQuantum();
+            this.NextTimeOut= this.getNextEvent() + this.getNextSCost() + this.getTimeQuantum();
         }
     }
 
@@ -113,12 +116,27 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
         //update Active time of CPU as well
         this.updateActiveTime(this.getNextEvent() - this.getTime());
 
+
         //place the running process back into readyQ
         this.ReadyProcesses.add(this.ActiveProcess);
+
+        //Determine scheduler cost for this event
+        if(this.ReadyProcesses.size() == 1){
+            this.updateNextSCost(SCostMin);
+        }
+        else if(this.ReadyProcesses.peek().getStringID() == this.ActiveProcess.getStringID()){
+            this.updateNextSCost(SCostComp);
+        }
+        else{
+            this.updateNextSCost(SCostFull);
+        }
+
 
         //The active process has exited CPU.
         //Bring in next process to run if there is one.
         this.ExitCPU();
+
+
     }
 
     /**

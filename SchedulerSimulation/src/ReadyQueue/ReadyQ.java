@@ -47,4 +47,10 @@ public abstract class ReadyQ implements ReadyQInterface{
      */
     public abstract Boolean isEmpty();
 
+    /**
+     * returns how many processes are in the readyQ
+     * @return int  the amount of processes in the readyQ
+     */
+    public abstract int size();
+
 }

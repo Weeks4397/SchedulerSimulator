@@ -28,6 +28,15 @@ public class Scheduler_withoutTimeOut_withPreemption extends Scheduler_without_T
      * arriveReadyQ does take into account preemption
      */
     public void arriveReadyQ(process P){
+        //Determine scheduler cost for this event
+        if(this.ReadyProcesses.isEmpty()){
+            //There is no scheduler cost for this event.
+            this.updateNextSCost(0);
+        }
+        else {
+            this.updateNextSCost(SCostFull);
+        }
+
         if(this.getActiveProcess() != null){
             //if there is a running process, increment it's CPUTime
             //Also increment CPU ActiveTime
@@ -66,6 +75,7 @@ public class Scheduler_withoutTimeOut_withPreemption extends Scheduler_without_T
             //Update idol time because the CPU is back to being active
             this.updateIdolTime(this.getNextEvent() - this.getStartIdleTime());
         }
+
         //Update Ps ready time
         P.NextReadyTime = this.getNextEvent();
     }

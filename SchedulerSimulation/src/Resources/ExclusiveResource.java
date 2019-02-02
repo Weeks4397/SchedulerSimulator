@@ -41,7 +41,7 @@ public abstract class ExclusiveResource extends Resource {
      */
     public void arrivingProcess (process theProcess, int time) {
         //Keep track of the global time at which the process has arrived so we can tell how long it waited for service
-        theProcess.updateGlobalBlockInstant(time);
+        theProcess.updateStartBlockWaitTime(time);
         if (this.BlockedProcessQ.isEmpty() && this.ServingProcess == null) {
             //if no processes waiting or currently being served, go right into service.
             this.ServingProcess = theProcess;

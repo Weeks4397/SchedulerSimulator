@@ -89,16 +89,37 @@ public abstract class Scheduler implements SchedulerInterface{
      */
      public Queue<process> FinishedQ;
 
-     //TODO figure out what context switches are
+
     /**
      * The scheduler has costs for context switch that increment overhead
      * SCostMin:  occurs when readyQ is empty:
      *                  - process finishes or times out
      * SCostFull: occurs when readyQ is not empty:
-     *                  -process blocks or times out
-     *                  -if algorithm is preemptive and process arrives or unblocks
+     *                  -process blocks or times out and a new process is going to get time with CPU
+     *                  -if algorithm is preemptive and process arrives or unblocks and a check has to be done
      * SCostComp: occurs when readyQ is not empty
+     *                  -Process times out, but the same process has priority and will run again with CPU
+     * SCostIn: occurs when readyQ is not empty
+     *                  -Process finishes, unblocks or arrives
+     * SCostOut: occurs when readyQ is empty
+     *                  -Process blocks
      */
+    public static final int SCostMin = 1;
+    public static final int SCostFull = 6;
+    public static final int SCostComp = 2;
+    public static final int SCostIn = 4;
+    public static final int SCostOut = 4;
+
+    /**
+     * NextSCost is the cost for the next event in the scheduler.
+     */
+    public int NextSCost;
+
+    /**
+     * Overhead is the indirect computational time of the scheduler.
+     * This is the total sum of all of the scheduler cost throughout the simulation.
+     */
+    public int Overhead;
 
 
     /**
@@ -119,6 +140,9 @@ public abstract class Scheduler implements SchedulerInterface{
         this.NextSchedExit = Integer.MAX_VALUE;
         this.NextUnblock = Integer.MAX_VALUE;
         this.NextBlock = Integer.MAX_VALUE;
+
+        this.NextSCost = 0;
+        this.Overhead = 0;
 
         this.NextEvent = 0;
         this.ActiveTime = 0;
@@ -210,6 +234,10 @@ public abstract class Scheduler implements SchedulerInterface{
 
     public String getType(){return this.Type;}
 
+    public int getNextSCost(){return this.NextSCost;}
+
+    public int getOverhead(){return this.Overhead;}
+
 
 
     /**
@@ -266,6 +294,7 @@ public abstract class Scheduler implements SchedulerInterface{
         process P = this.getNextUnblockResource().finishService();
 
         //P has finished service and now must arrive to readyQ
+        //The scheduler cost is determined here for unblocking events.
         this.arriveReadyQ(P);
 
         //update the next unblock event
@@ -280,6 +309,7 @@ public abstract class Scheduler implements SchedulerInterface{
         process P = this.getMasterList().get(this.getCurrentIndex()).cloneProcess();
 
         //Handle P arriving to the readyQ
+        //The scheduler cost is determined here for arrival events.
         this.arriveReadyQ(P);
 
         //update the current masterList index
@@ -300,6 +330,14 @@ public abstract class Scheduler implements SchedulerInterface{
 
         //update Active time of CPU as well
         this.updateActiveTime(this.getNextEvent() - this.getTime());
+
+        //Determine scheduler cost for this event
+        if(this.ReadyProcesses.isEmpty()){
+           this.updateNextSCost(SCostMin);
+        }
+        else{
+            this.updateNextSCost(SCostIn);
+        }
 
         //The active process has exited CPU.
         //Bring in next process to run if there is one.
@@ -325,6 +363,14 @@ public abstract class Scheduler implements SchedulerInterface{
         }
         else {
             TheResources[2].arrivingProcess(this.ActiveProcess, this.getNextEvent());
+        }
+
+        //Determine scheduler cost for this event
+        if(this.ReadyProcesses.isEmpty()){
+            this.updateNextSCost(SCostOut);
+        }
+        else{
+            this.updateNextSCost(SCostFull);
         }
 
         //Update NextUnblock because a process has blocked
@@ -393,7 +439,8 @@ public abstract class Scheduler implements SchedulerInterface{
             this.NextSchedExit = Integer.MAX_VALUE;
         }
         else{
-            this.NextSchedExit= this.getNextEvent() + (this.ActiveProcess.getRunTime() - this.ActiveProcess.getCPUTime());
+            this.NextSchedExit=
+                    this.getNextEvent() + this.getNextSCost() + (this.ActiveProcess.getRunTime() - this.ActiveProcess.getCPUTime());
         }
     }
 
@@ -407,7 +454,7 @@ public abstract class Scheduler implements SchedulerInterface{
         }
         else{
             process P = this.getActiveProcess();
-            this.NextBlock = P.getNextBlockInstant() - P.getCPUTime() + this.getNextEvent();
+            this.NextBlock = P.getNextBlockInstant() - P.getCPUTime() + this.getNextEvent() + this.getNextSCost();
         }
 
     }
@@ -457,6 +504,21 @@ public abstract class Scheduler implements SchedulerInterface{
      */
     public void updateActiveProcess(process P) {
         this.ActiveProcess = P;
+    }
+
+    /**
+     *updateNextSCost mutates the NextSCost to be the given time
+     * @param time  int  the given time
+     */
+    public void updateNextSCost(int time){
+        this.NextSCost = time;
+    }
+
+    /**
+     * updateOverhead increments overhead by the Scost for the event
+     */
+    public void updateOverhead(){
+        this.Overhead += this.NextSCost;
     }
 
     /**

@@ -226,7 +226,7 @@ public abstract class process implements processInterface {
     /**updates the global block instant to be current global time
      * @param time  time is a non null int > 0
      */
-    public void updateGlobalBlockInstant(int time){
+    public void updateStartBlockWaitTime(int time){
         this.StartBlockWaitTime = time;
     }
     public void updateCPU (int time) {

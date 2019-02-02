@@ -29,8 +29,12 @@ public abstract class PrioityQ extends ReadyQ {
         PriQ.add(elem);
     }
 
+    @Override
     public Boolean isEmpty() {
         return PriQ.isEmpty();
     }
+
+    @Override
+    public int size(){return PriQ.size();}
 
 }

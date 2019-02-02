@@ -33,4 +33,7 @@ public abstract class SimpleQ extends ReadyQ {
         return Q.isEmpty();
     }
 
+    @Override
+    public int size(){return Q.size();}
+
 }

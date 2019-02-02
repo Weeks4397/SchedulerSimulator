@@ -165,7 +165,7 @@ public abstract class  Resource implements ResourceInterface{
     }
 
     /**
-     * toString formats important information about process into a string for debugging purposes
+     * toString formats important information about resource into a string for debugging purposes
      */
     public String toString(){
         String theResource = String.format("Type: %s\nActive time: %d\nIdle time: %d\nNumber of blocks served: %d" +
