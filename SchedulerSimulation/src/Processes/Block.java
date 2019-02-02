@@ -63,4 +63,13 @@ public class Block {
     public void updateBI(int val){
         this.BI = val;
     }
+
+    /**
+     * toString for a block
+     */
+    public String toString(){
+        String theBlock = String.format("(BlockTime: %d BlockType: %s BlockIntival: %d)",
+                this.getBT(), this.getR(), this.getBI());
+        return theBlock;
+    }
 }

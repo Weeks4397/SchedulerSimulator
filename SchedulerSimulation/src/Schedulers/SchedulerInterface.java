@@ -120,4 +120,14 @@ public interface SchedulerInterface {
      * populateReadyQ  populates ReadyQ with the initial ready processes the simulation will start with
      */
     void populateReadyQ();
+    /**
+     * runAlgorithm updates the fields to a starting position
+     * and runs the scheduling algorithm
+     */
+    void runAlgorithm();
+
+    /**
+     * toString formats the scheduler into a printable string for reporting purposes
+     */
+    String toString();
 }
