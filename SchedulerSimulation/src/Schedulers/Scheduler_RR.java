@@ -16,6 +16,7 @@ public class Scheduler_RR extends Scheduler_withTimeOut_withoutPreemption {
      */
     public Scheduler_RR(List<process> masterList){
         super(masterList);
+        this.Type = "RR";
         this.ReadyProcesses = new RR_Q();
         this.populateReadyQ();
     }

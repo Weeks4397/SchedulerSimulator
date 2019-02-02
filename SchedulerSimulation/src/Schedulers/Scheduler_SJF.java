@@ -19,6 +19,7 @@ public class Scheduler_SJF extends Scheduler_withoutTimeOut_withoutPreemption{
      */
     public Scheduler_SJF(List<process> masterList){
         super(masterList);
+        this.Type = "SJF";
         this.ReadyProcesses = new SJF_Q();
         this.populateReadyQ();
     }

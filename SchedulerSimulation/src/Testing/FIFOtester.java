@@ -32,7 +32,6 @@ public class FIFOtester {
 
         //begin handling the events until end of simulation
         //When there are no more events, all events will be equal to MAXVAL
-        int I = 1;
         while (FIFO.getNextEvent() != Integer.MAX_VALUE) {
             FIFO.handleNextEvent();
         }
@@ -87,6 +86,6 @@ public class FIFOtester {
         System.out.println();
         System.out.println(Test.Workset.get(7));
 
-        
+
     }
 }

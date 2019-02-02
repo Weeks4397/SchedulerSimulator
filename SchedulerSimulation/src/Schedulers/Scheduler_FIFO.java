@@ -17,6 +17,7 @@ public class Scheduler_FIFO extends Scheduler_withoutTimeOut_withoutPreemption {
      */
     public Scheduler_FIFO(List<process> masterList){
         super(masterList);
+        this.Type = "FIFO";
         this.ReadyProcesses = new FIFO_Q();
         this.populateReadyQ();
     }

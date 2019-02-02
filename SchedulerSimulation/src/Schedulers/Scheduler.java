@@ -29,6 +29,11 @@ public abstract class Scheduler {
      */
 
     /**
+     * Type is the type of algorithm the scheduler is
+     */
+    public String Type;
+
+    /**
      * Time is the global time of the simulation
      */
     public int Time;
@@ -215,6 +220,8 @@ public abstract class Scheduler {
         return this.FinishedQ;
     }
 
+    public String getType(){return this.Type;}
+
 
 
     /**
@@ -282,7 +289,7 @@ public abstract class Scheduler {
      */
     public void handleNextArrival() {
         //P is the process arriving from the MasterList
-        process P = this.getMasterList().get(this.getCurrentIndex());
+        process P = this.getMasterList().get(this.getCurrentIndex()).cloneProcess();
 
         //Handle P arriving to the readyQ
         this.arriveReadyQ(P);
@@ -471,9 +478,25 @@ public abstract class Scheduler {
         //while the next process in the MasterList has an arrival time of 0
         //add it to the ReadyQ because that is one of the initial processes
         while(this.getMasterList().get(this.getCurrentIndex()).getArrivalTime() == 0){
-            this.ReadyProcesses.add(this.getMasterList().get(this.getCurrentIndex()));
+            this.ReadyProcesses.add(this.getMasterList().get(this.getCurrentIndex()).cloneProcess());
             this.updateCurrentIndex();
         }
+    }
+
+    /**
+     * runAlgorithm updates the fields to a starting position
+     * and runs the scheduling algorithm
+     */
+    public abstract void runAlgorithm();
+
+    /**
+     * toString formats the scheduler into a printable string for reporting purposes
+     */
+    public String toString(){
+        String theScheduler = String.format("Type: %s\nTotal time: %d\nActive time: %d\nIdle time: %d\nFinishedQ size: %d",
+                this.getType(), this.getTime(), this.getActiveTime(), this.getIdleTime(),
+                this.getFinishedQ().size());
+        return theScheduler;
     }
 
 

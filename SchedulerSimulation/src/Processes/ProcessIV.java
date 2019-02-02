@@ -77,7 +77,7 @@ public class ProcessIV extends process{
         Queue<Block> BQ = new LinkedList<Block>();
         Queue<Block> saveQ = new LinkedList<Block>();
         Block currentBlock;
-        for(int i = 0; i < this.BlockRecord.size(); i++){
+        while (!this.BlockRecord.isEmpty()){
             currentBlock = this.BlockRecord.poll();
             BQ.add(currentBlock);
             saveQ.add(currentBlock);

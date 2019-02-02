@@ -152,6 +152,35 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
         }
     }
 
+    /**
+     * runAlgorithm runs the algorithm with TimeOut
+     */
+    public void runAlgorithm() {
+        //Begin the algorithm
+
+        //P is the init process to get time with CPU
+        process P = this.ReadyProcesses.poll();
+        this.updateActiveProcess(P);
+
+        //update all of the initial events
+        this.update_NextUnblock_and_Resource();
+        this.updateNextSchedExit();
+        this.updateNextArrival();
+        this.updateNextBlock();
+        this.updateNextTimeOut();
+
+        //Get the next event out of these
+        this.updateNextEvent();
+
+
+        //begin handling the events until end of simulation
+        //When there are no more events, all events will be equal to MAXVAL
+        while (this.getNextEvent() != Integer.MAX_VALUE) {
+            this.handleNextEvent();
+        }
+    }
+
+
 
 }
 

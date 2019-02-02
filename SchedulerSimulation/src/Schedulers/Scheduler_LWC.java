@@ -20,6 +20,7 @@ public class Scheduler_LWC extends Scheduler_withTimeOut_withPreemption {
      */
     public Scheduler_LWC(List<process> masterList){
         super(masterList);
+        this.Type = "LWC";
         this.ReadyProcesses = new LWC_Q();
         this.CompObj = Comparators.By_LWC;
         this.populateReadyQ();

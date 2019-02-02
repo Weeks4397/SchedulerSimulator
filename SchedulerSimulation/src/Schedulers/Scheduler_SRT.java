@@ -20,6 +20,7 @@ public class Scheduler_SRT extends Scheduler_withTimeOut_withPreemption{
      */
     public Scheduler_SRT(List<process> masterList){
         super(masterList);
+        this.Type = "SRT";
         this.ReadyProcesses = new SRT_Q();
         this.CompObj = Comparators.By_SRT;
         this.populateReadyQ();
