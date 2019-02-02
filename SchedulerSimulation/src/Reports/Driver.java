@@ -30,17 +30,20 @@ public class Driver {
         p3.updateArrivalTime(0);
         p4.updateArrivalTime(100);
         p5.updateArrivalTime(500);
-        for(int i = 0; i < Parr.size(); i++){
-            Parr.get(i).updateStringID(String.format("P%d", i+1));
+        for(int i = 0; i < Parr.size(); i++) {
+            Parr.get(i).updateStringID(String.format("P%d", i + 1));
             System.out.println(Parr.get(i));
             Queue<Block> temp = new LinkedList<>();
             System.out.print("The Block record: ");
-            while(!Parr.get(i).BlockRecord.isEmpty()){
-                Block theBlock = Parr.get(i).BlockRecord.poll() ;
-                System.out.print(theBlock + " ");
-                temp.add(theBlock);
+            if (Parr.get(i).BlockRecord != null) {
+                while (!Parr.get(i).BlockRecord.isEmpty()) {
+                    Block theBlock = Parr.get(i).BlockRecord.poll();
+                    System.out.print(theBlock + " ");
+                    temp.add(theBlock);
+                }
+                Parr.get(i).BlockRecord = temp;
             }
-            Parr.get(i).BlockRecord = temp;
+            System.out.println();
             System.out.println();
         }
 

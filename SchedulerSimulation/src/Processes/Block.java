@@ -68,8 +68,8 @@ public class Block {
      * toString for a block
      */
     public String toString(){
-        String theBlock = String.format("(BlockTime: %d BlockType: %s BlockIntival: %d)",
-                this.getBT(), this.getR(), this.getBI());
+        String theBlock = String.format("(%d, %s, %d)",
+                this.getBI(), this.getR(), this.getBT());
         return theBlock;
     }
 }
