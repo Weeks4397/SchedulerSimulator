@@ -19,6 +19,7 @@ public class ProccessIVGenator extends ProccessGenator {
      *
      */
     public void BlockGen4() {
+<<<<<<< HEAD
         BlockOccurs = getNextBlockInstence4();
         // the Block has 50% chance of Type B and TypeC
         int Type = RNG.RNG(100);
@@ -26,6 +27,19 @@ public class ProccessIVGenator extends ProccessGenator {
             theBlock = new BlockGeneratorB(BlockOccurs);
         } else{
             theBlock = new BlockGeneratorC(BlockOccurs);
+=======
+        BlockGen block;
+        // the Block has 50% chance of Type B and TypeC
+        int Type = RNG.RNG(2);
+        if (Type == 0) {
+            block = new BlockGenB();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
+        } else if (Type == 1) {
+            block = new BlockGenC();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
+>>>>>>> 54a2adc548bfecae0860090d2c16d889bdbc3709
         }
     }
     /**

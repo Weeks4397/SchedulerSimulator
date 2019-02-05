@@ -20,6 +20,7 @@ public class ProccessIIIGenator extends ProccessGenator {
      *
      */
     public void BlockGen3() {
+<<<<<<< HEAD
         BlockOccurs = getNextBlockInstence3();
         int Type = RNG.RNG(100);
         if (Type < ChanceA) {
@@ -30,6 +31,22 @@ public class ProccessIIIGenator extends ProccessGenator {
 
         } else {
             theBlock = new BlockGeneratorC(BlockOccurs);
+=======
+        BlockGen block;
+        int Type = RNG.RNG(100);
+        if (Type <= 34) {
+            block = new BlockGenA();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
+        } else if (Type <= 84) {
+            block = new BlockGenB();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
+        } else if (Type <= 99) {
+            block = new BlockGenC();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
+>>>>>>> 54a2adc548bfecae0860090d2c16d889bdbc3709
         }
     }
     /**
