@@ -11,7 +11,7 @@ public class ProcessIII extends process{
 
     /** processGenerator object for type 3 processes
      */
-    private ProccessIIIGenator PG3 = new ProccessIIIGenator();
+    private ProccessIIIGenerator PG3 = new ProccessIIIGenerator();
 
     /**Constructor for a type 3 process
      */

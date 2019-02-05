@@ -12,7 +12,7 @@ public class ProcessIV extends process{
     /**
      * processGenerator object for type 4 processes
      */
-    private ProccessIVGenator PG4 = new ProccessIVGenator();
+    private ProccessIVGenerator PG4 = new ProccessIVGenerator();
 
     /**
      * Constructor for a type 4 process

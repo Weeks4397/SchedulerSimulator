@@ -3,7 +3,7 @@ package Generators;
 import Processes.Block;
 
 
-public abstract class ProccessGenator implements ProcessGenatorInterface {
+public abstract class ProccessGenerator implements ProcessGeneratorInterface {
 
     /**
      * this will be what the runtime for the process is
@@ -41,7 +41,7 @@ public abstract class ProccessGenator implements ProcessGenatorInterface {
      */
     public static int MAXINT = 25000;
 
-    public ProccessGenator() {
+    public ProccessGenerator() {
 
     }
 

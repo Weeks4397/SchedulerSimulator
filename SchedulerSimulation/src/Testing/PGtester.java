@@ -7,10 +7,10 @@ public class PGtester {
 
         for (int i = 0;  i <= 1000; i++) {
 
-            ProccessIGenator PG1 = new ProccessIGenator();
-            ProccessIIGenator PG2 = new ProccessIIGenator();
-            ProccessIIIGenator PG3 = new ProccessIIIGenator();
-            ProccessIVGenator PG4 = new ProccessIVGenator();
+            ProccessIGenerator PG1 = new ProccessIGenerator();
+            ProccessIIGenerator PG2 = new ProccessIIGenerator();
+            ProccessIIIGenerator PG3 = new ProccessIIIGenerator();
+            ProccessIVGenerator PG4 = new ProccessIVGenerator();
 
             if (PG1.getprocessRunTime() > 75 || PG1.getprocessRunTime() <25){
                 System.out.println("should print out a number runtime for 25 to 75 not ");

@@ -1,12 +1,12 @@
 package Generators;
 
-public class ProccessIIGenator extends ProccessGenator {
+public class ProccessIIGenerator extends ProccessGenerator {
 
     /**
      * To create the process runtime and block for Process2.
      *
      */
-    public ProccessIIGenator(){
+    public ProccessIIGenerator(){
         super();
         double num = RNG.fRNG();
         processRunTime = (int) Math.ceil(200 + 400 * Math.pow(num, (5 / 3)));

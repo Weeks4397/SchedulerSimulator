@@ -11,7 +11,7 @@ public class ProcessI extends process {
     /**
      * processGenerator object for type 1 processes
      */
-   private ProccessIGenator PG1 = new ProccessIGenator();
+   private ProccessIGenerator PG1 = new ProccessIGenerator();
 
     /**
      * the block information for this processI object

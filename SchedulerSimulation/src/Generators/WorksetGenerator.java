@@ -263,10 +263,10 @@ public class WorksetGenerator {
         int currentTime = 0;
 
 
-        while(totalRunTime <= ProccessGenator.MAXINT) {
+        while(totalRunTime <= ProccessGenerator.MAXINT) {
             P = makeProcess();
             Workset.add(P);
-            currentTime += ProccessGenator.ProcessArrival();
+            currentTime += ProccessGenerator.ProcessArrival();
             P.setArrivalandReadyTime(currentTime);
             totalNumProcesses++;
             P.setStringID( totalNumProcesses , 1000);
@@ -363,7 +363,7 @@ public class WorksetGenerator {
             totalRunTime += P.getRunTime();
         }
         FinalAT = currentTime;
-        ProccessGenator.MAXINT = currentTime;
+        ProccessGenerator.MAXINT = currentTime;
     }
 
 }

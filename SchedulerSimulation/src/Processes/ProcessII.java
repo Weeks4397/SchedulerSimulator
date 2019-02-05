@@ -9,7 +9,7 @@ public class ProcessII extends process{
     /**
      * processGenerator object for type 2 processes
      */
-    private ProccessIIGenator PG2 = new ProccessIIGenator();
+    private ProccessIIGenerator PG2 = new ProccessIIGenerator();
 
     /**
      * Constructor for a type 2 process
