@@ -1,7 +1,9 @@
 package ReadyQueue;
 
 import Processes.process;
-
+/**
+ * this object is constructed in the LWC algorithm subclass of the scheduler.
+ */
 public class LWC_Q extends PrioityQ {
 
     public LWC_Q(){

@@ -9,7 +9,7 @@ import java.util.Comparator;
  * For the ReadyQs:
  *      A comparator object of type process is generated for each algorithm.
  *      Each comparator object has one method called compare that takes in two processes and compares them.
- *      This compare method is based on the algorithm
+ *      This compare method is based on the algorithm.
  *
  * For ResourceB:
  *      A comparator object of type UnblockTimePair is generated.

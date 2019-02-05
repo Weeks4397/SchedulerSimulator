@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 /**
- * Resource B is a Resource class that is an inclusive resource. This means that it can
+ * Resource B is an inclusive resource. This means that it can
  * serve multiple processes at the same time.
  */
 

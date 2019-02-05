@@ -4,6 +4,11 @@ import Processes.process;
 
 import java.util.Comparator;
 
+/**
+ * subclass of ReadyQ
+ * The SimpleQ class uses javas queue for standard FIFO queue functionality
+ * The algorithms that use this currently include FIFO and RR.
+ */
 public abstract class SimpleQ extends ReadyQ {
 
     public SimpleQ(){

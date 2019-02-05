@@ -150,7 +150,7 @@ public class WorksetGenerator {
     public void setWorkSet() {
         int numOfStartSet = RNG.RNG(3, 8);
         process P = null;
-        while(totalNumProcesses <= numOfStartSet) {
+        while(totalNumProcesses < numOfStartSet) {
             P = makeProcess();
             Workset.add(P);
             P.setArrivalandReadyTime(0);

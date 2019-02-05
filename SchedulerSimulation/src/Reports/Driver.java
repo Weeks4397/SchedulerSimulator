@@ -13,7 +13,7 @@ public class Driver {
 
     public static void main(String[] args) {
 
-        process p1 = new ProcessI();
+       /* process p1 = new ProcessI();
         process p2 = new ProcessII();
         process p3 = new ProcessIII();
 
@@ -52,15 +52,17 @@ public class Driver {
             }
             System.out.println();
             System.out.println();
-        }
+        }*/
+
+       WorksetGenerator Parr = new WorksetGenerator();
+       WorksetReport.ReportWorkSet(Parr);
 
 
-
-        Scheduler_FIFO FIFO = new Scheduler_FIFO(Parr);
-        Scheduler_RR RR = new Scheduler_RR(Parr);
-        Scheduler_SJF SJF = new Scheduler_SJF(Parr);
-        Scheduler_SRT SRT = new Scheduler_SRT(Parr);
-        Scheduler_LWC LWC = new Scheduler_LWC(Parr);
+        Scheduler_FIFO FIFO = new Scheduler_FIFO(Parr.Workset);
+        Scheduler_RR RR = new Scheduler_RR(Parr.Workset);
+        Scheduler_SJF SJF = new Scheduler_SJF(Parr.Workset);
+        Scheduler_SRT SRT = new Scheduler_SRT(Parr.Workset);
+        Scheduler_LWC LWC = new Scheduler_LWC(Parr.Workset);
 
         FIFO.runAlgorithm();
         RR.runAlgorithm();

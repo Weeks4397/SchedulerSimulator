@@ -1,0 +1,5 @@
+.hotBod{
+    -fx-background-image: url("TheCow.jpg");
+    -fx-background-size: 600 400;
+    -fx-background-position: center;
+}

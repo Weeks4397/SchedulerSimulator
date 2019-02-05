@@ -4,6 +4,11 @@ import Processes.process;
 
 import java.util.Comparator;
 
+/**
+ * subclass of ReadyQ
+ * The PriorityQ class uses the minheap to enable dynamic priority functionality for algorithms where dynamic priority is needed
+ * These algorithms currently include SJF, SRT, and LWC.
+ */
 public abstract class PrioityQ extends ReadyQ {
 
 
