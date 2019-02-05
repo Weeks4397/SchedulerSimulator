@@ -72,22 +72,19 @@ public abstract class Scheduler_without_TimeOut extends Scheduler {
     public void ExitCPU(){
         if (this.ReadyProcesses.isEmpty()) {
             //if there are no processes ready to run, begin idol time
-            this.updateStartIdolTime(this.getNextEvent());
+            this.updateStartIdolTime(this.getNextEvent() + this.getNextSCost());
             //there is no active process now
             this.ActiveProcess = null;
 
-            //update NextBlock and NextSchedExit because the ActiveProcess has changed
-            this.updateNextBlock();
-            this.updateNextSchedExit();
         }
         else {
             //update ActiveProcess to be the next ready process
             this.updateActiveProcess(this.ReadyProcesses.poll());
 
-            //Update NextBlock and NextSchedExit because the ActiveProcess has changed
-            this.updateNextBlock();
-            this.updateNextSchedExit();
         }
+        //update NextBlock and NextSchedExit because the ActiveProcess has changed
+        this.updateNextBlock();
+        this.updateNextSchedExit();
     }
 
     /**

@@ -14,8 +14,8 @@ public class Driver {
     public static void main(String[] args) {
 
         process p1 = new ProcessI();
-        process p2 = new ProcessIII();
-        process p3 = new ProcessII();
+        process p2 = new ProcessII();
+        process p3 = new ProcessIII();
 
         List<process> Parr =new ArrayList<process>();
         Parr.add(p1);
@@ -24,6 +24,18 @@ public class Driver {
         p1.updateArrivalTime(0);
         p2.updateArrivalTime(0);
         p3.updateArrivalTime(100);
+
+        //P1 fixed values
+        p1.updateRunTime(100);
+        p1.updateNextBlockTime(50);
+        p1.updateNextBlockInstant(20);
+        p1.updateNextBlockResource("B");
+        p2.updateRunTime(500);
+        p3.updateRunTime(200);
+        p3.updateNextBlockTime(70);
+        p3.updateNextBlockInstant(30);
+        p3.updateNextBlockResource("A");
+        p3.updateBlockRecord(new LinkedList<Block>());
 
         for(int i = 0; i < Parr.size(); i++) {
             Parr.get(i).updateStringID(String.format("P%d", i + 1));

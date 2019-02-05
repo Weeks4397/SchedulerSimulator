@@ -30,7 +30,7 @@ public abstract class Scheduler_withTimeOut_withPreemption extends Scheduler_wit
      */
     public void arriveReadyQ(process P){
         //Determine scheduler cost for this event
-        if(this.ReadyProcesses.isEmpty()){
+        if(this.ReadyProcesses.isEmpty() && this.getActiveProcess() == null){
             //There is no scheduler cost for this event.
             this.updateNextSCost(0);
         }
@@ -59,28 +59,22 @@ public abstract class Scheduler_withTimeOut_withPreemption extends Scheduler_wit
 
                 //Make Pnext the active process
                 this.updateActiveProcess(Pnext);
-
-                //The ActiveProcess has changed, update NextBlock, NextSchedExit, and NextTimeOut
-                this.updateNextBlock();
-                this.updateNextSchedExit();
-                this.updateNextTimeOut();
             }
         }
         else {
             //if there is no running process, make P the new running process
             this.updateActiveProcess(P);
 
-            //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
-            this.updateNextBlock();
-            this.updateNextSchedExit();
-            this.updateNextTimeOut();
-
             //Update idol time because the CPU is back to being active
             this.updateIdolTime(this.getNextEvent() - this.getStartIdleTime());
         }
+        //Update NextBlock, NextSchedExit, and NextTimeout because of overhead or because the active process has changed
+        this.updateNextBlock();
+        this.updateNextSchedExit();
+        this.updateNextTimeOut();
 
         //Update Ps ready time
-        P.NextReadyTime = this.getNextEvent();
+        P.NextReadyTime = this.getNextEvent() + this.getNextSCost();
     }
 
 }

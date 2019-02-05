@@ -77,9 +77,12 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
         else if(this.getNextEvent() == this.getNextTimeOut()){
             this.handleNextTimeOut();
         }
-        //the event was a block
-        else {
+        else if(this.getNextEvent() == this.getNextBlock()){
             this.handleNextBlock();
+        }
+        //the event was a timeout
+        else {
+            this.handleNextTimeOut();
         }
 
         //update global time
@@ -150,24 +153,20 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
     public void ExitCPU(){
         if (this.ReadyProcesses.isEmpty()) {
             //if there are no processes ready to run, begin idol time
-            this.updateStartIdolTime(this.getNextEvent());
+            this.updateStartIdolTime(this.getNextEvent() + this.getNextSCost());
             //there is no active process now
             this.ActiveProcess = null;
 
-            //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
-            this.updateNextBlock();
-            this.updateNextSchedExit();
-            this.updateNextTimeOut();
         }
         else {
             //update ActiveProcess to be the next ready process
             this.updateActiveProcess(this.ReadyProcesses.poll());
 
-            //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
-            this.updateNextBlock();
-            this.updateNextSchedExit();
-            this.updateNextTimeOut();
         }
+        //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed
+        this.updateNextBlock();
+        this.updateNextSchedExit();
+        this.updateNextTimeOut();
     }
 
     /**

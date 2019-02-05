@@ -29,7 +29,7 @@ public class Scheduler_withoutTimeOut_withPreemption extends Scheduler_without_T
      */
     public void arriveReadyQ(process P){
         //Determine scheduler cost for this event
-        if(this.ReadyProcesses.isEmpty()){
+        if(this.ReadyProcesses.isEmpty() && this.getActiveProcess() == null){
             //There is no scheduler cost for this event.
             this.updateNextSCost(0);
         }
@@ -58,26 +58,21 @@ public class Scheduler_withoutTimeOut_withPreemption extends Scheduler_without_T
 
                 //Make Pnext the active process
                 this.updateActiveProcess(Pnext);
-
-                //The ActiveProcess has changed, update NextBlock and NextSchedExit
-                this.updateNextBlock();
-                this.updateNextSchedExit();
             }
         }
         else {
             //if there is no running process, make P the new running process
             this.updateActiveProcess(P);
 
-            //The ActiveProcess has changed, update NextBlock and NextSchedExit
-            this.updateNextBlock();
-            this.updateNextSchedExit();
-
             //Update idol time because the CPU is back to being active
             this.updateIdolTime(this.getNextEvent() - this.getStartIdleTime());
         }
+        //Update NextBlock and NextSchedExit because of overhead or because the active process has changed
+        this.updateNextBlock();
+        this.updateNextSchedExit();
 
         //Update Ps ready time
-        P.NextReadyTime = this.getNextEvent();
+        P.NextReadyTime = this.getNextEvent() + this.getNextSCost();
     }
 
 

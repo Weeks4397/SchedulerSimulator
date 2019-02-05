@@ -495,7 +495,7 @@ public abstract class Scheduler implements SchedulerInterface{
      * Mutates time to be equal to the time at which the event has occurred
      */
     public void updateTime() {
-        this.Time = this.NextEvent;
+        this.Time = this.NextEvent + this.NextSCost;
     }
 
     /**
@@ -543,8 +543,9 @@ public abstract class Scheduler implements SchedulerInterface{
      * toString formats the scheduler into a printable string for reporting purposes
      */
     public String toString(){
-        String theScheduler = String.format("Type: %s\nTotal time: %d\nActive time: %d\nIdle time: %d\nFinishedQ size: %d",
-                this.getType(), this.getTime(), this.getActiveTime(), this.getIdleTime(),
+        String theScheduler = String.format("Type: %s\nTotal time: %d\nActive time: %d\nIdle time: %d\nOverhead: %d\n" +
+                        "FinishedQ size: %d",
+                this.getType(), this.getTime(), this.getActiveTime(), this.getIdleTime(), this.getOverhead(),
                 this.getFinishedQ().size());
         return theScheduler;
     }
