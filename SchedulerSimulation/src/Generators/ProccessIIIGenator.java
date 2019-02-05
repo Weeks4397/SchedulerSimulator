@@ -17,17 +17,20 @@ public class ProccessIIIGenator extends ProccessGenator {
      *
      */
     public void BlockGen3() {
+        BlockGen block;
         int Type = RNG.RNG(100);
         if (Type <= 34) {
-            BlockRunTime = RNG.RNG(60, 100);
-            BlockType = "A";
+            block = new BlockGenA();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
         } else if (Type <= 84) {
-            BlockRunTime = RNG.RNG(75, 125);
-            BlockType = "B";
+            block = new BlockGenB();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
         } else if (Type <= 99) {
-            double num2 = RNG.fRNG();
-            BlockRunTime = (int) Math.ceil(100 + 300 * Math.pow(num2, 2));
-            BlockType = "C";
+            block = new BlockGenC();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
         }
         BlockOccurs = getNextBlockInstence3();
     }

@@ -17,15 +17,17 @@ public class ProccessIVGenator extends ProccessGenator {
      *
      */
     public void BlockGen4() {
+        BlockGen block;
         // the Block has 50% chance of Type B and TypeC
         int Type = RNG.RNG(2);
         if (Type == 0) {
-            BlockRunTime = RNG.RNG(75, 125);
-            BlockType = "B";
+            block = new BlockGenB();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
         } else if (Type == 1) {
-            double num = RNG.fRNG();
-            BlockRunTime = (int) Math.ceil(100 + 300 * Math.pow(num, 2));
-            BlockType = "C";
+            block = new BlockGenC();
+            BlockRunTime = block.getBlockTime();
+            BlockType = block.getBlockType();
         }
         BlockOccurs = getNextBlockInstence4();
     }
