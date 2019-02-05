@@ -9,18 +9,32 @@ public abstract class ProccessGenator implements ProcessGenatorInterface {
      * this will be what the runtime for the process is
      */
     int processRunTime;
+
     /**
-     * this will be the runTime for the block
+     * this will generate the block for the process
      */
-    int BlockRunTime;
+    BlockGenerator theBlock;
+
     /**
-     * this is what type of Resource the block is
-     */
-    String BlockType;
-    /**
-     * this is when the block will occur
+     * this is when theBlock will occur
      */
     int BlockOccurs;
+
+    /**
+     * ChanceA is the percentage chance that a process will Block on Resource A
+     */
+    int ChanceA;
+
+    /**
+     * ChanceB is the percentage chance that a process will Block on Resource B
+     */
+    int ChanceB;
+
+    /**
+     * ChanceC is the percentage chance that a process will Block on Resource C
+     */
+    int ChanceC;
+
     /**
      * this is the Max runtime of the system
      * this is updated when the work set is generated
@@ -52,6 +66,6 @@ public abstract class ProccessGenator implements ProcessGenatorInterface {
      *@return   a block to be used in a process
      */
     public Block getBlock(){
-        return new Block(BlockOccurs,BlockType,BlockRunTime);
+        return theBlock.getBlock();
     }
 }
