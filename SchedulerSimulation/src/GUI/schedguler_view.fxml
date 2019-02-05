@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="126.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Schedguler Type" underline="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="170.0" prefWidth="110.0" spacing="10.0">
+               <children>
+                  <RadioButton mnemonicParsing="false" text="FIFO" />
+                  <RadioButton mnemonicParsing="false" text="LWC" />
+                  <RadioButton mnemonicParsing="false" text="RR" />
+                  <RadioButton mnemonicParsing="false" text="SJF" />
+                  <RadioButton mnemonicParsing="false" text="SRT" />
+                  <RadioButton mnemonicParsing="false" text="All Algorithms" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin>
+            </VBox>
+            <Button mnemonicParsing="false" text="Run Simulation" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </left>
+   <center>
+      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" promptText="Please Choose a Simulation" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextArea>
+   </center>
+</BorderPane>
