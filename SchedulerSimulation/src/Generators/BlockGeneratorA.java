@@ -6,8 +6,8 @@ public class BlockGeneratorA extends BlockGenerator {
      * constructor for blocks on a type A resource
      * Average block length is 80.
      */
-    public BlockGeneratorA(int BI){
-        super(BI);
+    public BlockGeneratorA(){
+        super();
         this.block.updateR("A");
 
         this.min = 60;

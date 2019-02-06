@@ -7,8 +7,8 @@ public class BlockGeneratorC extends BlockGenerator {
      * Blocks of type C have a Block time that uses a nonuniform distribution
      * Average block length is 200.
      */
-    public BlockGeneratorC(int BI){
-        super(BI);
+    public BlockGeneratorC(){
+        super();
         this.block.updateR("C");
 
         this.min = 100;

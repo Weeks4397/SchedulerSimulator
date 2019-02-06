@@ -8,8 +8,5 @@ import Processes.Block;
  */
 public interface BlockGeneratorInterface {
 
-    /**
-     * getter for the block that is being generated
-     */
-    Block getBlock();
+
 }

@@ -66,6 +66,7 @@ public abstract class ProccessGenerator implements ProcessGeneratorInterface {
      *@return   a block to be used in a process
      */
     public Block getBlock(){
+        theBlock.getBlock().updateBI(BlockOccurs);
         return theBlock.getBlock();
     }
 }

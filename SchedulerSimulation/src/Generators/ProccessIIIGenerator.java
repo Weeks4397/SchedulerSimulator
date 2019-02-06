@@ -23,13 +23,13 @@ public class ProccessIIIGenerator extends ProccessGenerator {
         BlockOccurs = getNextBlockInstence3();
         int Type = RNG.RNG(100);
         if (Type < ChanceA) {
-            theBlock = new BlockGeneratorA(BlockOccurs);
+            theBlock = new BlockGeneratorA();
 
         } else if (Type < ChanceA + ChanceB) {
-            theBlock = new BlockGeneratorB(BlockOccurs);
+            theBlock = new BlockGeneratorB();
 
         } else {
-            theBlock = new BlockGeneratorC(BlockOccurs);
+            theBlock = new BlockGeneratorC();
         }
     }
     /**
