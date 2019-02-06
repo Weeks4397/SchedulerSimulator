@@ -12,7 +12,7 @@
    <children>
       <VBox alignment="CENTER" layoutX="146.0" layoutY="80.0" prefHeight="240.0" prefWidth="307.0" spacing="20.0">
          <children>
-            <Label text="To Start please generate a workset generator" />
+            <Label text="Welcome to Scheduler Simulator" />
             <Button mnemonicParsing="false" onAction="#next_scene" text="Continue" />
             <Hyperlink onAction="#link_pressed" text="Check out the project on Github" />
          </children>

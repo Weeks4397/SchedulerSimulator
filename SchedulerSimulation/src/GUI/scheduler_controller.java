@@ -29,9 +29,8 @@ public class scheduler_controller {
 
     @FXML
     private void initialize(){
+        logArea.appendText("Please create a workset to get started");
         logArea.setStyle("-fx-font-family: monospace");
-        generateWorkset();
-
         OutputStream out = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
@@ -56,9 +55,9 @@ public class scheduler_controller {
 
     @FXML
     private void generateWorkset() {
-        System.out.println("Workset generator was created");
-        wsg = new WorksetGenerator();
-        WorksetReport.ReportWorkSet(wsg);
+        logArea.clear();
+        System.out.println("Creating Workset generator...");
+        WorksetReport.ReportWorkSet(new WorksetGenerator());
 
     }
 
