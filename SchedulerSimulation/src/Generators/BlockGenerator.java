@@ -25,11 +25,9 @@ public abstract class BlockGenerator {
 
     /**
      * super constructor for block object
-     * @param BI    the block instance which is specific to the process this block is generated for
      */
-    public BlockGenerator(int BI){
+    public BlockGenerator(){
         this.block = new Block();
-        this.block.updateBI(BI);
     }
 
     /**

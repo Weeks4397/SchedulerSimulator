@@ -24,10 +24,10 @@ public class ProccessIVGenerator extends ProccessGenerator {
         // the Block has 50% chance of Type B and TypeC
         int Type = RNG.RNG(100);
         if (Type < ChanceB) {
-            theBlock = new BlockGeneratorB(BlockOccurs);
+            theBlock = new BlockGeneratorB();
         }
         else{
-            theBlock = new BlockGeneratorC(BlockOccurs);
+            theBlock = new BlockGeneratorC();
 
         }
     }

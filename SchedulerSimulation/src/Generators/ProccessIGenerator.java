@@ -20,14 +20,15 @@ public class ProccessIGenerator extends ProccessGenerator {
             BlockOccurs = RNG.RNG(1, processRunTime - 1);
             int Type = RNG.RNG(100);
             if (Type < ChanceA) {
-              theBlock = new BlockGeneratorA(BlockOccurs);
+              theBlock = new BlockGeneratorA();
             }
             else{
-               theBlock = new BlockGeneratorB(BlockOccurs);
+               theBlock = new BlockGeneratorB();
             }
         }
         else {
-            theBlock = new BlockGeneratorEmptyBlock(Integer.MAX_VALUE);
+            theBlock = new BlockGeneratorEmptyBlock();
+            BlockOccurs =Integer.MAX_VALUE;
         }
     }
 
