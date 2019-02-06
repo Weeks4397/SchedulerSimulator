@@ -4,7 +4,7 @@ public class BlockGeneratorC extends BlockGenerator {
 
     /**
      * constructor for blocks on a type C resource
-     * Blocks on type C have a Block time that uses a nonuniform distribution
+     * Blocks of type C have a Block time that uses a nonuniform distribution
      * Average block length is 200.
      */
     public BlockGeneratorC(int BI){
