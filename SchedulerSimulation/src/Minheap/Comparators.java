@@ -36,8 +36,8 @@ public class Comparators {
          * @return int  1 if P1 < P2 , -1 if P1 > P2, or 0 if they are equal
          */
         public int compare(process P1, process P2) {
-            int P1jobTime = P1.getRunTime();
-            int P2jobTime = P2.getRunTime();
+            int P1jobTime = P1.getRunTime() - P1.getCPUTime();
+            int P2jobTime = P2.getRunTime() - P2.getCPUTime();
             if (P1jobTime < P2jobTime) return 1;
             if (P1jobTime > P2jobTime) return -1;
             else return 0;
