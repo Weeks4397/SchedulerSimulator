@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,13 +11,17 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class titleController {
+public class titleController  {
+
+    @FXML
+    public void initialize() {
+        //TODO ON CREATE
+    }
 
     public void next_scene() throws IOException {
-        System.out.println("Button was pressed");
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("schedguler_view.fxml"));
+        loader.setLocation(getClass().getResource("Views/schedguler_view.fxml"));
         Parent parent = loader.load();
         Scene settingsScene = new Scene(parent);
         //settingsScene.getStylesheets().add("Custom.css");
