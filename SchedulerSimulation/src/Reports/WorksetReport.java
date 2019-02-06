@@ -219,6 +219,9 @@ public class WorksetReport {
         System.out.println();
         System.out.println(Labels4());
         PrintInterarrivalTime(WSG.totalNumProcesses, WSG.initCount, WSG.FinalAT);
+
+        //reset the static variables
+
     }
 
 
