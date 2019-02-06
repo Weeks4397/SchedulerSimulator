@@ -58,6 +58,8 @@ public class Scheduler_withoutTimeOut_withPreemption extends Scheduler_without_T
 
                 //Make Pnext the active process
                 this.updateActiveProcess(Pnext);
+
+                this.Preempt_Count += 1;
             }
         }
         else {
@@ -71,8 +73,8 @@ public class Scheduler_withoutTimeOut_withPreemption extends Scheduler_without_T
         this.updateNextBlock();
         this.updateNextSchedExit();
 
-        //Update Ps ready time
-        P.NextReadyTime = this.getNextEvent() + this.getNextSCost();
+        //Start Ps ready time
+        P.StartReadyTime = this.getNextEvent() + this.getNextSCost();
     }
 
 

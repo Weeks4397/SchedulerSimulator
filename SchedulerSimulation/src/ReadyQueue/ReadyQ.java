@@ -1,6 +1,8 @@
 package ReadyQueue;
 
 import java.util.*;
+
+import Minheap.MinHeap;
 import Processes.process;
 
 public abstract class ReadyQ implements ReadyQInterface{

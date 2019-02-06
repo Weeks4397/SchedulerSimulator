@@ -134,6 +134,7 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
             this.updateNextSCost(SCostFull);
         }
 
+        this.TimeOut_Count += 1;
 
         //The active process has exited CPU.
         //Bring in next process to run if there is one.
@@ -159,8 +160,13 @@ public abstract class Scheduler_with_TimeOut extends Scheduler {
 
         }
         else {
+            //p is the next ready process that will run with the cpu
+            process p = this.ReadyProcesses.poll();
+            //update ps total ready time
+            p.TotalReadyTime = this.getNextEvent() + this.getNextSCost() - p.getStartReadyTime();
             //update ActiveProcess to be the next ready process
-            this.updateActiveProcess(this.ReadyProcesses.poll());
+            this.updateActiveProcess(p);
+
 
         }
         //Update NextBlock, NextSchedExit, and NextTimeOut because the ActiveProcess has changed

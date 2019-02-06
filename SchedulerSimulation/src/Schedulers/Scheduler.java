@@ -84,6 +84,18 @@ public abstract class Scheduler implements SchedulerInterface{
     public int CurrentIndex;
 
     /**
+     * TimeOut_Count is the total number of time outs that occurred in the simulation
+     */
+    public int TimeOut_Count;
+
+    /**
+     * Preempt_Count is the total number of preempts that occurred in the simulation
+     */
+    public int Preempt_Count;
+
+
+
+    /**
      *FinishedQueue is a queue that processes that finish running with the CPU are added to for
      * reporting purposes after the simulation.
      */
@@ -150,6 +162,9 @@ public abstract class Scheduler implements SchedulerInterface{
         this.StartIdleTime = Integer.MAX_VALUE;
         this.MasterList = masterList;
         this.CurrentIndex = 0;
+        this.TimeOut_Count = 0;
+        this.Preempt_Count = 0;
+
         this.FinishedQ = new LinkedList<process>();
 
     }
@@ -528,7 +543,11 @@ public abstract class Scheduler implements SchedulerInterface{
         //while the next process in the MasterList has an arrival time of 0
         //add it to the ReadyQ because that is one of the initial processes
         while(this.getMasterList().get(this.getCurrentIndex()).getArrivalTime() == 0){
-            this.ReadyProcesses.add(this.getMasterList().get(this.getCurrentIndex()).cloneProcess());
+            //p is the next process in the master list
+           process p = this.getMasterList().get(this.getCurrentIndex()).cloneProcess();
+           //update ps StartReadyTime
+            p.StartReadyTime = 0;
+            this.ReadyProcesses.add(p);
             this.updateCurrentIndex();
         }
     }

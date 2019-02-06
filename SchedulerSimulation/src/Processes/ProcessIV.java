@@ -66,7 +66,8 @@ public class ProcessIV extends process{
         PIV.updateNextBlockResource(this.NextBlockResource);
         PIV.updateNextBlockTime(this.NextBlockTime);
         PIV.updateArrivalTime(this.ArrivalTime);
-        PIV.updateNextReadyTime(this.NextReadyTime);
+        PIV.updateStartReadyTime(this.StartReadyTime);
+        PIV.updateTotalReadyTime(this.TotalReadyTime);
         PIV.setLastEventTime(this.LastEventTime);
         PIV.updateFinishTime(this.FinishTime);
         PIV.updateBlockServiceTime(this.BlockServiceTime);

@@ -1,5 +1,7 @@
 package ReadyQueue;
 
+import Minheap.Comparators;
+import Minheap.MinHeap;
 import Processes.process;
 /**
  * this object is constructed in the LWC algorithm subclass of the scheduler.

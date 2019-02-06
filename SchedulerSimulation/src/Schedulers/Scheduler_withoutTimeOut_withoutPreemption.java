@@ -50,8 +50,8 @@ public abstract class Scheduler_withoutTimeOut_withoutPreemption extends Schedul
         this.updateNextBlock();
         this.updateNextSchedExit();
 
-        //Update Ps ready time
-        P.NextReadyTime = this.getNextEvent() + this.getNextSCost();
+        //Start Ps ready time
+        P.StartReadyTime = this.getNextEvent() + this.getNextSCost();
     }
 
 }

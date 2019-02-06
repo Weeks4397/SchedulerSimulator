@@ -1,12 +1,8 @@
 package Resources;
 
-import Processes.Block;
 import Processes.process;
-import ReadyQueue.Comparators;
-import ReadyQueue.MinHeap;
-
-import java.util.List;
-import java.util.TreeMap;
+import Minheap.Comparators;
+import Minheap.MinHeap;
 
 /**
  * Resource B is an inclusive resource. This means that it can

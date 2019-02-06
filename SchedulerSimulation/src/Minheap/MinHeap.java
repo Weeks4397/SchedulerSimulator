@@ -1,4 +1,4 @@
-package ReadyQueue;
+package Minheap;
 import java.util.*;
 
 /**

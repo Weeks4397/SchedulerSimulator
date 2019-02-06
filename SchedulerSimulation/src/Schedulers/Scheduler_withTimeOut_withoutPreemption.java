@@ -53,8 +53,8 @@ public abstract class Scheduler_withTimeOut_withoutPreemption extends Scheduler_
         this.updateNextSchedExit();
         this.updateNextTimeOut();
 
-        //Update Ps ready time
-        P.NextReadyTime = this.getNextEvent() + this.getNextSCost();
+        //Start Ps ready time
+        P.StartReadyTime = this.getNextEvent() + this.getNextSCost();
     }
 
 }

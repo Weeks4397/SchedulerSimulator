@@ -78,8 +78,12 @@ public abstract class Scheduler_without_TimeOut extends Scheduler {
 
         }
         else {
+            //p is the next ready process that will run with the cpu
+            process p = this.ReadyProcesses.poll();
+            //update ps total ready time
+            p.TotalReadyTime = this.getNextEvent() + this.getNextSCost() - p.getStartReadyTime();
             //update ActiveProcess to be the next ready process
-            this.updateActiveProcess(this.ReadyProcesses.poll());
+            this.updateActiveProcess(p);
 
         }
         //update NextBlock and NextSchedExit because the ActiveProcess has changed

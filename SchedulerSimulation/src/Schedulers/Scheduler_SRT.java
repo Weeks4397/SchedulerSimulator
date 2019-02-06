@@ -1,7 +1,7 @@
 package Schedulers;
 
 import Processes.process;
-import ReadyQueue.Comparators;
+import Minheap.Comparators;
 import ReadyQueue.SRT_Q;
 import java.util.List;
 

@@ -65,7 +65,8 @@ public class ProcessIII extends process{
         PIII.updateNextBlockResource(this.NextBlockResource);
         PIII.updateNextBlockTime(this.NextBlockTime);
         PIII.updateArrivalTime(this.ArrivalTime);
-        PIII.updateNextReadyTime(this.NextReadyTime);
+        PIII.updateStartReadyTime(this.StartReadyTime);
+        PIII.updateTotalReadyTime(this.TotalReadyTime);
         PIII.setLastEventTime(this.LastEventTime);
         PIII.updateFinishTime(this.FinishTime);
         PIII.updateBlockServiceTime(this.BlockServiceTime);

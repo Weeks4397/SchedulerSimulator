@@ -47,7 +47,8 @@ public class ProcessII extends process{
         PII.updateNextBlockResource(this.NextBlockResource);
         PII.updateNextBlockTime(this.NextBlockTime);
         PII.updateArrivalTime(this.ArrivalTime);
-        PII.updateNextReadyTime(this.NextReadyTime);
+        PII.updateStartReadyTime(this.StartReadyTime);
+        PII.updateTotalReadyTime(this.TotalReadyTime);
         PII.setLastEventTime(this.LastEventTime);
         PII.updateFinishTime(this.FinishTime);
         PII.updateBlockServiceTime(this.BlockServiceTime);

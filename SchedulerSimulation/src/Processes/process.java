@@ -57,10 +57,15 @@ public abstract class process implements processInterface {
     public int CPUTime;
 
     /**
-     * NextReadyTime is initially equal to ArrivalTime
-     * NextReadyTime is adjusted when a process arrives back into the ready queue after a block, time-slice, or preemption
+     * StartReadyTime is initially equal to ArrivalTime
+     * StartReadyTime is adjusted when a process arrives back into the ready queue after a block, time-slice, or preemption
      */
-    public int NextReadyTime;
+    public int StartReadyTime;
+
+    /**
+     * TotalReadyTime is the total amount of time a process has spent in the ReadyQ
+     */
+    public int TotalReadyTime;
 
     /**
      * LastEventTime is the global time at which the last event occurred effecting this process
@@ -94,6 +99,22 @@ public abstract class process implements processInterface {
     public int ServiceStartTime;
 
     /**
+     * SchedInstant_Count is the total number of schedule instants the process has been apart of
+     * A schedule instant is an event that causes processes to change state.
+     */
+    public int SchedInstant_Count;
+
+    /**
+     * TimeOut_Count is the total number of timeouts the process has had
+     */
+    public int TimeOut_Count;
+
+    /**
+     * Preempt_Count
+     */
+    public int Preempt_Count;
+
+    /**
      * Constructor for a process
      */
     public process() {
@@ -104,17 +125,15 @@ public abstract class process implements processInterface {
         this.FinishTime = Integer.MAX_VALUE;
         this.BlockServiceTime = 0;
         this.ServiceStartTime = Integer.MAX_VALUE;
-        this.Type = -1;
-        this.RunTime = -1;
-        this.NextBlockInstant = -1;
-        this.NextBlockResource = null;
-        this.NextBlockTime = -1;
         this.BlockRecord = new LinkedList<Block>();
-        this.ArrivalTime = -1;
-        this.NextReadyTime = -1;
+        this.StartReadyTime = Integer.MAX_VALUE;
+        this.TotalReadyTime = 0;
         this.ServiceStartTime = Integer.MAX_VALUE;
         this.BlockWaitTime = 0;
         this.StartBlockWaitTime = Integer.MAX_VALUE;
+        this.SchedInstant_Count = 0;
+        this.TimeOut_Count = 0;
+        this.Preempt_Count = 0;
     }
 
     //setters for processes
@@ -147,12 +166,11 @@ public abstract class process implements processInterface {
     public abstract void genBlockRecord();
 
 
-    /**sets init arrival time and nextReady time
+    /**sets init arrival time
      * @param t  time at which process scheduled to arrive into ready queue from master list
      */
-    public void setArrivalandReadyTime(int t){
+    public void setArrivalTime(int t){
         this.ArrivalTime = t;
-        this.NextReadyTime = t;
     }
 
 
@@ -197,8 +215,12 @@ public abstract class process implements processInterface {
         return this.CPUTime;
     }
 
-    public int getNextReadyTime() {
-        return this.NextReadyTime;
+    public int getStartReadyTime() {
+        return this.StartReadyTime;
+    }
+
+    public int getTotalReadyTime() {
+        return this.TotalReadyTime;
     }
 
     public int getLastEventTime() {
@@ -220,6 +242,12 @@ public abstract class process implements processInterface {
     public int getBlockWaitTime(){return this.BlockWaitTime;}
 
     public int getStartBlockWaitTime() {return this.StartBlockWaitTime;}
+
+    public int getSchedInstant_Count() {return this.SchedInstant_Count;}
+
+    public int getTimeOut_Count() { return this.TimeOut_Count; }
+
+    public int getPreempt_Count(){return this.Preempt_Count;}
 
     //Mutators for Processes
 
@@ -257,8 +285,12 @@ public abstract class process implements processInterface {
         ArrivalTime = arrivalTime;
     }
 
-    public void updateNextReadyTime(int nextReadyTime) {
-        NextReadyTime = nextReadyTime;
+    public void updateStartReadyTime(int startReadyTime) {
+        StartReadyTime = startReadyTime;
+    }
+
+    public void updateTotalReadyTime(int totalReadyTime) {
+        TotalReadyTime = totalReadyTime;
     }
 
     public void setLastEventTime(int lastEventTime) {
@@ -293,6 +325,12 @@ public abstract class process implements processInterface {
         StringID = stringID;
     }
 
+    public void updatetSchedInstant_Count(int schedInstant_Count) {SchedInstant_Count = schedInstant_Count;}
+
+    public void updateTimeOut_Count(int timeOut_Count) {TimeOut_Count = timeOut_Count; }
+
+    public void updatePreempt_Count(int preempt_Count){Preempt_Count = preempt_Count;}
+
 
     /**
      * GotoNextBlock    goes to the next block in the block record if there is one
@@ -318,10 +356,10 @@ public abstract class process implements processInterface {
     public String toString(){
        String theProcess = String.format("StringID: %s\nType: %s\nArrival Time: %d\nRun Time: %d" +
                        "\nCPU time: %d\nNext Block Time: %d\nNext Block Resource: %s \nNext Block Instant: %d" +
-                       "\nBlock Service Time: %d\nBlock Wait Time: %d\nFinish Time: %d",
+                       "\nBlock Service Time: %d\nBlock Wait Time: %d\nFinish Time: %d\nTotal Ready Time: %d",
                this.getStringID(), this.getType(), this.getArrivalTime(), this.getRunTime(),
                this.getCPUTime(), this.getNextBlockTime(), this.getNextBlockResource(), this.getNextBlockInstant(),
-                this.getBlockServiceTime(), this.getBlockWaitTime(), this.getFinishTime());
+                this.getBlockServiceTime(), this.getBlockWaitTime(), this.getFinishTime(), this.getTotalReadyTime());
        return theProcess;
     }
 

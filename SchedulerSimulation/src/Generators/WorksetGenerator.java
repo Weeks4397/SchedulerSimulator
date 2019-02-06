@@ -153,7 +153,7 @@ public class WorksetGenerator {
         while(totalNumProcesses < numOfStartSet) {
             P = makeProcess();
             Workset.add(P);
-            P.setArrivalandReadyTime(0);
+            P.setArrivalTime(0);
             totalNumProcesses++;
             P.setStringID( totalNumProcesses , 1000);
 
@@ -267,7 +267,7 @@ public class WorksetGenerator {
             P = makeProcess();
             Workset.add(P);
             currentTime += ProccessGenerator.ProcessArrival();
-            P.setArrivalandReadyTime(currentTime);
+            P.setArrivalTime(currentTime);
             totalNumProcesses++;
             P.setStringID( totalNumProcesses , 1000);
 

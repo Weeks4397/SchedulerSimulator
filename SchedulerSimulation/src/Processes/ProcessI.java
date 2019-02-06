@@ -73,7 +73,8 @@ public class ProcessI extends process {
         PI.updateNextBlockResource(this.NextBlockResource);
         PI.updateNextBlockTime(this.NextBlockTime);
         PI.updateArrivalTime(this.ArrivalTime);
-        PI.updateNextReadyTime(this.NextReadyTime);
+        PI.updateStartReadyTime(this.StartReadyTime);
+        PI.updateTotalReadyTime(this.TotalReadyTime);
         PI.setLastEventTime(this.LastEventTime);
         PI.updateFinishTime(this.FinishTime);
         PI.updateBlockServiceTime(this.BlockServiceTime);
