@@ -13,3 +13,4 @@ SchedulerSimulation/out/production/SchedulerSimulation/Processes/process.class
 SchedulerSimulation/out/production/SchedulerSimulation/Generators/ProccessGenator.class
 *.class
 *.class
+*.fxml
