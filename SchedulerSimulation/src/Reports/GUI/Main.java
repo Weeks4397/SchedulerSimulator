@@ -1,4 +1,4 @@
-package GUI;
+package Reports.GUI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("Views/title_view.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Scheduler Simulator");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }

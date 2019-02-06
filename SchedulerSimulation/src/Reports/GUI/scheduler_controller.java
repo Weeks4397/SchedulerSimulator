@@ -1,18 +1,14 @@
-package GUI;
+package Reports.GUI;
 
 import Generators.WorksetGenerator;
 import Reports.Scheduler_Report;
 import Reports.WorksetReport;
-import Schedulers.Scheduler;
-import Schedulers.Scheduler_FIFO;
-import javafx.application.Application;
+import Schedulers.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -74,21 +70,34 @@ public class scheduler_controller {
 
     @FXML
     private void runProgram() {
-       String selectedButton =  ((RadioButton) group1.getSelectedToggle()).getId();
+        logArea.clear();
+        System.out.println("Creating Scheduler Info...");
+        String selectedButton =  ((RadioButton) group1.getSelectedToggle()).getId();
        //System.out.println(selectedButton);
        switch (selectedButton) {
 
            case "fifo": {
+               System.out.println("Here in the FIFO");
                Scheduler scheduler = new Scheduler_FIFO(wsg.Workset);
+               scheduler.runAlgorithm();
                Scheduler_Report.CreateReport(wsg,scheduler);
            }
-           case "lwr": {
+           case "lwc": {
+               Scheduler scheduler = new Scheduler_LWC(wsg.Workset);
+               scheduler.runAlgorithm();
+               Scheduler_Report.CreateReport(wsg,scheduler);
 
            }
            case "sjf": {
+               Scheduler scheduler = new Scheduler_SJF(wsg.Workset);
+               scheduler.runAlgorithm();
+               Scheduler_Report.CreateReport(wsg,scheduler);
 
            }
            case "rr": {
+               Scheduler scheduler = new Scheduler_RR(wsg.Workset);
+               scheduler.runAlgorithm();
+               Scheduler_Report.CreateReport(wsg,scheduler);
 
            }
 

@@ -1,4 +1,4 @@
-package GUI;
+package Reports.GUI;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class titleController  {
+public class title_Controller {
 
     @FXML
     public void initialize() {

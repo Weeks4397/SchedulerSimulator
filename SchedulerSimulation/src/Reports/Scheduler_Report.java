@@ -10,10 +10,15 @@ import java.awt.*;
 
 public class Scheduler_Report {
 
-
+    /**
+     * minThroughput is the smallest throughput of all the processes
+     */
     public static int minThroughput = Integer.MAX_VALUE;
-    public static int minServiceRatio = Integer.MAX_VALUE;
 
+    /**
+     * minServiceRatio is the smallest service ratio of all the processes
+     */
+    public static int minServiceRatio = Integer.MAX_VALUE;
 
 
     /**
@@ -60,6 +65,11 @@ public class Scheduler_Report {
         System.out.println(msg2);
     }
 
+    /**
+     * This is the CUP View table. It logs the scheduler Algorithm, Service Time, Overhead Time, Idle Time, Finish Time,
+     * # of Timeouts, #  of Preempts, Min Throughput, and Min Service Ratio
+     * @param scheduler a scheduler object
+     */
     public static void overViewTable1(Scheduler scheduler) {
 
         System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s", "Algorithm", "Service Time", "Overhead Time", "Idle Time", "Finish Time", "# of Timeouts", "#  of Preempts", "Min Throughput", "Min Service Ratio"));
@@ -67,17 +77,29 @@ public class Scheduler_Report {
 
     }
 
+    /**
+     * This table is part of the Process View. It logs the following per process: ProcessID, Type, Arrival, Running Time,
+     * Ready Time, Block Service time, Block Wait time, Sched Instants, # of timeouts, # of Preempts, and Finish Time
+     * @param scheduler a scheduler object
+     */
     public static void overViewTable2(Scheduler scheduler) {
-        System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s", "Process", "Type", "Arrival", "Running Time", "Ready Time", "Block Service", "Block Wait", "Sched Instants", "Timeouts", "Preempts", "Finish Time"));
-        System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %17s", scheduler.getType(), scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), minThroughput, minServiceRatio));
+        System.out.println("Algorithm: " + scheduler.getType());
+        System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s %20s %20s", "Process", "Type", "Arrival", "Running Time", "Ready Time", "Block Service", "Block Wait", "Sched Instants", "Timeouts", "Preempts", "Finish Time"));
 
-
+        for(process aProcess: scheduler.getFinishedQ()){
+            System.out.println(String.format("%s %21s %20s %18s %20s %18s %20s %20s %22s %20s %20s", aProcess.getStringID(), aProcess.getType(), aProcess.getArrivalTime(), aProcess.getRunTime(), aProcess.getTotalReadyTime(), aProcess.getBlockServiceTime(), aProcess.getBlockWaitTime(), aProcess.getSchedInstant_Count(), aProcess.getTimeOut_Count(), aProcess.getPreempt_Count(), aProcess.getFinishTime()));
+        }
     }
 
-
-    public static void overViewTable3(Scheduler scheduler) {
-    }
-
+    /**
+     * This table is part of the Process view. It logs the Process, Residency, Time Needed, Delay, Throughput, Service Ratio
+     * - Residency = Finish - Arrival
+     * - Time Needed 	= Running Time + Block Service Time
+     * - Delay = Finish – Arrival – Total Time
+     * - Throughput = Time Needed / Residency
+     * - Service Ratio = Running Time / (Running Time + Ready Time)
+     * @param scheduler a Scheduler object
+     */
     public static void overViewTable4(Scheduler scheduler) {
 
         System.out.println("Algorithm: " + scheduler.getType());
@@ -103,20 +125,42 @@ public class Scheduler_Report {
 
     }
 
-        public static void CreateReport(WorksetGenerator WSG, Scheduler scheduler) {
+
+    /**
+     * This table is the Resource View. It logs the type of resource, number of requests per resource, total service time per resource,
+     * total idle time per resource, and max list length per resource
+     * @param scheduler
+     */
+    public static void overViewTable5(Scheduler scheduler) {
+        System.out.println("Algorithm: " + scheduler.getType());
+        System.out.println(String.format("%s %20s %20s %20s %20s", "Resource", "Number of Requests", "Total Service Time", "Total Idle Time", "Max List Length"));
+
+        for (Resource aResource: scheduler.getTheResources()){
+            System.out.println(String.format("%s %20s %20s %20s %20s", aResource.getType(), aResource.getNumOfBlocks(), aResource.getActiveTime(), aResource.getIdleTime(), aResource.getMaxCount()));
+        }
+    }
+
+
+
+    public static void CreateReport(WorksetGenerator WSG, Scheduler scheduler) {
         System.out.println("*** Process Set Characteristics ***");
         tableA(WSG);
         System.out.println();
         tableB(scheduler);
-       // tableB(scheduler);
         System.out.println();
-        System.out.println("*** CPU View ***" + "\n");
         System.out.println();
+        System.out.println("*** Process View ***");
+        System.out.println();
+        overViewTable2(scheduler);
         System.out.println();
         overViewTable4(scheduler);
         System.out.println();
         System.out.println();
+        System.out.println("*** Resource View ***");
+        overViewTable5(scheduler);
+        System.out.println();
+        System.out.println();
+        System.out.println("*** CPU View ***");
         overViewTable1(scheduler);
-
-        }
+    }
 }
