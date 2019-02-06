@@ -1,8 +1,10 @@
 package GUI;
 
 import Generators.WorksetGenerator;
+import Reports.Scheduler_Report;
 import Reports.WorksetReport;
 import Schedulers.Scheduler;
+import Schedulers.Scheduler_FIFO;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -26,9 +28,13 @@ public class scheduler_controller {
     ToggleGroup group1;
     @FXML
     TextArea logArea;
+    @FXML
+    Button run_buttom;
 
     @FXML
     private void initialize(){
+        run_buttom.setDisable(true);
+        logArea.setEditable(false);
         logArea.appendText("Please create a workset to get started");
         logArea.setStyle("-fx-font-family: monospace");
         OutputStream out = new OutputStream() {
@@ -49,6 +55,10 @@ public class scheduler_controller {
         });
     }
 
+    /**
+     * Appends the text from the console to the textArea
+     * @param str The text that you would like to add to the TextArea
+     */
     public void appendText(String str) {
         Platform.runLater(() -> logArea.appendText(str));
     }
@@ -57,19 +67,20 @@ public class scheduler_controller {
     private void generateWorkset() {
         logArea.clear();
         System.out.println("Creating Workset generator...");
-        WorksetReport.ReportWorkSet(new WorksetGenerator());
-
+        wsg = new WorksetGenerator();
+        WorksetReport.ReportWorkSet(wsg);
+        run_buttom.setDisable(false);
     }
 
     @FXML
     private void runProgram() {
        String selectedButton =  ((RadioButton) group1.getSelectedToggle()).getId();
-       System.out.println(selectedButton);
-
+       //System.out.println(selectedButton);
        switch (selectedButton) {
 
            case "fifo": {
-
+               Scheduler scheduler = new Scheduler_FIFO(wsg.Workset);
+               Scheduler_Report.CreateReport(wsg,scheduler);
            }
            case "lwr": {
 

@@ -9,6 +9,7 @@ public class Scheduler_Tester {
     public static void main(String args[]) {
         WorksetGenerator wsg = new WorksetGenerator();
         Scheduler scheduler = new Scheduler_FIFO(wsg.Workset);
+        scheduler.runAlgorithm();
         Scheduler_Report.CreateReport(wsg, scheduler);
     }
 }

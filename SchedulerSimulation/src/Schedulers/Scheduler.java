@@ -182,6 +182,14 @@ public abstract class Scheduler implements SchedulerInterface{
     /**
      *Getters for Scheduler
      */
+    public int getTimeOut_Count(){
+        return TimeOut_Count;
+    }
+
+    public int getPreempt_Count(){
+        return Preempt_Count;
+    }
+
     public int getTime() {
         return this.Time;
     }
