@@ -81,6 +81,9 @@ public class ProcessI extends process {
         PI.updateBlockWaitTime(this.BlockWaitTime);
         PI.updateServiceStartTime(this.ServiceStartTime);
         PI.updateStringID(this.StringID);
+        PI.updatetSchedInstant_Count(this.SchedInstant_Count);
+        PI.updateTimeOut_Count(this.TimeOut_Count);
+        PI.updatePreempt_Count(this.Preempt_Count);
 
 
         PI.updateBlockRecord(new LinkedList<Block>());

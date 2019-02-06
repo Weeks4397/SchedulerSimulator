@@ -55,6 +55,9 @@ public class ProcessII extends process{
         PII.updateBlockWaitTime(this.BlockWaitTime);
         PII.updateServiceStartTime(this.ServiceStartTime);
         PII.updateStringID(this.StringID);
+        PII.updatetSchedInstant_Count(this.SchedInstant_Count);
+        PII.updateTimeOut_Count(this.TimeOut_Count);
+        PII.updatePreempt_Count(this.Preempt_Count);
 
         return PII;
     }

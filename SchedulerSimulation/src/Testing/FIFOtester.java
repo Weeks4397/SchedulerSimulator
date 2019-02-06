@@ -4,6 +4,7 @@ import Generators.WorksetGenerator;
 import Processes.process;
 import Reports.Scheduler_Report;
 import Reports.WorksetReport;
+import Resources.Resource;
 import Schedulers.Scheduler_FIFO;
 
 public class FIFOtester {
@@ -85,6 +86,16 @@ public class FIFOtester {
         System.out.println(Test.Workset.get(6));
         System.out.println();
         System.out.println(Test.Workset.get(7));
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        for (Resource R: FIFO.TheResources){
+            System.out.println(R);
+            System.out.println();
+        }
 
 
     }

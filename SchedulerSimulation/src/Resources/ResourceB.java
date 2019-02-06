@@ -82,6 +82,9 @@ public class ResourceB extends Resource {
             }
         }
         this.Count++;
+        if(this.getMaxCount() <= this.getCount()){
+            this.MaxCount = this.getCount();
+        }
     }
 
     /**finisService for an inclusive resource

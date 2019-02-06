@@ -51,6 +51,10 @@ public abstract class Scheduler_withTimeOut_withPreemption extends Scheduler_wit
             if(CompObj.compare(this.getReadyProcesses().peek(), this.getActiveProcess())  == 1){
                 //if the process in the ReadyQ has priority over the running process, preempt
 
+                //update active processes preempt count and sched instant count
+                this.ActiveProcess.SchedInstant_Count += 1;
+                this.ActiveProcess.Preempt_Count += 1;
+
                 //Add the running process back into the ReadyQ
                 this.ReadyProcesses.add(this.ActiveProcess);
 

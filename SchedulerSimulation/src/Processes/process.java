@@ -356,10 +356,12 @@ public abstract class process implements processInterface {
     public String toString(){
        String theProcess = String.format("StringID: %s\nType: %s\nArrival Time: %d\nRun Time: %d" +
                        "\nCPU time: %d\nNext Block Time: %d\nNext Block Resource: %s \nNext Block Instant: %d" +
-                       "\nBlock Service Time: %d\nBlock Wait Time: %d\nFinish Time: %d\nTotal Ready Time: %d",
+                       "\nBlock Service Time: %d\nBlock Wait Time: %d\nFinish Time: %d\nTotal Ready Time: %d\nSched Instant Count: %d" +
+                       "\nTimeout count: %d\nPreempt count: %d",
                this.getStringID(), this.getType(), this.getArrivalTime(), this.getRunTime(),
                this.getCPUTime(), this.getNextBlockTime(), this.getNextBlockResource(), this.getNextBlockInstant(),
-                this.getBlockServiceTime(), this.getBlockWaitTime(), this.getFinishTime(), this.getTotalReadyTime());
+                this.getBlockServiceTime(), this.getBlockWaitTime(), this.getFinishTime(), this.getTotalReadyTime(),
+               this.getSchedInstant_Count(), this.getTimeOut_Count(), this.getPreempt_Count());
        return theProcess;
     }
 

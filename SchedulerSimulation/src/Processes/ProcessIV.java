@@ -74,6 +74,9 @@ public class ProcessIV extends process{
         PIV.updateBlockWaitTime(this.BlockWaitTime);
         PIV.updateServiceStartTime(this.ServiceStartTime);
         PIV.updateStringID(this.StringID);
+        PIV.updatetSchedInstant_Count(this.SchedInstant_Count);
+        PIV.updateTimeOut_Count(this.TimeOut_Count);
+        PIV.updatePreempt_Count(this.Preempt_Count);
 
         Queue<Block> BQ = new LinkedList<Block>();
         Queue<Block> saveQ = new LinkedList<Block>();

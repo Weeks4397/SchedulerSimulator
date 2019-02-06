@@ -51,8 +51,15 @@ public abstract class ExclusiveResource extends Resource {
             this.updateNextUnblockTime(time + theProcess.getNextBlockTime());
         }
         else {
+            //Start wait time if the Q is empty and a process being added is going to wait
+            if (this.BlockedProcessQ.isEmpty()){
+                this.StartWaitTime = time;
+            }
             this.BlockedProcessQ.add(theProcess);		// insert at end of queue to wait for service
             this.Count++;
+            if (this.getMaxCount() <= this.getCount()){
+                this.MaxCount = this.getCount();
+            }
         }
     }
 
@@ -78,6 +85,10 @@ public abstract class ExclusiveResource extends Resource {
             this.updateNextUnblockTime(oldTime + theProcess.getNextBlockTime());
             this.ServingProcess = theProcess;
             theProcess.ServiceStartTime = oldTime;  //the time at which the last process finished is the ServiceStartTime for this process
+
+            if (this.BlockedProcessQ.isEmpty()){
+                this.WaitTime += oldTime - this.getStartWaitTime();
+            }
         }
         else {
             //if there are no processes waiting set NextUnblockTime to Maxval so event does not occur in scheduler

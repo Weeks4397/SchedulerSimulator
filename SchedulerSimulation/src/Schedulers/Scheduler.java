@@ -4,7 +4,6 @@ import Processes.process;
 import ReadyQueue.ReadyQ;
 import Resources.*;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -308,6 +307,8 @@ public abstract class Scheduler implements SchedulerInterface{
         //P is the process that is unblocking
         process P = this.getNextUnblockResource().finishService();
 
+        P.SchedInstant_Count += 1;
+
         //P has finished service and now must arrive to readyQ
         //The scheduler cost is determined here for unblocking events.
         this.arriveReadyQ(P);
@@ -322,6 +323,8 @@ public abstract class Scheduler implements SchedulerInterface{
     public void handleNextArrival() {
         //P is the process arriving from the MasterList
         process P = this.getMasterList().get(this.getCurrentIndex()).cloneProcess();
+
+        P.SchedInstant_Count += 1;
 
         //Handle P arriving to the readyQ
         //The scheduler cost is determined here for arrival events.
@@ -341,6 +344,7 @@ public abstract class Scheduler implements SchedulerInterface{
         //The active process is finshed running, update its CPUTime, finished time and add it to the FinishedQ.
         this.ActiveProcess.updateCPU (this.getNextEvent() - this.getTime());
         this.ActiveProcess.updateFinishTime(this.getNextEvent());
+        this.ActiveProcess.SchedInstant_Count += 1;
         this.FinishedQ.add(this.getActiveProcess());
 
         //update Active time of CPU as well
@@ -368,6 +372,8 @@ public abstract class Scheduler implements SchedulerInterface{
 
         //update Active time of CPU as well
         this.updateActiveTime(this.getNextEvent() - this.getTime());
+
+        this.ActiveProcess.SchedInstant_Count += 1;
 
         //Check to see what resource the process is blocking on and send it to that resource
         if (this.getActiveProcess().getNextBlockResource() == "A") {

@@ -1,6 +1,8 @@
 package Schedulers;
 
 import Processes.process;
+import Resources.Resource;
+
 import java.util.List;
 
 /**
@@ -80,8 +82,9 @@ public abstract class Scheduler_without_TimeOut extends Scheduler {
         else {
             //p is the next ready process that will run with the cpu
             process p = this.ReadyProcesses.poll();
-            //update ps total ready time
+            //update ps total ready time and number of sched Instants
             p.TotalReadyTime = this.getNextEvent() + this.getNextSCost() - p.getStartReadyTime();
+            p.SchedInstant_Count += 1;
             //update ActiveProcess to be the next ready process
             this.updateActiveProcess(p);
 
@@ -115,6 +118,9 @@ public abstract class Scheduler_without_TimeOut extends Scheduler {
         //When there are no more events, all events will be equal to MAXVAL
         while (this.getNextEvent() != Integer.MAX_VALUE) {
             this.handleNextEvent();
+        }
+        for (Resource R: this.TheResources){
+            R.IdleTime += this.Time - R.StartIdleTime;
         }
     }
 

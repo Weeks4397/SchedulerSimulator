@@ -73,6 +73,9 @@ public class ProcessIII extends process{
         PIII.updateBlockWaitTime(this.BlockWaitTime);
         PIII.updateServiceStartTime(this.ServiceStartTime);
         PIII.updateStringID(this.StringID);
+        PIII.updatetSchedInstant_Count(this.SchedInstant_Count);
+        PIII.updateTimeOut_Count(this.TimeOut_Count);
+        PIII.updatePreempt_Count(this.Preempt_Count);
 
         Queue<Block> BQ = new LinkedList<Block>();
         Queue<Block> saveQ = new LinkedList<Block>();

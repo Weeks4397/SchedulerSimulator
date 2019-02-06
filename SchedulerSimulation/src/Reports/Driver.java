@@ -2,6 +2,7 @@ package Reports;
 
 import Generators.WorksetGenerator;
 import Processes.*;
+import Resources.Resource;
 import Schedulers.*;
 
 import java.util.ArrayList;
@@ -84,6 +85,14 @@ public class Driver {
         System.out.println(FIFO.FinishedQ.poll().toString());
         System.out.println();
         System.out.println(FIFO.FinishedQ.poll().toString());
+
+     System.out.println();
+     System.out.println();
+     System.out.println();
+     for (Resource R: FIFO.TheResources){
+      System.out.println(R);
+      System.out.println();
+     }
 
 
 

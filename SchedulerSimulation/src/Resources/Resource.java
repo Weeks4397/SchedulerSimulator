@@ -49,6 +49,20 @@ public abstract class  Resource implements ResourceInterface{
      */
     public int Count;
 
+    /**
+     * MaxCount is the maximum count of processes that were in the Queue or Heap during the simulation
+     */
+    public int MaxCount;
+
+    /**
+     * StartWaitTime is a marker in global time so that we can keep track of WaitTime
+     */
+    public int StartWaitTime;
+
+    /**
+     * WaitTime is the total time that there were processes waiting to use a resource
+     */
+    public int WaitTime;
 
     /**
      * numOFBlocks is the total number of processes the resource has served.
@@ -73,8 +87,11 @@ public abstract class  Resource implements ResourceInterface{
         this.IdleTime = 0;
         this.ServingProcess = null;
         this.Count = 0;
+        this.MaxCount = 0;
         this.numOfBlocks = 0;
         this.totalBlockTime = 0;
+        this.StartWaitTime = Integer.MAX_VALUE;
+        this.WaitTime = 0;
     }
 
     /**
@@ -109,6 +126,8 @@ public abstract class  Resource implements ResourceInterface{
         return this.Count;
     }
 
+    public int getMaxCount(){return this.MaxCount;}
+
     public int getNumOfBlocks() {
         return this.numOfBlocks;
     }
@@ -116,6 +135,10 @@ public abstract class  Resource implements ResourceInterface{
     public int getTotalBlockTime() {
         return this.totalBlockTime;
     }
+
+    public int getStartWaitTime(){return this.StartWaitTime;}
+
+    public int getWaitTime(){return this.WaitTime;}
 
     /**
      * A process can arrive at a resource or finish using it.
@@ -169,9 +192,9 @@ public abstract class  Resource implements ResourceInterface{
      */
     public String toString(){
         String theResource = String.format("Type: %s\nActive time: %d\nIdle time: %d\nNumber of blocks served: %d" +
-                        "\nAmount of Block Time Served: %d",
+                        "\nAmount of Block Time Served: %d\nMax Count: %d\nWait time: %d",
                 this.getType(), this.getActiveTime(), this.getIdleTime(),
-                this.getNumOfBlocks(), this.getTotalBlockTime());
+                this.getNumOfBlocks(), this.getTotalBlockTime(), this.getMaxCount(), this.getWaitTime());
         return theResource;
     }
 
