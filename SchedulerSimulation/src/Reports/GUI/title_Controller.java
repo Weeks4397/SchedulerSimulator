@@ -21,7 +21,7 @@ public class title_Controller {
     public void next_scene() throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Views/schedguler_view.fxml"));
+        loader.setLocation(getClass().getResource("schedguler_view.fxml"));
         Parent parent = loader.load();
         Scene settingsScene = new Scene(parent);
         //settingsScene.getStylesheets().add("Custom.css");

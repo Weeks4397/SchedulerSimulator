@@ -77,7 +77,6 @@ public class scheduler_controller {
        switch (selectedButton) {
 
            case "fifo": {
-               System.out.println("Here in the FIFO");
                Scheduler scheduler = new Scheduler_FIFO(wsg.Workset);
                scheduler.runAlgorithm();
                Scheduler_Report.CreateReport(wsg,scheduler);
