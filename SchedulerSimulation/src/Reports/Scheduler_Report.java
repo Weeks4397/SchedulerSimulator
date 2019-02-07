@@ -107,7 +107,7 @@ public class Scheduler_Report {
 
 
         for (process aProcess : scheduler.getFinishedQ()) {
-            int residency = aProcess.getArrivalTime() - aProcess.getFinishTime();
+            int residency = aProcess.getFinishTime() - aProcess.getArrivalTime();
             int timeNeeded = aProcess.getRunTime() + aProcess.getBlockServiceTime();
             int delay = aProcess.getFinishTime() - aProcess.getArrivalTime() - timeNeeded;
             int throughput = timeNeeded / residency;
