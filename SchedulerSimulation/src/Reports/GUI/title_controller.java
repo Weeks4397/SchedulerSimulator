@@ -22,8 +22,8 @@ public class title_controller {
     /**
      * The window that the title_view.fxml is
      */
-    @FXML
-    private Window currentWindow = null;
+   // @FXML
+   // private Window currentWindow;
 
     /**
      * Button that transitions you to the next scene
@@ -37,7 +37,7 @@ public class title_controller {
      */
     @FXML
     public void initialize() {
-        currentWindow = next_scene_button.getScene().getWindow();
+        //currentWindow = next_scene_button.getScene().getWindow();
     }
 
     /**
@@ -57,8 +57,8 @@ public class title_controller {
         window.show();
 
         // Close this window because we no longer need it
-        Stage stage = (Stage) currentWindow;
-        stage.close();
+       // Stage stage = (Stage) currentWindow;
+       // stage.close();
     }
 
     /**
