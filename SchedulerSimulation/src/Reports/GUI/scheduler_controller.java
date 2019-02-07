@@ -80,23 +80,27 @@ public class scheduler_controller {
                Scheduler scheduler = new Scheduler_FIFO(wsg.Workset);
                scheduler.runAlgorithm();
                Scheduler_Report.CreateReport(wsg,scheduler);
+               break;
            }
            case "lwc": {
                Scheduler scheduler = new Scheduler_LWC(wsg.Workset);
                scheduler.runAlgorithm();
                Scheduler_Report.CreateReport(wsg,scheduler);
+               break;
 
            }
            case "sjf": {
                Scheduler scheduler = new Scheduler_SJF(wsg.Workset);
                scheduler.runAlgorithm();
                Scheduler_Report.CreateReport(wsg,scheduler);
+               break;
 
            }
            case "rr": {
                Scheduler scheduler = new Scheduler_RR(wsg.Workset);
                scheduler.runAlgorithm();
                Scheduler_Report.CreateReport(wsg,scheduler);
+               break;
 
            }
 
