@@ -108,12 +108,6 @@ public class scheduler_controller {
      */
     @FXML
     private void runProgram() {
-        if(((RadioButton) group1.getSelectedToggle()).getId() == null){
-            logArea.clear();
-            logArea.appendText("Please select a Scheduler to run");
-            return;
-        }
-
         logArea.clear();
         System.out.println("Creating Scheduler Info...");
         String selectedButton =  ((RadioButton) group1.getSelectedToggle()).getId();
@@ -136,10 +130,18 @@ public class scheduler_controller {
            case "sjf": {
                Scheduler scheduler = new Scheduler_SJF(wsg.Workset);
                scheduler.runAlgorithm();
-               Final_Report.CreateReport(wsg,scheduler);
+               Final_Report.CreateReport(wsg, scheduler);
+               break;
+           }
+
+           case "srt": {
+               Scheduler scheduler = new Scheduler_SRT(wsg.Workset);
+               scheduler.runAlgorithm();
+               Final_Report.CreateReport(wsg, scheduler);
                break;
 
            }
+
            case "rr": {
                Scheduler scheduler = new Scheduler_RR(wsg.Workset);
                scheduler.runAlgorithm();
@@ -172,12 +174,14 @@ public class scheduler_controller {
                scheduler4.runAlgorithm();
                schedulerList.add(scheduler4);
 
+               // SRT Scheduler
+               Scheduler scheduler5 = new Scheduler_SRT(wsg.Workset);
+               scheduler5.runAlgorithm();
+               schedulerList.add(scheduler5);
+
                Final_Report.createAll(wsg, schedulerList);
                break;
            }
        }
     }
-
-
-
 }

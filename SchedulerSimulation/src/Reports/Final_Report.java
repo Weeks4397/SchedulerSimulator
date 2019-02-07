@@ -209,6 +209,7 @@ public class Final_Report {
 
         for (Scheduler scheduler : schedulerList){
 
+            /*
             System.out.println("*** Process Set Characteristics ***");
             tableA(WSG);
             System.out.println();
@@ -222,11 +223,14 @@ public class Final_Report {
             overViewTable4(scheduler);
             System.out.println();
             System.out.println();
+
+            */
             System.out.println("*** Resource View ***");
             overViewTable5(scheduler);
             System.out.println();
             System.out.println();
         }
+        System.out.println("*** CPU View ***");
         overViewTableAll(schedulerList);
     }
 
