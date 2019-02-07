@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
+<!-- alfjalj -->
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reports.GUI.scheduler_controller">
    <left>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="126.0" spacing="10.0" BorderPane.alignment="CENTER">
@@ -36,7 +36,7 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#runProgram" text="Run Simulation" />
+                  <Button mnemonicParsing="false" onAction="#runProgram" text="Run Simulation" fx:id="run_buttom"/>
                   <Button mnemonicParsing="false" onAction="#generateWorkset" text="New Workset" />
                </children>
             </VBox>
