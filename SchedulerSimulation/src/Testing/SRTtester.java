@@ -36,7 +36,7 @@ public class SRTtester {
         while (srt.getNextEvent() != Integer.MAX_VALUE) {
             srt.handleNextEvent();
         }
-        // Scheduler_Report.CreateReport(Test,srt);
+        // Final_Report.CreateReport(Test,srt);
 
 
         System.out.println("time: " + srt.getTime());

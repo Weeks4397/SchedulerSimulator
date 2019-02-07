@@ -2,7 +2,6 @@ package Testing;
 
 import Generators.WorksetGenerator;
 import Processes.process;
-import Reports.Scheduler_Report;
 import Reports.WorksetReport;
 import Resources.Resource;
 import Schedulers.Scheduler_FIFO;
@@ -36,7 +35,7 @@ public class FIFOtester {
         while (FIFO.getNextEvent() != Integer.MAX_VALUE) {
             FIFO.handleNextEvent();
         }
-       // Scheduler_Report.CreateReport(Test,FIFO);
+       // Final_Report.CreateReport(Test,FIFO);
 
 
         System.out.println("time: " + FIFO.getTime());

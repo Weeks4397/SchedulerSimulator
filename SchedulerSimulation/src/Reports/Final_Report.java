@@ -1,24 +1,33 @@
+/**
+ * Final report is a report class that prints report tables 1-5
+ * It is called in the Scheduler_Tester and scheduler_controller class
+ */
+
 package Reports;
 
 import Generators.WorksetGenerator;
 import Processes.process;
 import Resources.Resource;
 import Schedulers.Scheduler;
-import Schedulers.Scheduler_FIFO;
+import java.text.DecimalFormat;
+import java.util.List;
 
-import java.awt.*;
-
-public class Scheduler_Report {
+public class Final_Report {
 
     /**
      * minThroughput is the smallest throughput of all the processes
      */
-    public static int minThroughput = Integer.MAX_VALUE;
+    public static double minThroughput = Integer.MAX_VALUE;
 
     /**
      * minServiceRatio is the smallest service ratio of all the processes
      */
-    public static int minServiceRatio = Integer.MAX_VALUE;
+    public static double minServiceRatio = Integer.MAX_VALUE;
+
+    /**
+     * final that can be changed to format the report to a certain number of decimal points
+     */
+    private final static DecimalFormat DF2 = new DecimalFormat(".###");
 
 
     /**
@@ -66,6 +75,27 @@ public class Scheduler_Report {
     }
 
     /**
+     * This is the CUP View table for ALL REPORTS BEING GENERATED. It logs the scheduler Algorithm, Service Time, Overhead Time, Idle Time, Finish Time,
+     * # of Timeouts, #  of Preempts, Min Throughput, and Min Service Ratio
+     * @param schedulerList a list of object type scheduler
+     */
+    public static void overViewTableAll(List<Scheduler> schedulerList) {
+
+        System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s", "Algorithm", "Service Time", "Overhead Time", "Idle Time", "Finish Time", "# of Timeouts", "#  of Preempts", "Min Throughput", "Min Service Ratio"));
+
+        for (Scheduler scheduler: schedulerList) {
+
+            String type = scheduler.getType();
+            while(type.length() < 4){
+                type = type+  " ";
+            }
+
+
+            System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %17s", type, scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), DF2.format(minThroughput), DF2.format(minServiceRatio)));
+        }
+    }
+
+    /**
      * This is the CUP View table. It logs the scheduler Algorithm, Service Time, Overhead Time, Idle Time, Finish Time,
      * # of Timeouts, #  of Preempts, Min Throughput, and Min Service Ratio
      * @param scheduler a scheduler object
@@ -73,7 +103,7 @@ public class Scheduler_Report {
     public static void overViewTable1(Scheduler scheduler) {
 
         System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s", "Algorithm", "Service Time", "Overhead Time", "Idle Time", "Finish Time", "# of Timeouts", "#  of Preempts", "Min Throughput", "Min Service Ratio"));
-        System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %17s", scheduler.getType(), scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), minThroughput, minServiceRatio));
+        System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %17s", scheduler.getType(), scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), DF2.format(minThroughput), DF2.format(minServiceRatio)));
 
     }
 
@@ -106,12 +136,13 @@ public class Scheduler_Report {
         System.out.println(String.format("%s %20s %20s %20s %20s %24s", "Process", "Residency", "Time Needed", "Delay", "Throughput", "Service Ratio"));
 
 
+
         for (process aProcess : scheduler.getFinishedQ()) {
-            int residency = aProcess.getFinishTime() - aProcess.getArrivalTime();
-            int timeNeeded = aProcess.getRunTime() + aProcess.getBlockServiceTime();
-            int delay = aProcess.getFinishTime() - aProcess.getArrivalTime() - timeNeeded;
-            int throughput = timeNeeded / residency;
-            int serviceRatio = aProcess.getRunTime() / (aProcess.getRunTime() + aProcess.getTotalReadyTime());
+            double residency = aProcess.getFinishTime() - aProcess.getArrivalTime();
+            double timeNeeded = aProcess.getRunTime() + aProcess.getBlockServiceTime();
+            double delay = aProcess.getFinishTime() - aProcess.getArrivalTime() - timeNeeded;
+            double throughput = timeNeeded / residency;
+            double serviceRatio = (double) aProcess.getRunTime() /((double) aProcess.getRunTime() + (double) aProcess.getTotalReadyTime());
 
             // check to see if the throughput or the serviceRatio is less then the global. If so then update the global
             if (throughput < minThroughput)
@@ -119,7 +150,7 @@ public class Scheduler_Report {
             if (serviceRatio < minServiceRatio)
                 minServiceRatio = serviceRatio;
 
-            System.out.println(String.format("%s %20s %20s %22s %17s %22s", aProcess.getStringID(), residency, timeNeeded, delay, throughput, serviceRatio));
+            System.out.println(String.format("%s %20s %20s %22s %17s %22s", aProcess.getStringID(), DF2.format(residency), DF2.format(timeNeeded), DF2.format(delay), DF2.format(throughput), DF2.format(serviceRatio)));
 
         }
 
@@ -141,7 +172,11 @@ public class Scheduler_Report {
     }
 
 
-
+    /**
+     * Creates a report for a single Scheduler
+     * @param WSG a WorksetGenerator that was used in the scheduler
+     * @param scheduler a Scheduler object
+     */
     public static void CreateReport(WorksetGenerator WSG, Scheduler scheduler) {
         System.out.println("*** Process Set Characteristics ***");
         tableA(WSG);
@@ -163,4 +198,36 @@ public class Scheduler_Report {
         System.out.println("*** CPU View ***");
         overViewTable1(scheduler);
     }
+
+
+    /**
+     * Creates a report for all schedulers when given a list of schedulers
+     * @param WSG a WorksetGenerator that was used in all the schedulers in the list
+     * @param schedulerList a list of Schedulers
+     */
+    public static void createAll(WorksetGenerator WSG, List<Scheduler> schedulerList) {
+
+        for (Scheduler scheduler : schedulerList){
+
+            System.out.println("*** Process Set Characteristics ***");
+            tableA(WSG);
+            System.out.println();
+            tableB(scheduler);
+            System.out.println();
+            System.out.println();
+            System.out.println("*** Process View ***");
+            System.out.println();
+            overViewTable2(scheduler);
+            System.out.println();
+            overViewTable4(scheduler);
+            System.out.println();
+            System.out.println();
+            System.out.println("*** Resource View ***");
+            overViewTable5(scheduler);
+            System.out.println();
+            System.out.println();
+        }
+        overViewTableAll(schedulerList);
+    }
+
 }

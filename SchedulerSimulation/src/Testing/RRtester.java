@@ -36,7 +36,7 @@ public class RRtester {
         while (rr.getNextEvent() != Integer.MAX_VALUE) {
             rr.handleNextEvent();
         }
-        // Scheduler_Report.CreateReport(Test,rr);
+        // Final_Report.CreateReport(Test,rr);
 
 
         System.out.println("time: " + rr.getTime());

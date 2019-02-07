@@ -36,7 +36,7 @@ public class LWCtester {
         while (lwc.getNextEvent() != Integer.MAX_VALUE) {
             lwc.handleNextEvent();
         }
-        // Scheduler_Report.CreateReport(Test,lwc);
+        // Final_Report.CreateReport(Test,lwc);
 
 
         System.out.println("time: " + lwc.getTime());

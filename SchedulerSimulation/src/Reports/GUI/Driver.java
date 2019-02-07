@@ -8,16 +8,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Main extends Application {
+public class Driver extends Application {
 
+    /**
+     * This is called to start the start (onStart in Android) function
+     * @param args array of strings
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Starts the initializes the scene and stage for the GUI
+     * @param primaryStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
-
-        //asldkfja
 
         Parent root = FXMLLoader.load(getClass().getResource("title_view.fxml"));
         primaryStage.setTitle("Scheduler Simulator");

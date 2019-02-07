@@ -35,7 +35,7 @@ public class SJFtester {
         while (sjf.getNextEvent() != Integer.MAX_VALUE) {
             sjf.handleNextEvent();
         }
-        // Scheduler_Report.CreateReport(Test,sjf);
+        // Final_Report.CreateReport(Test,sjf);
 
 
         System.out.println("time: " + sjf.getTime());
