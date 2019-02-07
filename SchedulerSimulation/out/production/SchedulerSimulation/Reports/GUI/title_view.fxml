@@ -20,11 +20,11 @@
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </padding>
       </VBox>
-      <Label layoutX="153.0" layoutY="14.0" text="Schedguler Simulator">
+      <Label layoutX="153.0" layoutY="14.0" text="Scheduler Simulator">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="369.0" text="Created by: Alex Weeks, Alec Gonvalves, and Joshua Schappel" />
+      <Label layoutX="14.0" layoutY="369.0" text="Created by: Alex Weeks, Alec Goncalves, and Joshua Schappel" />
    </children>
 </Pane>

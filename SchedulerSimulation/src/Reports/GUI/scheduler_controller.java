@@ -98,7 +98,7 @@ public class scheduler_controller {
     @FXML
     private void generateWorkset() {
         logArea.clear();
-        System.out.println("Creating Workset generator...");
+        System.out.println("Creating Workset...");
         wsg = new WorksetGenerator();
         WorksetReport.ReportWorkSet(wsg);
         run_buttom.setDisable(false);
@@ -133,7 +133,7 @@ public class scheduler_controller {
         }
 
         logArea.clear();
-        System.out.println("Creating Scheduler Info...");
+        System.out.println("Running Simulation...");
         String selectedButton =  ((RadioButton) group1.getSelectedToggle()).getId();
        //System.out.println(selectedButton);
        switch (selectedButton) {
