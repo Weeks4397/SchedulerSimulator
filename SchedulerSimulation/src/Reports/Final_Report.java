@@ -90,8 +90,24 @@ public class Final_Report {
                 type = type+  " ";
             }
 
+            for (process aProcess : scheduler.getFinishedQ()) {
+                double residency = aProcess.getFinishTime() - aProcess.getArrivalTime();
+                double timeNeeded = aProcess.getRunTime() + aProcess.getBlockServiceTime();
+                double delay = aProcess.getFinishTime() - aProcess.getArrivalTime() - timeNeeded;
+                double throughput = timeNeeded / residency;
+                double serviceRatio = (double) aProcess.getRunTime() /((double) aProcess.getRunTime() + (double) aProcess.getTotalReadyTime());
+
+                // check to see if the throughput or the serviceRatio is less than the global. If so than update the global
+                if (throughput < minThroughput)
+                    minThroughput = throughput;
+                if (serviceRatio < minServiceRatio)
+                    minServiceRatio = serviceRatio;
+            }
 
             System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %17s", type, scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), DF2.format(minThroughput), DF2.format(minServiceRatio)));
+            //reset minThroughput and min ServiceRatio
+            minThroughput = Integer.MAX_VALUE;
+            minServiceRatio = Integer.MAX_VALUE;
         }
     }
 
@@ -104,7 +120,9 @@ public class Final_Report {
 
         System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s", "Algorithm", "Service Time", "Overhead Time", "Idle Time", "Finish Time", "# of Timeouts", "#  of Preempts", "Min Throughput", "Min Service Ratio"));
         System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %17s", scheduler.getType(), scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), DF2.format(minThroughput), DF2.format(minServiceRatio)));
-
+        //reset minthroughput and minServiceRatio
+        minServiceRatio = Integer.MAX_VALUE;
+        minThroughput = Integer.MAX_VALUE;
     }
 
     /**
