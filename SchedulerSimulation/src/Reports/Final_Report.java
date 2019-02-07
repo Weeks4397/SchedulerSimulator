@@ -230,6 +230,7 @@ public class Final_Report {
             System.out.println();
             System.out.println();
         }
+        System.out.println("*** CPU View ***");
         overViewTableAll(schedulerList);
     }
 
