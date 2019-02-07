@@ -17,7 +17,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("Views/title_view.fxml"));
+        //asldkfja
+
+        Parent root = FXMLLoader.load(getClass().getResource("title_view.fxml"));
         primaryStage.setTitle("Scheduler Simulator");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
