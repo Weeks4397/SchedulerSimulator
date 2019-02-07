@@ -28,7 +28,7 @@
                   <RadioButton fx:id="rr" mnemonicParsing="false" text="RR" toggleGroup="$group1" />
                   <RadioButton fx:id="sjf" mnemonicParsing="false" text="SJF" toggleGroup="$group1" />
                   <RadioButton fx:id="srt" mnemonicParsing="false" text="SRT" toggleGroup="$group1" />
-                  <RadioButton mnemonicParsing="false" text="All Algorithms" toggleGroup="$group1" />
+                  <RadioButton mnemonicParsing="false" text="All Algorithms" toggleGroup="$group1"  fx:id="all"/>
                </children>
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
