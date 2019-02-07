@@ -1,8 +1,8 @@
-package Testing;
+package Reports;
 import Generators.WorksetGenerator;
 import Reports.WorksetReport;
 
-public class WSGtester {
+public class PhaseIReport {
 
     public static void main(String arg[]){
         WorksetGenerator Test = new WorksetGenerator();
