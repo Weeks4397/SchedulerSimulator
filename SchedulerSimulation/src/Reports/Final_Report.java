@@ -63,13 +63,13 @@ public class Final_Report {
                     TR2 = resource.getNumOfBlocks();
 
                 case "C":
-                    BR1 = resource.getTotalBlockTime();
-                    TR1 = resource.getNumOfBlocks();
+                    BR3 = resource.getTotalBlockTime();
+                    TR3 = resource.getNumOfBlocks();
             }
         }
 
-        String msg = String.format("Number blocks for Resource: %d, A: %d,  B: %d,  C: %d", BR1+BR2+BR3, BR1, BR2, BR3);
-        String msg2 = String.format("Total BlockTime for Resource: %d,  A: %d,  B: %d,  C: %d",TR1+TR2+TR3, TR1, TR2, TR3);
+        String msg = String.format("Number blocks for Resource: %d, A: %d,  B: %d,  C: %d", BR1+BR2+BR3, TR1, TR2, TR3);
+        String msg2 = String.format("Total BlockTime for Resource: %d,  A: %d,  B: %d,  C: %d",TR1+TR2+TR3, BR1, BR2, BR3);
         System.out.println(msg);
         System.out.println(msg2);
     }
