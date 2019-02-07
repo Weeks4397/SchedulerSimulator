@@ -12,6 +12,7 @@ import Schedulers.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -20,6 +21,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 public class scheduler_controller {
 
@@ -103,11 +105,33 @@ public class scheduler_controller {
     }
 
     /**
+     * Checks if a RadioButton in the radio is pressed
+     * @param group a Toggle Group
+     * @return true if one is pressed otherwise false
+     */
+    public static boolean isSelected(ToggleGroup group) {
+        ObservableList<Toggle> o = group.getToggles();
+
+        for (Toggle t : o){
+            RadioButton rb = (RadioButton) t;
+            if (rb.isSelected())
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * This is called when the run button is pressed. It creates the scheduler obj's based on the algorithm inputted
      * and then generates the report and logs it to the logArea (textArea)
      */
     @FXML
     private void runProgram() {
+        if (isSelected(group1) == false){
+            logArea.clear();
+            logArea.appendText("Please select a button");
+            return;
+        }
+
         logArea.clear();
         System.out.println("Creating Scheduler Info...");
         String selectedButton =  ((RadioButton) group1.getSelectedToggle()).getId();
