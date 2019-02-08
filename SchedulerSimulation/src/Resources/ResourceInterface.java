@@ -57,4 +57,20 @@ public interface ResourceInterface {
      * toString formats important information about resource into a string for debugging purposes
      */
     String toString();
+
+    /**
+     * getters for resource
+     */
+    String getType();
+    int getNextUnblockTime();
+    int getStartIdleTime();
+    int getActiveTime();
+    int getIdleTime();
+    process getServingProcess();
+    int getCount();
+    int getMaxCount();
+    int getNumOfBlocks();
+    int getTotalBlockTime();
+    int getStartWaitTime();
+    int getWaitTime();
 }

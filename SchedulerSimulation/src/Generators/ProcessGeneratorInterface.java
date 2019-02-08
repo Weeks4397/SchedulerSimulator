@@ -20,4 +20,5 @@ public interface ProcessGeneratorInterface {
      *@return   a block to be used in a process
      */
     Block getBlock();
+
 }

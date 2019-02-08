@@ -14,7 +14,7 @@ import java.util.Queue;
  * A process can be of 4 different types, TypeI, TypeII, TypeIII, or Type IV.
  *
  */
-public interface processInterface {
+ interface processInterface {
     /**Sets the StringID
      * If string id is over max limit set to "-1"
      * @param i  keeps track of current processID index
@@ -39,6 +39,63 @@ public interface processInterface {
      * @return process  a deep copy of the given process
      */
     process cloneProcess();
+
+    /**Generate the BlockRecord
+     * Populates the block record with blocks in order
+     * if there are no blocks, the block record is set to null
+     */
+    void genBlockRecord();
+
+    /**
+     * Getters for Processes
+     */
+     String getStringID();
+     int getType();
+     int getRunTime();
+     int getNextBlockInstant();
+     String getNextBlockResource();
+     int getNextBlockTime();
+     Queue<Block> getBlockRecord();
+     int getArrivalTime();
+     int getCPUTime();
+     int getStartReadyTime();
+     int getTotalReadyTime();
+     int getLastEventTime();
+     int getFinishTime();
+     int getBlockServiceTime();
+     int getServiceStartTime();
+     int getBlockWaitTime();
+     int getStartBlockWaitTime();
+     int getSchedInstant_Count();
+     int getTimeOut_Count();
+     int getPreempt_Count();
+
+    /**
+     * mutaters for Processes
+     */
+    void updateStartBlockWaitTime(int time);
+    void updateCPU (int time);
+    void setCPU (int time);
+    void updateRunTime(int runTime);
+    void updateNextBlockInstant(int nextBlockInstant);
+    void updateNextBlockResource(String nextBlockResource);
+    void updateNextBlockTime(int nextBlockTime);
+    void updateArrivalTime(int arrivalTime);
+    void updateStartReadyTime(int startReadyTime);
+    void updateTotalReadyTime(int totalReadyTime);
+    void setLastEventTime(int lastEventTime);
+    void updateFinishTime(int finishTime);
+    void updateBlockServiceTime(int blockServiceTime);
+    void updateBlockWaitTime(int blockWaitTime);
+    void updateServiceStartTime(int serviceStartTime);
+    void updateType(int type);
+    void updateBlockRecord(Queue<Block> blockRecord);
+    void updateStringID(String stringID);
+    void updatetSchedInstant_Count(int schedInstant_Count);
+    void updateTimeOut_Count(int timeOut_Count);
+    void updatePreempt_Count(int preempt_Count);
+
+
 
 
 }

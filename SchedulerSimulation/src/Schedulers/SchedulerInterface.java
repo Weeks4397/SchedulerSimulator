@@ -1,6 +1,11 @@
 package Schedulers;
 
 import Processes.process;
+import ReadyQueue.ReadyQ;
+import Resources.Resource;
+
+import java.util.List;
+import java.util.Queue;
 
 /**
  * a Scheduler is a collection of numbers, a ReadyQ, a running process, a list of resources,
@@ -118,6 +123,8 @@ public interface SchedulerInterface {
      */
     void updateNextBlock();
 
+
+
     /**
      * populateReadyQ  populates ReadyQ with the initial ready processes the simulation will start with
      */
@@ -132,4 +139,78 @@ public interface SchedulerInterface {
      * toString formats the scheduler into a printable string for reporting purposes
      */
     String toString();
+
+    /**
+     * updateActiveTime increments ActiveTime by the given int
+     * @param t    int     the time the scheduler was active this cycle
+     */
+    void updateActiveTime(int t);
+
+    /**
+     * updateIdolTime   increments IdolTime by the given int
+     * @param t    int  The time the scheduler was idol this cycle
+     */
+    void updateIdolTime(int t);
+
+    /**
+     * updateStartIdleTime mutates StartIdol Time to the be the given int
+     * @param t   int     The global time at which the scheduler became idol
+     */
+    void updateStartIdolTime(int t);
+
+    /**
+     * updateCurrentIndex increments the CurrentIndex by 1
+     */
+    void updateCurrentIndex();
+
+    /**
+     * Mutates time to be equal to the time at which the event has occurred
+     */
+    void updateTime();
+
+    /**
+     * updateActiveProcess  Mutates ActiveProcess to be the given process
+     * @param P   process      The given Process
+     */
+    void updateActiveProcess(process P);
+
+    /**
+     *updateNextSCost mutates the NextSCost to be the given time
+     * @param time  int  the given time
+     */
+    void updateNextSCost(int time);
+
+    /**
+     * updateOverhead increments overhead by the Scost for the event
+     */
+    void updateOverhead();
+
+
+    /**
+     * getters for scheduler
+     */
+    /**
+     *Getters for Scheduler
+     */
+    int getTimeOut_Count();
+    int getPreempt_Count();
+    int getTime();
+    ReadyQ getReadyProcesses();
+    Resource[] getTheResources();
+    Resource getNextUnblockResource();
+    int getNextArrival();
+    int getNextSchedExit();
+    int getNextUnblock();
+    int getNextBlock();
+    int getNextEvent();
+    int getActiveTime();
+    int getIdleTime();
+    int getStartIdleTime();
+    List<process> getMasterList();
+    int getCurrentIndex();
+    Queue<process> getFinishedQ();
+    String getType();
+    int getNextSCost();
+    int getOverhead();
+    
 }

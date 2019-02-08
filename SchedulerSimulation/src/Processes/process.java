@@ -257,6 +257,7 @@ public abstract class process implements processInterface {
     public void updateStartBlockWaitTime(int time){
         this.StartBlockWaitTime = time;
     }
+
     public void updateCPU (int time) {
         this.CPUTime += time;
     }
