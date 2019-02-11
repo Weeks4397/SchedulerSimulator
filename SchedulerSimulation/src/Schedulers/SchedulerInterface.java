@@ -212,5 +212,5 @@ public interface SchedulerInterface {
     String getType();
     int getNextSCost();
     int getOverhead();
-    
+
 }
