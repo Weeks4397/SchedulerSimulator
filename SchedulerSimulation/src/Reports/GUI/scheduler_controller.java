@@ -16,17 +16,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public class scheduler_controller {
 
+    /**
+     * A WorksetGenerator that will be used for creating reports
+     */
     private static WorksetGenerator wsg = null;
-    private List<Scheduler> listOfSchedulers;
 
     /**
      * RadioButton group that houses the scheduler options
@@ -47,10 +45,9 @@ public class scheduler_controller {
     Button run_buttom;
 
     /**
-     * Same as onCreate (in Android). THis is called when the window is made
-     * currently sets prpperties for the run_button and log area. It also adds
-     * listener to group1 (RadioButtonGroup) and a Output and InputStream that monitors the cmd for input.
-     * If there is input then it will add it to the logArea (TextArea).
+     * Same as onCreate (in Android). This is called when the window is made
+     * currently sets properties for the run_button and log area. It also adds
+     * listener to group1 (RadioButtonGroup) and redirects the console to the textArea.
      */
     @FXML
     private void initialize(){
@@ -58,37 +55,18 @@ public class scheduler_controller {
         logArea.setEditable(false);
         logArea.appendText("Please create a workset to get started");
         logArea.setStyle("-fx-font-family: monospace");
-        OutputStream out = new OutputStream() {
 
-            /**
-             * This overrides the write method in the OutputStream so that it can add the text the logArea
-             * @param b
-             * @throws IOException
-             */
-            @Override
-            public void write(int b) throws IOException {
-                appendText(String.valueOf((char) b));
-            }
-        };
-        System.setOut(new PrintStream(out, true));
+        // Redirect the console to the textArea
+        ConsoleRedirect console = new ConsoleRedirect(logArea);
+        console.start();
 
 
-        /**
-         * Creates a listener for the toggle group that makes it so only one radio button can be selected at a time
-         */
+         // Creates a listener for the toggle group that makes it so only one radio button can be selected at a time
         group1.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
             public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
             }
         });
-    }
 
-    /**
-     * Appends the text from the console to the textArea
-     * @param str The text that you would like to add to the TextArea
-     */
-    @FXML
-    public void appendText(String str) {
-        Platform.runLater(() -> logArea.appendText(str));
     }
 
     /**
@@ -98,7 +76,6 @@ public class scheduler_controller {
     @FXML
     private void generateWorkset() {
         logArea.clear();
-        System.out.println("Creating Workset...");
         wsg = new WorksetGenerator();
         WorksetReport.ReportWorkSet(wsg);
         run_buttom.setDisable(false);
@@ -135,7 +112,6 @@ public class scheduler_controller {
         logArea.clear();
         System.out.println("Running Simulation...");
         String selectedButton =  ((RadioButton) group1.getSelectedToggle()).getId();
-       //System.out.println(selectedButton);
        switch (selectedButton) {
 
            case "fifo": {

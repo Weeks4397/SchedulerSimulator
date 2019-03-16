@@ -8,7 +8,7 @@
 
 <!-- stylesheets="@Custom.css" -->
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="hotBod" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reports.GUI.title_controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="hotBod" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reports.GUI.Title_controller">
    <children>
       <VBox alignment="CENTER" layoutX="146.0" layoutY="80.0" prefHeight="240.0" prefWidth="307.0" spacing="20.0">
          <children>

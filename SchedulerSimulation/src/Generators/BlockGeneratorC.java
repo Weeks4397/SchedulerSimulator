@@ -16,6 +16,5 @@ public class BlockGeneratorC extends BlockGenerator {
 
         double num =  RNG.fRNG();
         this.block.updateBT((int) Math.ceil(min + (max - 100) * Math.pow(num, 2)));
-
     }
 }

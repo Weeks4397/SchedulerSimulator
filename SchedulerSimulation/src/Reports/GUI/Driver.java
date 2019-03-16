@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,8 +28,12 @@ public class Driver extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("title_view.fxml"));
+        Image img = new Image("Reports/GUI/Images/SHUTopLogo.png");
+        //Image img = new Image(getClass().getResourceAsStream("Reports/GUI/Images/SHUTopLogo.png"));
+        primaryStage.getIcons().add(img);
         primaryStage.setTitle("Scheduler Simulator");
         primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }
