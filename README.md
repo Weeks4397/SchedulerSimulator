@@ -1,4 +1,4 @@
-# SchudulerSimulater
+# SchedulerSimulator
 
 Documentation for Scheduler Version I
 
