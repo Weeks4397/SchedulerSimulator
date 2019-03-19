@@ -5,6 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,7 +33,6 @@ public class Driver extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("View_Title.fxml"));
         Image img = new Image("Reports/GUI/Images/SHUTopLogo.png");
-        //Image img = new Image(getClass().getResourceAsStream("Reports/GUI/Images/SHUTopLogo.png"));
         primaryStage.getIcons().add(img);
         primaryStage.setTitle("Scheduler Simulator");
         primaryStage.setScene(new Scene(root, 600, 400));

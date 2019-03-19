@@ -71,8 +71,8 @@ public class Controller_Scheduler {
         boarderGlow.setColor(Color.RED);
         boarderGlow.setOffsetX(0f);
         boarderGlow.setOffsetY(0f);
-        boarderGlow.setWidth(30);
-        boarderGlow.setHeight(30);
+        boarderGlow.setWidth(20);
+        boarderGlow.setHeight(20);
         workset_button.setEffect(boarderGlow);
 
 

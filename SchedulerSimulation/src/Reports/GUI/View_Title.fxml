@@ -20,7 +20,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="600.0">
                <children>
-                  <ImageView fitHeight="85.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="85.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true" fx:id="SHU_Logo">
                      <image>
                         <Image url="@Images/SHULogo.png" />
                      </image>
