@@ -15,11 +15,17 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 
+import javax.naming.spi.ObjectFactory;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class scheduler_controller {
+public class Controller_Scheduler {
 
     /**
      * A WorksetGenerator that will be used for creating reports
@@ -45,13 +51,32 @@ public class scheduler_controller {
     Button run_buttom;
 
     /**
+     * The workset_Button is the button that generates a workset
+     */
+    @FXML
+    Button workset_button;
+
+    /**
      * Same as onCreate (in Android). This is called when the window is made
      * currently sets properties for the run_button and log area. It also adds
      * listener to group1 (RadioButtonGroup) and redirects the console to the textArea.
      */
     @FXML
     private void initialize(){
+        //Disable run button until workset is generated
         run_buttom.setDisable(true);
+
+        // Add a glow around the workset_button
+        DropShadow boarderGlow = new DropShadow();
+        boarderGlow.setColor(Color.RED);
+        boarderGlow.setOffsetX(0f);
+        boarderGlow.setOffsetY(0f);
+        boarderGlow.setWidth(30);
+        boarderGlow.setHeight(30);
+        workset_button.setEffect(boarderGlow);
+
+
+        // Format the text area so it looks like the console and make it uneditable
         logArea.setEditable(false);
         logArea.appendText("Please create a workset to get started");
         logArea.setStyle("-fx-font-family: monospace");
@@ -75,6 +100,7 @@ public class scheduler_controller {
      */
     @FXML
     private void generateWorkset() {
+        workset_button.setEffect(null);
         logArea.clear();
         wsg = new WorksetGenerator();
         WorksetReport.ReportWorkSet(wsg);
@@ -110,7 +136,6 @@ public class scheduler_controller {
         }
 
         logArea.clear();
-        System.out.println("Running Simulation...");
         String selectedButton =  ((RadioButton) group1.getSelectedToggle()).getId();
        switch (selectedButton) {
 

@@ -27,7 +27,7 @@ public class Driver extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("title_view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("View_Title.fxml"));
         Image img = new Image("Reports/GUI/Images/SHUTopLogo.png");
         //Image img = new Image(getClass().getResourceAsStream("Reports/GUI/Images/SHUTopLogo.png"));
         primaryStage.getIcons().add(img);

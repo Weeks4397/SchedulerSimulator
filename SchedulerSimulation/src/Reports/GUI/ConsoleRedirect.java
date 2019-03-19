@@ -7,7 +7,11 @@ import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
 /**
- * This Class, when given a TextArea, redirects the System.out and System.err to the TextArea
+ * This Class is built to redirect the Java Console functions System.out and System.err to a JavaFX TextView. This
+ * class creates a worker thread for the console redirects and then runs the thread on the UI thread to update the
+ * TextView. This class is needed because the default OutputStream write methods call write(byte b) for every byte in
+ * the array. This can cause a lot of overhead when redirecting the console because of the large quantity of I/O that is
+ * required. By over riding the write methods to take in an array of bytes at a time this overhead and be greatly reduced.
  */
 public class ConsoleRedirect {
 
@@ -70,7 +74,7 @@ public class ConsoleRedirect {
         private final byte[] buffer = new byte[BUFFER_SIZE];
 
         /**
-         * Overridden write method used to decide when the flush the OutputStream
+         * Overridden write method used to decide when to flush the OutputStream
          * @param i the byte value of the byte to write
          * @throws IOException
          */
@@ -83,10 +87,11 @@ public class ConsoleRedirect {
         }
 
         /**
-         * Overridden write method used to decide when the flush the OutputStream
-         * @param b an array of bytes that will be written the the OutputStream
+         * Overridden write method used to decide when to flush the OutputStream. Unlike the default implementation,
+         * this method does not call the write(int i) method and instead handles the data directly
+         * @param b an array of bytes that will be written to the OutputStream
          * @param offset the starting index for the array
-         * @param len the endign index of the array
+         * @param len the ending index of the array
          * @throws IOException
          */
         public void write(byte[] b, int offset, int len) throws IOException {
@@ -105,7 +110,7 @@ public class ConsoleRedirect {
 
         /**
          * Overridden flush method that is used to flush out an OutputStream. This method sets the pos to 0 as well as
-         * call the flush function
+         * call the outer flush function.
          * @throws IOException
          */
         @Override
@@ -186,7 +191,8 @@ public class ConsoleRedirect {
 
     /**
      * This function will take the OutputStreams flushed data and add it the the TextArea. In order to do this it runs
-     * the worker thread on the UI thread so that it can update
+     * the worker thread on the UI thread so that it can update. This function is synchronized so that only one thread
+     * can write the to console at a time.
      * @throws IOException
      */
     void appendFlushed() throws IOException {

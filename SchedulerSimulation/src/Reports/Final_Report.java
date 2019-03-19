@@ -1,6 +1,6 @@
 /**
  * Final report is a report class that prints report tables 1-5
- * It is called in the Scheduler_Tester and scheduler_controller class
+ * It is called in the Scheduler_Tester and Controller_Scheduler class
  */
 
 package Reports;

@@ -19,7 +19,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 
-public class Title_controller {
+public class Controller_Title {
 
 
 
@@ -46,7 +46,7 @@ public class Title_controller {
         Stage stage = (Stage) pane.getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("scheduler_view.fxml"));
+        loader.setLocation(getClass().getResource("View_Scheduler.fxml"));
         Parent parent = loader.load();
         Scene settingsScene = new Scene(parent);
         //settingsScene.getStylesheets().add("Custom.css");
