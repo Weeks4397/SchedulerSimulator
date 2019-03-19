@@ -39,7 +39,7 @@ public abstract class ProccessGenerator implements ProcessGeneratorInterface {
      * this is the Max runtime of the system
      * this is updated when the work set is generated
      */
-    public static int MAXINT = 25000;
+    public static int MAXINT = 50000;
 
     public ProccessGenerator() {
 
