@@ -83,6 +83,7 @@ import java.util.Queue;
     void updateArrivalTime(int arrivalTime);
     void updateStartReadyTime(int startReadyTime);
     void updateTotalReadyTime(int totalReadyTime);
+    void updateCurrentReadyTime(int currentReadyTime);
     void setLastEventTime(int lastEventTime);
     void updateFinishTime(int finishTime);
     void updateBlockServiceTime(int blockServiceTime);

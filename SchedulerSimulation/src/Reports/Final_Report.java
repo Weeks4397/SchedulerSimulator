@@ -25,6 +25,17 @@ public class Final_Report {
     public static double minServiceRatio = Integer.MAX_VALUE;
 
     /**
+     * avgThroughput is the average throughput of all the processes
+     */
+    public static double avgThroughput;
+
+    /**
+     * avgServiceRatio is the average service ratio of all the processes
+     */
+    public static double avgServiceRatio;
+
+
+    /**
      * final that can be changed to format the report to a certain number of decimal points
      */
     private final static DecimalFormat DF2 = new DecimalFormat(".###");
@@ -81,7 +92,7 @@ public class Final_Report {
      */
     public static void overViewTableAll(List<Scheduler> schedulerList) {
 
-        System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s", "Algorithm", "Service Time", "Overhead Time", "Idle Time", "Finish Time", "# of Timeouts", "#  of Preempts", "Min Throughput", "Min Service Ratio"));
+        System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s %20s %20s", "Algorithm", "Service Time", "Overhead Time", "Idle Time", "Finish Time", "# of Timeouts", "#  of Preempts", "Min Throughput", "Min Service Ratio", "Avg Throughput", "Avg Service Ratio"));
 
         for (Scheduler scheduler: schedulerList) {
 
@@ -89,6 +100,10 @@ public class Final_Report {
             while(type.length() < 4){
                 type = type+  " ";
             }
+
+            double totalThroughput = 0;
+            double totalServiceRatio = 0;
+            double count = 0;
 
             for (process aProcess : scheduler.getFinishedQ()) {
                 double residency = aProcess.getFinishTime() - aProcess.getArrivalTime();
@@ -102,12 +117,21 @@ public class Final_Report {
                     minThroughput = throughput;
                 if (serviceRatio < minServiceRatio)
                     minServiceRatio = serviceRatio;
+
+                totalThroughput += throughput;
+                totalServiceRatio += serviceRatio;
+                count += 1;
             }
 
-            System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %17s", type, scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), DF2.format(minThroughput), DF2.format(minServiceRatio)));
-            //reset minThroughput and min ServiceRatio
+            avgThroughput = totalThroughput/count;
+            avgServiceRatio = totalServiceRatio/count;
+
+            System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %20s %20s %17s", type, scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), DF2.format(minThroughput), DF2.format(minServiceRatio), DF2.format(avgThroughput), DF2.format(avgServiceRatio)));
+            //reset state variables
             minThroughput = Integer.MAX_VALUE;
             minServiceRatio = Integer.MAX_VALUE;
+            avgThroughput = 0;
+            avgServiceRatio = 0;
         }
     }
 
@@ -118,11 +142,13 @@ public class Final_Report {
      */
     public static void overViewTable1(Scheduler scheduler) {
 
-        System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s", "Algorithm", "Service Time", "Overhead Time", "Idle Time", "Finish Time", "# of Timeouts", "#  of Preempts", "Min Throughput", "Min Service Ratio"));
-        System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %17s", scheduler.getType(), scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), DF2.format(minThroughput), DF2.format(minServiceRatio)));
+        System.out.println(String.format("%s %20s %20s %20s %20s %20s %20s %20s %20s %20s %20s", "Algorithm", "Service Time", "Overhead Time", "Idle Time", "Finish Time", "# of Timeouts", "#  of Preempts", "Min Throughput", "Min Service Ratio", "Avg Throughput", "Avg Service Ratio"));
+        System.out.println(String.format("%s %20s %20s %22s %20s %18s %20s %20s %20s %20s %17s", scheduler.getType(), scheduler.getActiveTime(), scheduler.getOverhead(), scheduler.getIdleTime(), scheduler.getTime(), scheduler.getTimeOut_Count(), scheduler.getPreempt_Count(), DF2.format(minThroughput), DF2.format(minServiceRatio), DF2.format(avgThroughput), DF2.format(avgServiceRatio)));
         //reset minthroughput and minServiceRatio
         minServiceRatio = Integer.MAX_VALUE;
         minThroughput = Integer.MAX_VALUE;
+        avgThroughput = 0;
+        avgServiceRatio = 0;
     }
 
     /**
@@ -153,7 +179,9 @@ public class Final_Report {
         System.out.println("Algorithm: " + scheduler.getType());
         System.out.println(String.format("%s %20s %20s %20s %20s %24s", "Process", "Residency", "Time Needed", "Delay", "Throughput", "Service Ratio"));
 
-
+        double totalThroughput = 0;
+        double totalServiceRatio = 0;
+        double count = 0;
 
         for (process aProcess : scheduler.getFinishedQ()) {
             double residency = aProcess.getFinishTime() - aProcess.getArrivalTime();
@@ -162,15 +190,22 @@ public class Final_Report {
             double throughput = timeNeeded / residency;
             double serviceRatio = (double) aProcess.getRunTime() /((double) aProcess.getRunTime() + (double) aProcess.getTotalReadyTime());
 
-            // check to see if the throughput or the serviceRatio is less then the global. If so then update the global
+            // check to see if the throughput or the serviceRatio is less than the global. If so than update the global
             if (throughput < minThroughput)
                 minThroughput = throughput;
             if (serviceRatio < minServiceRatio)
                 minServiceRatio = serviceRatio;
 
+                totalThroughput += throughput;
+                totalServiceRatio += serviceRatio;
+                count += 1;
+
             System.out.println(String.format("%s %20s %20s %22s %17s %22s", aProcess.getStringID(), DF2.format(residency), DF2.format(timeNeeded), DF2.format(delay), DF2.format(throughput), DF2.format(serviceRatio)));
 
         }
+
+        avgThroughput = totalThroughput/count;
+        avgServiceRatio = totalServiceRatio/count;
 
     }
 

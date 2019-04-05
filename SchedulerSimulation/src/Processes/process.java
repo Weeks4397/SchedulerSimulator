@@ -68,6 +68,12 @@ public abstract class process implements processInterface {
     public int TotalReadyTime;
 
     /**
+     *  CurrentReadyTime is the amount of time the process has spent waiting in the ReadyQ.  This time is reset once the process
+     *   receives time with the cpu.
+     */
+    public int CurrentReadyTime;
+
+    /**
      * LastEventTime is the global time at which the last event occurred effecting this process
      */
     public int LastEventTime;
@@ -127,6 +133,7 @@ public abstract class process implements processInterface {
         this.ServiceStartTime = Integer.MAX_VALUE;
         this.BlockRecord = new LinkedList<Block>();
         this.StartReadyTime = Integer.MAX_VALUE;
+        this.CurrentReadyTime = 0;
         this.TotalReadyTime = 0;
         this.ServiceStartTime = Integer.MAX_VALUE;
         this.BlockWaitTime = 0;
@@ -223,6 +230,8 @@ public abstract class process implements processInterface {
         return this.TotalReadyTime;
     }
 
+    public int getCurrentReadyTime() {return this.CurrentReadyTime;}
+
     public int getLastEventTime() {
         return this.LastEventTime;
     }
@@ -289,6 +298,8 @@ public abstract class process implements processInterface {
     public void updateStartReadyTime(int startReadyTime) {
         StartReadyTime = startReadyTime;
     }
+
+    public void updateCurrentReadyTime(int currentReadyTime){ CurrentReadyTime = currentReadyTime;}
 
     public void updateTotalReadyTime(int totalReadyTime) {
         TotalReadyTime = totalReadyTime;

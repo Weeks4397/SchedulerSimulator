@@ -74,6 +74,7 @@ public class ProcessI extends process {
         PI.updateNextBlockTime(this.NextBlockTime);
         PI.updateArrivalTime(this.ArrivalTime);
         PI.updateStartReadyTime(this.StartReadyTime);
+        PI.updateCurrentReadyTime(this.CurrentReadyTime);
         PI.updateTotalReadyTime(this.TotalReadyTime);
         PI.setLastEventTime(this.LastEventTime);
         PI.updateFinishTime(this.FinishTime);
